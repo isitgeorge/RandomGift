@@ -1,0 +1,19 @@
+# RandomGift configuration
+
+# Items that are chosen at random
+items:
+  - '267 1'
+  - '256 1'
+  - '257 1'
+  - '258 1'
+  - '306 1'
+  - '307 1'
+  - '308 1'
+  - '309 1'
+  - '264 1'
+
+# Minimum amount of players required to be online
+minimum-players: 3
+
+# Cooldown time - minutes before RandomGift can be used again
+cooldown-time: 5
