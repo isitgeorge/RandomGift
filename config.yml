@@ -1,6 +1,7 @@
 # RandomGift configuration
 
 # Items that are chosen at random
+#  - 'ID Quantity'
 items:
   - '267 1'
   - '256 1'
@@ -11,7 +12,7 @@ items:
   - '308 1'
   - '309 1'
   - '264 1'
-
+  
 # Minimum amount of players required to be online
 minimum-players: 3
 

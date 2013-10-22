@@ -32,12 +32,12 @@ public class RandomGift extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(this, this);
 
 		try {
-		    MetricsLite metrics = new MetricsLite(this);
-		    metrics.start();
+			MetricsLite metrics = new MetricsLite(this);
+			metrics.start();
 		} catch (IOException e) {
-		    // Failed to submit the stats :-(
+			// Failed to submit the stats :-(
 		}
-		
+
 		getLogger().info("This plugin collects statistic data and sends it to http://mcstats.org/plugin/RandomGift");
 		getLogger().info("You can opt-out by editing the PluginMetrics configuration located in the plugins folder.");
 		getLogger().info("RandomGift enabled successfully!");
@@ -56,9 +56,20 @@ public class RandomGift extends JavaPlugin implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
+	public void onPlayerJoin(PlayerJoinEvent event) {
 		player = event.getPlayer();
-		rGG.check(player);
+
+		getServer().getScheduler().scheduleSyncDelayedTask(this,
+				new Runnable() {
+					public void run() {
+						try {
+							rGG.check(player);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}, 30L);
+
 	}
 
 }
