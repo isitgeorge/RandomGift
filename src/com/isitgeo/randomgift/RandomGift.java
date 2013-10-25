@@ -3,6 +3,9 @@ package com.isitgeo.randomgift;
 import java.io.File;
 import java.io.IOException;
 
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,6 +20,8 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public long cooldown;
 	public int cooldownTime;
 	public String[] gList;
+	public String broadcastTag = ChatColor.GOLD + "[RandomGift] "
+			+ ChatColor.WHITE;
 
 	@Override
 	public void onEnable() {
@@ -38,8 +43,6 @@ public class RandomGift extends JavaPlugin implements Listener {
 			// Failed to submit the stats :-(
 		}
 
-		getLogger().info("This plugin collects statistic data and sends it to http://mcstats.org/plugin/RandomGift");
-		getLogger().info("You can opt-out by editing the PluginMetrics configuration located in the plugins folder.");
 		getLogger().info("RandomGift enabled successfully!");
 	}
 
@@ -70,6 +73,71 @@ public class RandomGift extends JavaPlugin implements Listener {
 					}
 				}, 30L);
 
+	}
+
+	public boolean onCommand(CommandSender sentby, Command command,
+			String label, String[] args) {
+		if (command.getName().equalsIgnoreCase("randomgift")) {
+
+			if (args.length == 0) {
+				sentby.sendMessage("RandomGift "
+						+ this.getDescription().getVersion());
+				sentby.sendMessage("Usage: /randomgift <command>");
+				return true;
+			}
+
+			if (args[0].equalsIgnoreCase("cooldown")) {
+
+				if (sentby.hasPermission("randomgift.cooldown")) {
+					int difference = (int) (System.currentTimeMillis() - cooldown);
+					int val = cooldownTime - difference;
+
+					if (!(val <= 60000)) {
+						sentby.sendMessage(broadcastTag + " About " + val / 60
+								/ 1000 + " minutes remaining.");
+					} else if (val <= 0) {
+						sentby.sendMessage("Ready and waiting to be triggered!");
+					} else {
+						sentby.sendMessage(broadcastTag + val / 1000
+								+ " seconds remaining.");
+					}
+				}
+
+				if (args.length == 2) {
+					if (args[1].equalsIgnoreCase("reset")) {
+
+						if (sentby.hasPermission("randomgift.cooldown.reset")) {
+
+							cooldown = System.currentTimeMillis()
+									- cooldownTime;
+							sentby.sendMessage("Cooldown timer has been reset!");
+						}
+					}
+				}
+
+				return true;
+			}
+
+			if (args[0].equalsIgnoreCase("gift")) {
+
+				if (args.length == 2) {
+					if (sentby.hasPermission("randomgift.gift")) {
+						if (!(getServer().getPlayer(args[1]) == null)) {
+							rGG.getPlayers(getServer().getPlayer(args[1]));
+						} else {
+							sentby.sendMessage("Player not online!");
+						}
+					} else {
+						sentby.sendMessage("You didn't specify a player!");
+					}
+				}
+
+				return true;
+			}
+
+		}
+
+		return false;
 	}
 
 }

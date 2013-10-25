@@ -41,12 +41,11 @@ public class RandomGiftGen {
 
 		Player rPlayer = pList[pRand];
 		plugin.getServer().broadcastMessage(
-				ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
-						+ rPlayer.getName() + " has been given a random gift!");
+				plugin.broadcastTag + rPlayer.getName()
+						+ " has been given a random gift!");
 
-		rPlayer.sendMessage(ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
-				+ "Be sure to thank " + player.getName()
-				+ " for your random gift!");
+		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank "
+				+ player.getName() + " for your random gift!");
 		generateGift(rPlayer);
 	}
 
