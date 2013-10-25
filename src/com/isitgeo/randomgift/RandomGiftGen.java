@@ -29,28 +29,25 @@ public class RandomGiftGen {
 		}
 	}
 
-	public void getPlayers(Player player) {
-		Player[] pList = plugin.getServer().getOnlinePlayers();
+	private Random rand = new Random();
 
-		if (pList.length < plugin.getConfig().getInt("minimum-players")) {
-			return;
-		}
+        if (plugin.getServer().getOnlinePlayers().size() > plugin.getConfig().getInt("minimum-players")){
+            List<String> playersWithPerm = new ArrayList<>();
 
-		Random pSelect = new Random();
-		int pRand = pSelect.nextInt(pList.length);
+            for (Player player : plugin.getServer().getOnlinePlayers(){
+                if (player.hasPermission("randomgift.receive"){
+                    playersWithPerm.add(player.getName());
+    			}
+            }    
+        Player rPlayer = plugin.getServer.getOnlinePlayer(playersWithPerm.get(rand.nextInt(playersWithPerm().size()));
+		    plugin.getServer().broadcastMessage(
+		    ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
+				+ rPlayer.getName() + " has been given a random gift!");
 
-		while(Player rPlayer = pList[pRand]){
-		    if(rPlayer.hasPermission("randomgift.receive")){
-		        plugin.getServer().broadcastMessage(
-				ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
-						+ rPlayer.getName() + " has been given a random gift!");
-
-		        rPlayer.sendMessage(ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
-				        + "Be sure to thank " + player.getName()
-				        + " for your random gift!");
-		        generateGift(rPlayer);
-			
-			    break;
+		    rPlayer.sendMessage(ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
+			     + "Be sure to thank " + player.getName()
+			     + " for your random gift!");
+		    generateGift(rPlayer);
 	        }
 	    }
 	}
