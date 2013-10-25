@@ -39,15 +39,18 @@ public class RandomGiftGen {
 		Random pSelect = new Random();
 		int pRand = pSelect.nextInt(pList.length);
 
-		Player rPlayer = pList[pRand];
-		plugin.getServer().broadcastMessage(
+		while(Player rPlayer = pList[pRand]){
+		    if(rPlayer.hasPermission("randomgift.receive")){
+		        plugin.getServer().broadcastMessage(
 				ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
 						+ rPlayer.getName() + " has been given a random gift!");
 
-		rPlayer.sendMessage(ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
+		    rPlayer.sendMessage(ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
 				+ "Be sure to thank " + player.getName()
 				+ " for your random gift!");
-		generateGift(rPlayer);
+		    generateGift(rPlayer);
+	        }
+	    }
 	}
 
 	public void generateGift(Player rPlayer) {
