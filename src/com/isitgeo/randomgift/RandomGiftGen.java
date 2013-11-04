@@ -3,7 +3,6 @@ package com.isitgeo.randomgift;
 import java.io.IOException;
 import java.util.Random;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -49,6 +48,7 @@ public class RandomGiftGen {
 		generateGift(rPlayer);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void generateGift(Player rPlayer) {
 
 		Random gSelect = new Random();

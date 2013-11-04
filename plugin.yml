@@ -23,11 +23,11 @@ permissions:
 commands:
     randomgift:
         description: Returns the plugin version
-        usage: /randomgift
+        usage: /randomgift <command>
 
     randomgift cooldown:
         description: Returns the amount of cooldown time remaining
-        usage: /randomgift cooldown
+        usage: /randomgift cooldown [command]
         permission: randomgift.cooldown
         permission-message: You don't have permission to use that!
         
