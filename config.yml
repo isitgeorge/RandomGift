@@ -1,7 +1,7 @@
 # RandomGift configuration
 
 # Items that are chosen at random
-#  - 'ID Quantity'
+#  - 'ID[:data value] Quantity'
 items:
   - '267 1'
   - '256 1'
@@ -18,3 +18,6 @@ minimum-players: 3
 
 # Cooldown time - minutes before RandomGift can be used again
 cooldown-time: 5
+
+# Version checker - Show an update message on startup if there is a more recent version available
+version-check: true
