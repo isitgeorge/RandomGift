@@ -2,6 +2,9 @@ package com.isitgeo.randomgift;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -19,7 +22,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public long cooldown;
 	public int cooldownTime;
 	public boolean versionCheck;
-	public boolean versionSend;
+	public boolean statisticsCheck;
 	public String[] gList;
 	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
 	public String permError = ChatColor.DARK_RED + "You don't have permission to do that!";
@@ -44,12 +47,31 @@ public class RandomGift extends JavaPlugin implements Listener {
 		
 		getServer().getPluginManager().registerEvents(this, this);
 		getCommand("randomgift").setExecutor(new CommandListener(this));
-
-		try {
-			MetricsLite metrics = new MetricsLite(this);
-			metrics.start();
-		} catch (IOException e) {
-			// Failed to submit the stats :-(
+		
+		if (statisticsCheck == true) {
+			URL updateSend = null;
+			try {
+				updateSend = new URL("http://plugin-stats.isitgeo.com");
+			} catch (MalformedURLException e) {
+			}
+			
+			URLConnection updateSender = null;
+			try {
+				updateSender = updateSend.openConnection();
+				updateSender.setRequestProperty("plugin-name", "RandomGift");
+				updateSender.setRequestProperty("plugin-version", this.getDescription().getVersion().toString());
+				updateSender.setReadTimeout(5000);
+				updateSender.getInputStream();
+			}  catch (IOException e) {
+				// Failed to contact statistic server
+			}
+			
+			try {
+				MetricsLite metrics = new MetricsLite(this);
+				metrics.start();
+			} catch (IOException e) {
+				// Failed to submit the stats :-(
+			}
 		}
 		
 		getLogger().info("RandomGift enabled successfully!");
@@ -62,6 +84,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		versionCheck = this.getConfig().getBoolean("version-check");
 		rGG = new RandomGiftGen(this);
 		updateCheck = new UpdateCheck(this);
+		statisticsCheck = this.getConfig().getBoolean("collect-statistics");
 	}
 
 	@Override

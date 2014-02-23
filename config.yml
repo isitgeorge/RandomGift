@@ -20,5 +20,10 @@ minimum-players: 3
 cooldown-time: 5
 
 # Version checker - checks for an update on startup and displays a message if there is a more recent version available
-# As part of the update check, the current plugin version will be sent back to the author for statistic purposes 
 version-check: true
+
+# Statistic data
+# Plugin Metrics is used to collect anonymous statistic data about the plugins usage and sends it to http://mcstats.org/plugin/randomgift
+# This plugin also sends its current version number back to the developer for statistical purposes. 
+# This information is simply used for tracking current versions in use, and the data collected will only be seen by the developer(s).
+collect-statistics: true

@@ -14,9 +14,7 @@ import org.json.simple.JSONValue;
 public class UpdateCheck {
 
 	URL updateCheck = null;
-	URL updateSend = null;
 	URLConnection connection = null;
-	URLConnection updateSender = null;
 	BufferedReader reader = null;
 	String response = null;
 
@@ -32,18 +30,11 @@ public class UpdateCheck {
 
 			try {
 				updateCheck = new URL("https://api.curseforge.com/servermods/files?projectids=67733");
-				updateSend = new URL("http://plugin-stats.isitgeo.com");
 			} catch (MalformedURLException e) {
 				return;
 			}
 
 			try {
-				updateSender = updateSend.openConnection();
-				updateSender.setRequestProperty("plugin-name", "RandomGift");
-				updateSender.setRequestProperty("plugin-version", plugin.getDescription().getVersion().toString());
-				updateSender.setReadTimeout(5000);
-				updateSender.getInputStream();
-				
 				connection = updateCheck.openConnection();
 				connection.setReadTimeout(5000);
 				reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
