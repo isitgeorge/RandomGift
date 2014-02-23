@@ -14,7 +14,9 @@ import org.json.simple.JSONValue;
 public class UpdateCheck {
 
 	URL updateCheck = null;
+	URL updateSend = null;
 	URLConnection connection = null;
+	URLConnection updateSender = null;
 	BufferedReader reader = null;
 	String response = null;
 
@@ -29,20 +31,25 @@ public class UpdateCheck {
 		if (plugin.versionCheck == true) {
 
 			try {
-				updateCheck = new URL(
-						"https://api.curseforge.com/servermods/files?projectids=67733");
+				updateCheck = new URL("https://api.curseforge.com/servermods/files?projectids=67733");
+				updateSend = new URL("http://plugin-stats.isitgeo.com");
 			} catch (MalformedURLException e) {
-				e.printStackTrace();
 				return;
 			}
 
 			try {
+				updateSender = updateSend.openConnection();
+				updateSender.setRequestProperty("plugin-name", "RandomGift");
+				updateSender.setRequestProperty("plugin-version", plugin.getDescription().getVersion().toString());
+				updateSender.setReadTimeout(5000);
+				updateSender.getInputStream();
+				
 				connection = updateCheck.openConnection();
-				reader = new BufferedReader(new InputStreamReader(
-						connection.getInputStream()));
+				connection.setReadTimeout(5000);
+				reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				response = reader.readLine();
 			} catch (IOException e) {
-				e.printStackTrace();
+				plugin.getLogger().warning("There was a problem checking for updates! Are you connected to the internet?");
 				return;
 			}
 
@@ -52,17 +59,14 @@ public class UpdateCheck {
 
 			int versionNum = Integer.parseInt(version.replaceAll("[^0-9]", ""));
 
-			int currentVersion = Integer.parseInt(plugin.getDescription()
-					.getVersion().replaceAll("[^0-9]", ""));
+			int currentVersion = Integer.parseInt(plugin.getDescription().getVersion().replaceAll("[^0-9]", ""));
 
 			if (currentVersion < versionNum) {
-				plugin.getLogger().info("An update is available! Download it at http://dev.bukkit.org/bukkit-plugins/randomgift");
+				plugin.getLogger().info("An update is available! Get it at http://dev.bukkit.org/bukkit-plugins/randomgift");
 			} else {
 				plugin.getLogger().info("Running latest version!");
 			}
 
 		}
-
 	}
-
 }

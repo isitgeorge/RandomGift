@@ -19,5 +19,6 @@ minimum-players: 3
 # Cooldown time - minutes before RandomGift can be used again
 cooldown-time: 5
 
-# Version checker - Show an update message on startup if there is a more recent version available
+# Version checker - checks for an update on startup and displays a message if there is a more recent version available
+# As part of the update check, the current plugin version will be sent back to the author for statistic purposes 
 version-check: true

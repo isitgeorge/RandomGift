@@ -19,6 +19,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public long cooldown;
 	public int cooldownTime;
 	public boolean versionCheck;
+	public boolean versionSend;
 	public String[] gList;
 	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
 	public String permError = ChatColor.DARK_RED + "You don't have permission to do that!";
@@ -27,7 +28,11 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public void onEnable() {
 
 		config = new File(getDataFolder(), "config.yml");
-
+	    this.getConfig().options().copyDefaults(true);
+	    this.saveConfig();
+		
+		
+		
 		if (!(config.exists())) {
 			getLogger().info("Configuration not found...");
 			this.saveDefaultConfig();
