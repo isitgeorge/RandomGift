@@ -3,23 +3,23 @@ package com.isitgeo.randomgift;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class CommandListener implements CommandExecutor {
 
 	private RandomGiftGen rGG;
 	private RandomGift plugin;
 
-	public CommandListener(RandomGift plugin) {
+	public CommandListener(RandomGift plugin, RandomGiftGen rGG) {
 		this.plugin = plugin;
+		this.rGG = rGG;
 	}
 
-	public boolean onCommand(CommandSender sentby, Command command,
-			String label, String[] args) {
+	public boolean onCommand(CommandSender sentby, Command command,	String label, String[] args) {
 		if (command.getName().equalsIgnoreCase("randomgift")) {
 
 			if (args.length == 0) {
-				sentby.sendMessage("RandomGift "
-						+ this.plugin.getDescription().getVersion());
+				sentby.sendMessage("RandomGift " + this.plugin.getDescription().getVersion());
 				sentby.sendMessage("Usage: /randomgift <command>");
 				return true;
 			}
@@ -31,13 +31,11 @@ public class CommandListener implements CommandExecutor {
 					int val = plugin.cooldownTime - difference;
 
 					if (!(val <= 60000)) {
-						sentby.sendMessage(plugin.broadcastTag + " About "
-								+ val / 60 / 1000 + " minutes remaining.");
+						sentby.sendMessage(plugin.broadcastTag + " About " + val / 60 / 1000 + " minutes remaining.");
 					} else if (val <= 0) {
 						sentby.sendMessage("Ready and waiting to be triggered!");
 					} else {
-						sentby.sendMessage(plugin.broadcastTag + val / 1000
-								+ " seconds remaining.");
+						sentby.sendMessage(plugin.broadcastTag + val / 1000 + " seconds remaining.");
 					}
 				} else {
 					sentby.sendMessage(plugin.permError);
@@ -48,8 +46,7 @@ public class CommandListener implements CommandExecutor {
 
 						if (sentby.hasPermission("randomgift.cooldown.reset")) {
 
-							plugin.cooldown = System.currentTimeMillis()
-									- plugin.cooldownTime;
+							plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
 							sentby.sendMessage("Cooldown timer has been reset!");
 						} else {
 							sentby.sendMessage(plugin.permError);
@@ -61,10 +58,14 @@ public class CommandListener implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("gift")) {
 
 				if (args.length == 2) {
+					
 					if (sentby.hasPermission("randomgift.gift")) {
-						if (!(plugin.getServer().getPlayer(args[1]) == null)) {
-							rGG.getPlayers(plugin.getServer()
-									.getPlayer(args[1]));
+						
+						if (plugin.getServer().getPlayer(args[1]) != null) {
+							Player player = plugin.getServer().getPlayer("Derpriding");
+							rGG.getPlayers(player);
+							
+							
 						} else {
 							sentby.sendMessage("Player not online!");
 						}

@@ -46,13 +46,14 @@ public class RandomGift extends JavaPlugin implements Listener {
 		updateCheck.check();
 		
 		getServer().getPluginManager().registerEvents(this, this);
-		getCommand("randomgift").setExecutor(new CommandListener(this));
+		getCommand("randomgift").setExecutor(new CommandListener(this, rGG));
 		
 		if (statisticsCheck == true) {
 			URL updateSend = null;
 			try {
 				updateSend = new URL("http://plugin-stats.isitgeo.com");
 			} catch (MalformedURLException e) {
+				
 			}
 			
 			URLConnection updateSender = null;
