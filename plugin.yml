@@ -1,3 +1,44 @@
 name: RandomGift
 main: com.isitgeo.randomgift.RandomGift
-version: 1.0
+version: 1.2
+
+permissions:
+    randomgift.trigger:
+        description: Allows you to trigger RandomGift on login
+        default: op
+
+    randomgift.cooldown:
+        description: Allows you to check the time left until RandomGift is allowed to trigger
+        default: op
+        
+    randomgift.cooldown.reset:
+        description: Allows you reset the cooldown time
+        default: op
+
+    randomgift.gift:
+        description: Allows you to manually use RandomGift
+        default: op
+
+
+commands:
+    randomgift:
+        description: Returns the plugin version
+        usage: /randomgift <command>
+
+    randomgift cooldown:
+        description: Returns the amount of cooldown time remaining
+        usage: /randomgift cooldown [command]
+        permission: randomgift.cooldown
+        permission-message: You don't have permission to use that!
+        
+    randomgift cooldown reset:
+        description: Resets cooldown time
+        usage: /randomgift cooldown reset
+        permission: randomgift.cooldown.reset
+        permission-message: You don't have permission to use that!
+
+    randomgift gift:
+        description: Gives a RandomGift to the specified player
+        usage: /randomgift gift <player>
+        permission: randomgift.gift
+        permission-message: You don't have permission to use that!
