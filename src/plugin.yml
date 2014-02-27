@@ -1,6 +1,6 @@
 name: RandomGift
 main: com.isitgeo.randomgift.RandomGift
-version: 0.0
+version: 1.3
 
 permissions:
     randomgift.trigger:
@@ -44,4 +44,4 @@ commands:
         description: Gives a RandomGift to the specified player
         usage: /randomgift gift <player>
         permission: randomgift.gift
-        permission-message: You don't have permission to use that!## YAML Template.
+        permission-message: You don't have permission to use that!
