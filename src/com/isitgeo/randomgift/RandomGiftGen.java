@@ -40,22 +40,33 @@ public class RandomGiftGen {
             }
             
             String[] pListArray = pList.split("\\s+");
+            
+            if (pList.length() < 1){
+                plugin.getServer().broadcastMessage(plugin.broadcastTag + "No eligible players online to receive gift");
+                    return;
+            }
 
-		if (pListTotal.length < plugin.getConfig().getInt("minimum-players")) {
-			return;
-		}
+            if (plugin.allPlayers == true){
+                if (pListTotal.length < plugin.getConfig().getInt("minimum-players")) {
+                    return;
+                } else {
+                    if (pList.length() < plugin.getConfig().getInt("minimum-players")){
+                        return;
+                    }
+                }
+            }
                 
-		Random pSelect = new Random();
-		int pRand = pSelect.nextInt(pListArray.length);
+            Random pSelect = new Random();
+            int pRand = pSelect.nextInt(pListArray.length);
 
-		Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
+            Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
 		
-		if (plugin.broadcastMessage == true) {	
-			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
-		}
+            if (plugin.broadcastMessage == true) {	
+                    plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
+            }
 
-		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
-		generateGift(rPlayer);
+            rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
+            generateGift(rPlayer);
 	}
 
 	@SuppressWarnings("deprecation")
