@@ -22,7 +22,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public long cooldown;
 	public int cooldownTime;
 	public boolean broadcastMessage;
-        public boolean allPlayers;
+    public boolean allPlayers;
 	public boolean versionCheck;
 	public boolean statisticsCheck;
 	public String[] gList;
@@ -35,8 +35,6 @@ public class RandomGift extends JavaPlugin implements Listener {
 		config = new File(getDataFolder(), "config.yml");
 	    this.getConfig().options().copyDefaults(true);
 	    this.saveConfig();
-		
-		
 		
 		if (!(config.exists())) {
 			getLogger().info("Configuration not found...");
@@ -85,7 +83,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		cooldownTime = this.getConfig().getInt("cooldown-time") * 60 * 1000;
 		cooldown = 0;
 		broadcastMessage = this.getConfig().getBoolean("broadcast-message");
-                allPlayers = this.getConfig().getBoolean("all-players");
+        allPlayers = this.getConfig().getBoolean("all-players");
 		versionCheck = this.getConfig().getBoolean("version-check");
 		rGG = new RandomGiftGen(this);
 		updateCheck = new UpdateCheck(this);
@@ -111,6 +109,5 @@ public class RandomGift extends JavaPlugin implements Listener {
 						}
 					}
 				}, 30L);
-
 	}
 }

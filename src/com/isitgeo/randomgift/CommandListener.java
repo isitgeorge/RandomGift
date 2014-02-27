@@ -22,16 +22,16 @@ public class CommandListener implements CommandExecutor {
 				sentby.sendMessage("Usage: /randomgift <command>");
 				return true;
 			}
-                        
-                        if (args[0].equalsIgnoreCase("reload")){
-                            if (sentby.hasPermission("randomgift.reload")){
-                                plugin.reloadConfig();
-                                sentby.sendMessage("RandomGift configuration reloaded.");
-                                return true;
-                            } else {
-                                sentby.sendMessage(plugin.permError);
-                            }
-                        }
+			
+			if (args[0].equalsIgnoreCase("reload")){
+				if (sentby.hasPermission("randomgift.reload")){
+					plugin.reloadConfig();
+					sentby.sendMessage("RandomGift configuration reloaded.");
+					return true;
+				} else {
+					sentby.sendMessage(plugin.permError);
+				}
+			}
 
 			if (args[0].equalsIgnoreCase("cooldown")) {
 
