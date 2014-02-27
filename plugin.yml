@@ -6,7 +6,3 @@ permissions:
     randomgift.trigger:
         description: Allows you to trigger RandomGift on login
         default: op
-		
-    randomgift.receive:
-        description: Allows you to receive RandomGift awards, when logged in
-        default: op
