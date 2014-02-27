@@ -21,6 +21,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	private UpdateCheck updateCheck;
 	public long cooldown;
 	public int cooldownTime;
+	public boolean broadcastMessage;
 	public boolean versionCheck;
 	public boolean statisticsCheck;
 	public String[] gList;
@@ -82,6 +83,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		gList = this.getConfig().getStringList("items").toArray(new String[0]);
 		cooldownTime = this.getConfig().getInt("cooldown-time") * 60 * 1000;
 		cooldown = 0;
+		broadcastMessage = this.getConfig().getBoolean("broadcast-message");
 		versionCheck = this.getConfig().getBoolean("version-check");
 		rGG = new RandomGiftGen(this);
 		updateCheck = new UpdateCheck(this);

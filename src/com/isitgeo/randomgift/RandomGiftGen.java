@@ -39,12 +39,12 @@ public class RandomGiftGen {
 		int pRand = pSelect.nextInt(pList.length);
 
 		Player rPlayer = pList[pRand];
-		plugin.getServer().broadcastMessage(
-				plugin.broadcastTag + rPlayer.getName()
-						+ " has been given a random gift!");
+		
+		if (plugin.broadcastMessage == true) {	
+			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
+		}
 
-		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank "
-				+ player.getName() + " for your random gift!");
+		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
 		generateGift(rPlayer);
 	}
 

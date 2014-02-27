@@ -3,7 +3,6 @@ package com.isitgeo.randomgift;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class CommandListener implements CommandExecutor {
 
@@ -62,9 +61,7 @@ public class CommandListener implements CommandExecutor {
 					if (sentby.hasPermission("randomgift.gift")) {
 						
 						if (plugin.getServer().getPlayer(args[1]) != null) {
-							Player player = plugin.getServer().getPlayer("Derpriding");
-							rGG.getPlayers(player);
-							
+							rGG.getPlayers(plugin.getServer().getPlayer(args[1]));
 							
 						} else {
 							sentby.sendMessage("Player not online!");
