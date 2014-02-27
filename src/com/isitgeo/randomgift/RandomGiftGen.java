@@ -36,15 +36,17 @@ public class RandomGiftGen {
                     pList += p.getName() + " ";
                 }
             }
+            
+            String[] pListArray = pList.split("\\s+");
 
 		if (pList.length() < plugin.getConfig().getInt("minimum-players")) {
 			return;
 		}
-
+                
 		Random pSelect = new Random();
-		int pRand = pSelect.nextInt(pList.length());
+		int pRand = pSelect.nextInt(pListArray.length);
 
-		Player rPlayer = pList(pRand);
+		Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
 		
 		if (plugin.broadcastMessage == true) {	
 			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
@@ -85,9 +87,4 @@ public class RandomGiftGen {
 							itemQuantity, (short) itemDataV));
 		}
 	}
-
-    private Player pList(int pRand) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

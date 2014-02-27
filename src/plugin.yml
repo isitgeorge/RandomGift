@@ -45,4 +45,3 @@ commands:
         usage: /randomgift gift <player>
         permission: randomgift.gift
         permission-message: You don't have permission to use that!## YAML Template.
----
