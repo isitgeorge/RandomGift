@@ -45,12 +45,10 @@ public class RandomGiftGen {
 				ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
 						+ rPlayer.getName() + " has been given a random gift!");
 
-		        rPlayer.sendMessage(ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
-				        + "Be sure to thank " + player.getName()
-				        + " for your random gift!");
-		        generateGift(rPlayer);
-			
-			    break;
+		    rPlayer.sendMessage(ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
+				+ "Be sure to thank " + player.getName()
+				+ " for your random gift!");
+		    generateGift(rPlayer);
 	        }
 	    }
 	}
