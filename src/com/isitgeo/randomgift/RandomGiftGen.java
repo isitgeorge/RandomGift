@@ -3,7 +3,6 @@ package com.isitgeo.randomgift;
 import java.io.IOException;
 import java.util.Random;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -41,15 +40,15 @@ public class RandomGiftGen {
 
 		Player rPlayer = pList[pRand];
 		plugin.getServer().broadcastMessage(
-				ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
-						+ rPlayer.getName() + " has been given a random gift!");
+				plugin.broadcastTag + rPlayer.getName()
+						+ " has been given a random gift!");
 
-		rPlayer.sendMessage(ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE
-				+ "Be sure to thank " + player.getName()
-				+ " for your random gift!");
+		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank "
+				+ player.getName() + " for your random gift!");
 		generateGift(rPlayer);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void generateGift(Player rPlayer) {
 
 		Random gSelect = new Random();

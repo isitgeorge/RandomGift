@@ -1,7 +1,7 @@
 # RandomGift configuration
 
 # Items that are chosen at random
-#  - 'ID Quantity'
+#  - 'ID[:data value] Quantity'
 items:
   - '267 1'
   - '256 1'
@@ -18,3 +18,12 @@ minimum-players: 3
 
 # Cooldown time - minutes before RandomGift can be used again
 cooldown-time: 5
+
+# Version checker - checks for an update on startup and displays a message if there is a more recent version available
+version-check: true
+
+# Statistic data
+# Plugin Metrics is used to collect anonymous statistic data about the plugins usage and sends it to http://mcstats.org/plugin/randomgift
+# This plugin also sends its current version number back to the developer for statistical purposes. 
+# This information is simply used for tracking current versions in use, and the data collected will only be seen by the developer(s).
+collect-statistics: true
