@@ -19,11 +19,9 @@ permissions:
         description: Allows you to manually use RandomGift
         default: op
  
-# Future inplemetation planned
-#
-#    randomgift.receive:
-#        description: Allows player to recieve gift when triggered
-#        default: op
+    randomgift.receive:
+        description: Allows player to recieve gift when triggered
+        default: op
 
 commands:
     randomgift:
