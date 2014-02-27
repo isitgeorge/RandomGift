@@ -1,6 +1,6 @@
 name: RandomGift
 main: com.isitgeo.randomgift.RandomGift
-version: SourceCompiled
+version: 0.0
 
 permissions:
     randomgift.trigger:

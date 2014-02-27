@@ -41,21 +41,17 @@ public class RandomGiftGen {
             
             String[] pListArray = pList.split("\\s+");
             
-            if (pList.length() < 1){
-                plugin.getServer().broadcastMessage(plugin.broadcastTag + "No eligible players online to receive gift");
-                    return;
-            }
-
             if (plugin.allPlayers == true){
                 if (pListTotal.length < plugin.getConfig().getInt("minimum-players")) {
                     return;
-                } else {
-                    if (pList.length() < plugin.getConfig().getInt("minimum-players")){
-                        return;
-                    }
+                }
+            } else {
+                if (pListArray.length < plugin.getConfig().getInt("minimum-players")){
+                    return;
                 }
             }
-                
+       
+            
             Random pSelect = new Random();
             int pRand = pSelect.nextInt(pListArray.length);
 
