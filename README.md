@@ -46,6 +46,11 @@ required to use it and amount of time between each gift chance.
         <td>/randomgift gift <player></td>
         <td>randomgift.gift</td>
     </tr>
+    <tr>
+        <td>Reload the configuration file</td>
+        <td>/randomgift reload</td>
+        <td>randomgift.reload</td>
+    </tr>
 </table>
 
 
