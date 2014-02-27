@@ -1,4 +1,5 @@
 # RandomGift configuration
+# Detailed information at http://dev.bukkit.org/bukkit-plugins/randomgift/
 
 # Items that are chosen at random
 #  - 'ID[:data value] Quantity'
@@ -13,19 +14,19 @@ items:
   - '309 1'
   - '264 1'
   
-# Minimum amount of players required to be online
+# Minimum amount of players required to be online to trigger a gift
 minimum-players: 3
 
-#Should all players, even those without the randomgift.receive permission, be included in the minimum player count?
+# Include players without the 'receive' permission in the minimum player count
 all-players: true
 
-# Cooldown time - minutes before RandomGift can be used again
+# Amount of minutes before RandomGift can be used again
 cooldown-time: 5
 
-# Broadcast message - broadcasts a message to the entire server when a player receives a gift
+# Broadcasts a message to the entire server when a player receives a gift
 broadcast-message: true 
 
-# Version checker - checks for an update on startup and displays a message if there is a more recent version available
+# Checks for an update on startup and displays a message if there is a more recent version available
 version-check: true
 
 # Statistic data
