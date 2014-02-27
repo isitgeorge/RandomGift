@@ -22,6 +22,9 @@ permissions:
     randomgift.receive:
         description: Allows player to recieve gift when triggered
         default: op
+        
+    randomgift.reload:
+        description: Allows you to reload the config.yml
 
 commands:
     randomgift:
@@ -45,3 +48,9 @@ commands:
         usage: /randomgift gift <player>
         permission: randomgift.gift
         permission-message: You don't have permission to use that!
+        
+    randomgift reload:
+        description:  Reload the config.yml
+        usage: /randomgift reload
+        permission: randomgift.reload
+        permission-mesage: You don't have permission to use that!
