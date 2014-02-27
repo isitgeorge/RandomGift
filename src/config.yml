@@ -16,6 +16,9 @@ items:
 # Minimum amount of players required to be online
 minimum-players: 3
 
+#Should all players, even those without the randomgift.receive permission, be included in the minimum player count?
+all-players: true
+
 # Cooldown time - minutes before RandomGift can be used again
 cooldown-time: 5
 

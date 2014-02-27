@@ -29,7 +29,9 @@ public class RandomGiftGen {
 	}
 
 	public void getPlayers(Player player) {
-//		Player[] pList = plugin.getServer().getOnlinePlayers();
+            
+            Player[] pListTotal = plugin.getServer().getOnlinePlayers();
+            
             String pList = "";
             for (Player p : plugin.getServer().getOnlinePlayers()){
                 if (p.hasPermission("randomgift.receive")){
@@ -39,7 +41,7 @@ public class RandomGiftGen {
             
             String[] pListArray = pList.split("\\s+");
 
-		if (pList.length() < plugin.getConfig().getInt("minimum-players")) {
+		if (pListTotal.length < plugin.getConfig().getInt("minimum-players")) {
 			return;
 		}
                 
