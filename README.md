@@ -1,8 +1,7 @@
 RandomGift
 ==========
 
-Description
------------
+###Description
 
 RandomGift randomly rewards a lucky online player with a gift when another
 player logs into the game. Using this plugin encourages people to play and spend
@@ -12,6 +11,7 @@ so.
 RandomGift is fully configurable, including the item pool, minimum players
 required to use it and amount of time between each gift chance.
 
+***
 
 ###Permissions and Commands
 
@@ -53,9 +53,9 @@ required to use it and amount of time between each gift chance.
     </tr>
 </table>
 
+***
 
-Default item pool
------------------
+###Default item pool
 -   1x 267 (Iron Sword)
 -   1x 256 (Iron Shovel)
 -   1x 257 (Iron Pickaxe)
@@ -66,9 +66,9 @@ Default item pool
 -   1x 309 (Iron Boots)
 -   1x 264 (Diamond)
 
+***
 
-Configuration
--------------
+###Configuration
 
 The configuration file can be found inside /plugins/RandomGift once the server
 has been started with RandomGift installed.
@@ -113,18 +113,19 @@ version-check: true
 collect-statistics: true
 </pre>
 
-Future Features
----------------
+***
+
+###Future Features
 None currently
 
+***
 
-Bugs
-----
+###Bugs
 None currently
 
+***
 
-Notes
------
+###Notes
 **Update check**
 
 The version of the plugin is automatically checked against the latest available

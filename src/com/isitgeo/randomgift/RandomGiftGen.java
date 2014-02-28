@@ -29,40 +29,38 @@ public class RandomGiftGen {
 	}
 
 	public void getPlayers(Player player) {
-            
-            Player[] pListTotal = plugin.getServer().getOnlinePlayers();
-            
-            String pList = "";
-            for (Player p : plugin.getServer().getOnlinePlayers()){
-                if (p.hasPermission("randomgift.receive")){
-                    pList += p.getName() + " ";
-                }
-            }
-            
-            String[] pListArray = pList.split("\\s+");
-            
-            if (plugin.allPlayers == true){
-                if (pListTotal.length < plugin.getConfig().getInt("minimum-players")) {
-                    return;
-                }
-            } else {
-                if (pListArray.length < plugin.getConfig().getInt("minimum-players")){
-                    return;
-                }
-            }
-       
-            
-            Random pSelect = new Random();
-            int pRand = pSelect.nextInt(pListArray.length);
-
-            Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
+		Player[] pListTotal = plugin.getServer().getOnlinePlayers();
+		String pList = "";
 		
-            if (plugin.broadcastMessage == true) {	
-                    plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
-            }
+		for (Player p : plugin.getServer().getOnlinePlayers()){
+			if (p.hasPermission("randomgift.receive")){
+				pList += p.getName() + " ";
+			}
+		}
+		
+		String[] pListArray = pList.split("\\s+");
+		
+		if (plugin.allPlayers == true){
+			if (pListTotal.length < plugin.getConfig().getInt("minimum-players")) {
+				return;
+			}
+		} else {
+			if (pListArray.length < plugin.getConfig().getInt("minimum-players")){
+				return;
+			}
+		}
 
-            rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
-            generateGift(rPlayer);
+		Random pSelect = new Random();
+		int pRand = pSelect.nextInt(pListArray.length);
+
+		Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
+		
+		if (plugin.broadcastMessage == true) {	
+			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
+		}
+
+		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
+		generateGift(rPlayer);
 	}
 
 	@SuppressWarnings("deprecation")
