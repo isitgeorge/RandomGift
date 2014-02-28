@@ -6,6 +6,15 @@
   <name>RandomGift</name>
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <repository>
+      <id>bukkit-repo</id>
+      <url>http://repo.bukkit.org/content/groups/public/</url>
+    </repository>
+    <dependency>
+      <groupId>org.bukkit</groupId>
+      <artifactId>bukkit</artifactId>
+      <version>1.6.4-R2.0</version>
+    </dependency>
     <resources>
       <resource>
         <directory>src</directory>
