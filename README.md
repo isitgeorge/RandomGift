@@ -125,6 +125,15 @@ None currently
 
 ***
 
+###Development Builds
+Development builds of this project can be acquired at the provided continuous integration server.
+These builds have not been approved by the BukkitDev staff. Use them at your own risk.
+
+[Last Successful Build](http://ci.isitgeo.com/browse/RG-RAN/latestSuccessful/artifact)
+
+![Build Status](http://ci.isitgeo.com/plugins/servlet/buildStatusImage/RG-RAN)
+***
+
 ###Notes
 **Update check**
 
