@@ -37,9 +37,8 @@ public class RandomGift extends JavaPlugin implements Listener {
 	    this.saveConfig();
 		
 		if (!(config.exists())) {
-			getLogger().info("Configuration not found...");
+			getLogger().info("Configuration not found! Creating new...");
 			this.saveDefaultConfig();
-			getLogger().info("Created configuration!");
 		}
 		
 		load();
@@ -88,6 +87,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		rGG = new RandomGiftGen(this);
 		updateCheck = new UpdateCheck(this);
 		statisticsCheck = this.getConfig().getBoolean("collect-statistics");
+		getLogger().info("Loaded configuration");
 	}
 
 	@Override

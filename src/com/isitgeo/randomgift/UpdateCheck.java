@@ -54,10 +54,7 @@ public class UpdateCheck {
 
 			if (currentVersion < versionNum) {
 				plugin.getLogger().info("An update is available! Get it at http://dev.bukkit.org/bukkit-plugins/randomgift");
-			} else {
-				plugin.getLogger().info("Running latest version!");
 			}
-
 		}
 	}
 }
