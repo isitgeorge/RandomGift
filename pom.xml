@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.isitgeo.randomgift</groupId>
   <artifactId>RandomGift</artifactId>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.4-SNAPSHOT</version>
   <name>RandomGift</name>
   <repositories>
     <repository>
