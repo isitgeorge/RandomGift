@@ -41,11 +41,11 @@ public class RandomGiftGen {
 		String[] pListArray = pList.split("\\s+");
 		
 		if (plugin.allPlayers == true){
-			if (pListTotal.length < plugin.getConfig().getInt("minimum-players")) {
+			if (pListTotal.length < plugin.minimumPlayers) {
 				return;
 			}
 		} else {
-			if (pListArray.length < plugin.getConfig().getInt("minimum-players")){
+			if (pListArray.length < plugin.minimumPlayers){
 				return;
 			}
 		}
@@ -67,9 +67,9 @@ public class RandomGiftGen {
 	public void generateGift(Player rPlayer) {
 
 		Random gSelect = new Random();
-		int gRand = gSelect.nextInt(plugin.gList.length);
+		int gRand = gSelect.nextInt(plugin.itemList.length);
 
-		String[] itemQuant = plugin.gList[gRand].split(" ");
+		String[] itemQuant = plugin.itemList[gRand].split(" ");
 
 		int itemQuantity = Integer.parseInt(itemQuant[1]);
 
