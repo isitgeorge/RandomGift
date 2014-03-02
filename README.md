@@ -131,7 +131,7 @@ These builds have not been approved by the BukkitDev staff. Use them at your own
 
 [Last Successful Build](http://ci.isitgeo.com/browse/RG-RAN/latestSuccessful/artifact)
 
-![Build Status](http://ci-cdn.isitgeo.com/build-status/randomgift/)
+![Build Status](http://ci.isitgeo.com/plugins/servlet/buildStatusImage/RG-RAN)
 ***
 
 ###Notes
