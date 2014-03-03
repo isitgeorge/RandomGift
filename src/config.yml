@@ -29,6 +29,9 @@ broadcast-message: true
 # Checks for an update on startup and displays a message if there is a more recent version available
 version-check: true
 
+#Enable debug mode.  This will output a lot of information to console.
+debug-mode: false
+
 # Statistic data
 # Plugin Metrics is used to collect anonymous statistic data about the plugins usage and sends it to http://mcstats.org/plugin/randomgift
 # This plugin also sends its current version number back to the developer for statistical purposes. 

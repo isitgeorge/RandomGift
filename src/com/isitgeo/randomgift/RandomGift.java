@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -26,6 +27,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public boolean allPlayers;
 	public boolean versionCheck;
 	public boolean collectStats;
+        public boolean debugMode;
 	public String[] itemList;
 	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
 	public String permError = ChatColor.DARK_RED + "You don't have permission to do that!";
@@ -44,6 +46,9 @@ public class RandomGift extends JavaPlugin implements Listener {
 		
 		load();
 		updateCheck.check();
+                if (this.debugMode == true){
+                    getLogger().info("Debug mode enabled!");
+                }
 		
 		getServer().getPluginManager().registerEvents(this, this);
 		getCommand("randomgift").setExecutor(new CommandListener(this, rGG));
@@ -87,10 +92,12 @@ public class RandomGift extends JavaPlugin implements Listener {
 		minimumPlayers = this.getConfig().getInt("minimum-players");
 		versionCheck = this.getConfig().getBoolean("version-check");
 		collectStats = this.getConfig().getBoolean("collect-statistics");
+                debugMode = this.getConfig().getBoolean("debug-mode");
 		rGG = new RandomGiftGen(this);
 		updateCheck = new UpdateCheck(this);
 		getLogger().info("Loaded configuration");
 	}
+        
 
 	@Override
 	public void onDisable() {
@@ -100,6 +107,9 @@ public class RandomGift extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		player = event.getPlayer();
+                if (this.debugMode == true){
+                    getLogger().log(Level.INFO, "{0} has connected", player);
+                }
 
 		getServer().getScheduler().scheduleSyncDelayedTask(this,
 				new Runnable() {
