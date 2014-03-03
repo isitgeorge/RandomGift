@@ -49,22 +49,17 @@ public class RandomGiftGen {
 				return;
 			}
 		}
-
+		
 		Random pSelect = new Random();
 		int pRand = pSelect.nextInt(pListArray.length);
 
 		Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
 		
-		if (plugin.broadcastMessage == true) {	
-			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
-		}
-
-		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
-		generateGift(rPlayer);
+		generateGift(rPlayer, player);
 	}
 
 	@SuppressWarnings("deprecation")
-	public void generateGift(Player rPlayer) {
+	public void generateGift(final Player rPlayer, Player player) {
 
 		Random gSelect = new Random();
 		int gRand = gSelect.nextInt(plugin.itemList.length);
@@ -93,5 +88,28 @@ public class RandomGiftGen {
 					new ItemStack(Material.getMaterial(itemNumber),
 							itemQuantity, (short) itemDataV));
 		}
+		
+		if (plugin.broadcastMessage == true) {	
+			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
+		}
+		
+		if (plugin.deathMode == true) {
+			Random deathSelect = new Random();
+			if ((deathSelect.nextInt((100 - 1) + 1) + 1) > 90) {
+				rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
+				rPlayer.sendMessage(plugin.broadcastTag + "Unfortunately as part of your gift, you will explode in 5 seconds...");
+				
+				plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+						public void run() {
+							// Check player still exists
+							rPlayer.setHealth(0);
+							// Add explosion effect
+						}
+				}, 100L);
+				return;
+			}
+		}
+		
+		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
 	}
 }

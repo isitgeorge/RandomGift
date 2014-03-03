@@ -23,6 +23,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public int cooldownTime;
 	public int minimumPlayers;
 	public boolean broadcastMessage;
+	public boolean deathMode;
 	public boolean allPlayers;
 	public boolean versionCheck;
 	public boolean collectStats;
@@ -82,6 +83,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		itemList = this.getConfig().getStringList("items").toArray(new String[0]);
 		cooldownTime = this.getConfig().getInt("cooldown-time") * 60 * 1000;
 		cooldown = 0;
+		deathMode = this.getConfig().getBoolean("death-mode");
 		broadcastMessage = this.getConfig().getBoolean("broadcast-message");
 		allPlayers = this.getConfig().getBoolean("all-players");
 		minimumPlayers = this.getConfig().getInt("minimum-players");
