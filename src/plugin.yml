@@ -1,7 +1,7 @@
 name: RandomGift
 main: com.isitgeo.randomgift.RandomGift
 version: 1.4
-author: isitgeorge, FearFree
+authors: isitgeorge, FearFree
 
 permissions:
     randomgift.trigger:
