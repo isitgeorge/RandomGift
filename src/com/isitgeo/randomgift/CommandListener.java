@@ -14,6 +14,7 @@ public class CommandListener implements CommandExecutor {
 		this.rGG = rGG;
 	}
 
+	@Override
 	public boolean onCommand(CommandSender sentby, Command command,	String label, String[] args) {
 		if (command.getName().equalsIgnoreCase("randomgift")) {
 
