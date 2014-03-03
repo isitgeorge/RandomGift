@@ -28,11 +28,11 @@ public class RandomGiftGen {
 				plugin.cooldown = System.currentTimeMillis();
 				
 				if (plugin.debugMode == true){
-					plugin.getLogger().log(Level.INFO, "{0} has permission node randomgift.trigger", player.getName());
+					plugin.getLogger().log(Level.INFO, "Checking if {0} has randomgift.trigger: true", player.getName());
 				}
 			} else {
 				if (plugin.debugMode == true){
-					plugin.getLogger().log(Level.INFO, "{0} does not have permission node randomgift.trigger", player.getName());
+					plugin.getLogger().log(Level.INFO, "Checking if {0} has randomgift.trigger: false", player.getName());
 				}
 			}
 
@@ -42,9 +42,9 @@ public class RandomGiftGen {
 				int val = plugin.cooldownTime - difference;
 
 				if (!(val <= 60000)) {
-					plugin.getLogger().log(Level.INFO, "Cooldown has about {0} minutes remaining.", val / 60 / 1000);
+					plugin.getLogger().log(Level.INFO, "Cooldown time remaining: {0} minutes", val / 60 / 1000);
 				} else {
-					plugin.getLogger().log(Level.INFO, "Cooldown has {0} seconds remaining.", val / 1000);
+					plugin.getLogger().log(Level.INFO, "Cooldown time remaining: {0} seconds", val / 1000);
 				}
                                         
 			}
@@ -59,7 +59,7 @@ public class RandomGiftGen {
 			if (p.hasPermission("randomgift.receive")){
 				
 				if (plugin.debugMode == true){
-					plugin.getLogger().log(Level.INFO, "{0} has permission node randomgift.receive, added to list.", p.getName());
+					plugin.getLogger().log(Level.INFO, "{0} has randomgift.receive, added to list.", p.getName());
 				}
 				
 				pList += p.getName() + " ";
