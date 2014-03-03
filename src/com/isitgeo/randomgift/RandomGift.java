@@ -21,11 +21,12 @@ public class RandomGift extends JavaPlugin implements Listener {
 	private UpdateCheck updateCheck;
 	public long cooldown;
 	public int cooldownTime;
+	public int minimumPlayers;
 	public boolean broadcastMessage;
 	public boolean allPlayers;
 	public boolean versionCheck;
-	public boolean statisticsCheck;
-	public String[] gList;
+	public boolean collectStats;
+	public String[] itemList;
 	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
 	public String permError = ChatColor.DARK_RED + "You don't have permission to do that!";
 	public String commandError = ChatColor.DARK_RED + "No such command!";
@@ -47,7 +48,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(this, this);
 		getCommand("randomgift").setExecutor(new CommandListener(this, rGG));
 		
-		if (statisticsCheck == true) {
+		if (collectStats == true) {
 			URL updateSend = null;
 			try {
 				updateSend = new URL("http://plugin-stats.isitgeo.com");
@@ -78,15 +79,16 @@ public class RandomGift extends JavaPlugin implements Listener {
 	}
 
 	public void load() {
-		gList = this.getConfig().getStringList("items").toArray(new String[0]);
+		itemList = this.getConfig().getStringList("items").toArray(new String[0]);
 		cooldownTime = this.getConfig().getInt("cooldown-time") * 60 * 1000;
 		cooldown = 0;
 		broadcastMessage = this.getConfig().getBoolean("broadcast-message");
 		allPlayers = this.getConfig().getBoolean("all-players");
+		minimumPlayers = this.getConfig().getInt("minimum-players");
 		versionCheck = this.getConfig().getBoolean("version-check");
+		collectStats = this.getConfig().getBoolean("collect-statistics");
 		rGG = new RandomGiftGen(this);
 		updateCheck = new UpdateCheck(this);
-		statisticsCheck = this.getConfig().getBoolean("collect-statistics");
 		getLogger().info("Loaded configuration");
 	}
 
