@@ -26,11 +26,11 @@ public class RandomGiftGen {
 				getPlayers(player);
 				plugin.cooldown = System.currentTimeMillis();
                                 if (plugin.debugMode == true){
-                                    plugin.getLogger().log(Level.INFO, "{0} has permission node randomgift.trigger", player.getName());
+                                    plugin.getLogger().log(Level.INFO, "{0} has permission node randomgift.trigger", player);
                                 }
 			} else {
                                 if (plugin.debugMode == true){
-                                    plugin.getLogger().log(Level.INFO, "{0} does not have permission node randomgift.trigger", player.getName());
+                                    plugin.getLogger().log(Level.INFO, "{0} does not have permission node randomgift.trigger", player);
                                 }
 			}
 
@@ -56,7 +56,7 @@ public class RandomGiftGen {
 		for (Player p : plugin.getServer().getOnlinePlayers()){
 			if (p.hasPermission("randomgift.receive")){
                             if (plugin.debugMode == true){
-                                plugin.getLogger().log(Level.INFO, "{0} has permission node randomgift.receive, added to list.", p.getName());
+                                plugin.getLogger().log(Level.INFO, "{0} has permission node randomgift.receive, added to list.", p);
                             }
 				pList += p.getName() + " ";
 			}
@@ -85,7 +85,7 @@ public class RandomGiftGen {
 
 		Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
                 if (plugin.debugMode == true){
-                    plugin.getLogger().log(Level.INFO, "{0} has been selected for gift.", rPlayer.getName());
+                    plugin.getLogger().log(Level.INFO, "{0} has been selected for gift.", rPlayer);
                 }
 		
 		if (plugin.broadcastMessage == true) {	
