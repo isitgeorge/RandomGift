@@ -27,6 +27,7 @@ all-players: true
 cooldown-time: 5
 
 # Surprise a player with the gift of death (but they still receive a nice gift too)
+# Not recommended if players are unable to return to their previous locations
 death-mode: true
 
 # Broadcasts a message to the entire server when a player receives a gift
