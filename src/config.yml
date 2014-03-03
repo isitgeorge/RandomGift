@@ -29,7 +29,7 @@ broadcast-message: true
 # Checks for an update on startup and displays a message if there is a more recent version available
 version-check: true
 
-#Enable debug mode.  This will output a lot of information to console.
+# Enable debug mode. This will output a lot of information to console.
 debug-mode: false
 
 # Statistic data

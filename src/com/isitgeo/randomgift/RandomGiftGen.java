@@ -19,34 +19,36 @@ public class RandomGiftGen {
 	public void check(Player player) throws IOException {
 
 		if (System.currentTimeMillis() - plugin.cooldown >= plugin.cooldownTime) {
-                    if (plugin.debugMode == true){
-                        plugin.getLogger().info("Cooldown time remaining: 0");
-                    }
+			if (plugin.debugMode == true){
+				plugin.getLogger().info("Cooldown time remaining: 0");
+			}
+			
 			if (player.hasPermission("randomgift.trigger")) {
 				getPlayers(player);
 				plugin.cooldown = System.currentTimeMillis();
-                                if (plugin.debugMode == true){
-                                    plugin.getLogger().log(Level.INFO, "{0} has permission node randomgift.trigger", player);
-                                }
+				
+				if (plugin.debugMode == true){
+					plugin.getLogger().log(Level.INFO, "{0} has permission node randomgift.trigger", player);
+				}
 			} else {
-                                if (plugin.debugMode == true){
-                                    plugin.getLogger().log(Level.INFO, "{0} does not have permission node randomgift.trigger", player);
-                                }
+				if (plugin.debugMode == true){
+					plugin.getLogger().log(Level.INFO, "{0} does not have permission node randomgift.trigger", player);
+				}
 			}
 
 		} else {
-                    if (plugin.debugMode == true){
-                        int difference = (int) (System.currentTimeMillis() - plugin.cooldown);
-					int val = plugin.cooldownTime - difference;
+			if (plugin.debugMode == true){
+				int difference = (int) (System.currentTimeMillis() - plugin.cooldown);
+				int val = plugin.cooldownTime - difference;
 
-					if (!(val <= 60000)) {
-						plugin.getLogger().log(Level.INFO, "Cooldown has about {0} minutes remaining.", val / 60 / 1000);
-					} else {
-						plugin.getLogger().log(Level.INFO, "Cooldown has {0} seconds remaining.", val / 1000);
-                                        }
+				if (!(val <= 60000)) {
+					plugin.getLogger().log(Level.INFO, "Cooldown has about {0} minutes remaining.", val / 60 / 1000);
+				} else {
+					plugin.getLogger().log(Level.INFO, "Cooldown has {0} seconds remaining.", val / 1000);
+				}
                                         
-                    }
-                }
+			}
+		}
 	}
 
 	public void getPlayers(Player player) {
@@ -55,9 +57,11 @@ public class RandomGiftGen {
 		
 		for (Player p : plugin.getServer().getOnlinePlayers()){
 			if (p.hasPermission("randomgift.receive")){
-                            if (plugin.debugMode == true){
-                                plugin.getLogger().log(Level.INFO, "{0} has permission node randomgift.receive, added to list.", p);
-                            }
+				
+				if (plugin.debugMode == true){
+					plugin.getLogger().log(Level.INFO, "{0} has permission node randomgift.receive, added to list.", p);
+				}
+				
 				pList += p.getName() + " ";
 			}
 		}
@@ -66,16 +70,17 @@ public class RandomGiftGen {
 		
 		if (plugin.allPlayers == true){
 			if (pListTotal.length < plugin.minimumPlayers) {
-                            if (plugin.debugMode == true){
-                                plugin.getLogger().info("Not enough players online.");
-                            }
+				
+				if (plugin.debugMode == true){
+					plugin.getLogger().info("Not enough players online.");
+				}
 				return;
 			}
 		} else {
 			if (pListArray.length < plugin.minimumPlayers){
-                            if (plugin.debugMode == true){
-                                plugin.getLogger().info("Not enough players online.");
-                            }
+				if (plugin.debugMode == true){
+					plugin.getLogger().info("Not enough players online.");
+				}
 				return;
 			}
 		}
@@ -84,9 +89,10 @@ public class RandomGiftGen {
 		int pRand = pSelect.nextInt(pListArray.length);
 
 		Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
-                if (plugin.debugMode == true){
-                    plugin.getLogger().log(Level.INFO, "{0} has been selected for gift.", rPlayer);
-                }
+		
+		if (plugin.debugMode == true){
+			plugin.getLogger().log(Level.INFO, "{0} has been selected for gift.", rPlayer);
+		}
 		
 		if (plugin.broadcastMessage == true) {	
 			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
