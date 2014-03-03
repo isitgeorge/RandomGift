@@ -114,6 +114,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 
 		getServer().getScheduler().scheduleSyncDelayedTask(this,
 				new Runnable() {
+					@Override
 					public void run() {
 						try {
 							rGG.check(player);
