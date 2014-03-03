@@ -26,7 +26,7 @@ public class CommandListener implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("reload")){
 				if (sentby.hasPermission("randomgift.reload")){
 					plugin.reloadConfig();
-					//plugin.load();
+					plugin.load();
 					sentby.sendMessage("RandomGift configuration reloaded.");
 					return true;
 				} else {
