@@ -5,12 +5,15 @@ import java.util.Random;
 import java.util.logging.Level;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class RandomGiftGen {
 
-	private RandomGift plugin;
+	private final RandomGift plugin;
+	private ItemStack items;
 
 	public RandomGiftGen(RandomGift plugin) {
 		this.plugin = plugin;
@@ -109,28 +112,43 @@ public class RandomGiftGen {
 		int gRand = gSelect.nextInt(plugin.itemList.length);
 
 		String[] itemQuant = plugin.itemList[gRand].split(" ");
-
+		
 		int itemQuantity = Integer.parseInt(itemQuant[1]);
-
+		
 		String[] itemDV;
+		
+		if (itemQuant.length > 2){
+		    int args = itemQuant.length;
+		    
+		    for (int i=0; args>i; i++){
+			int itemNumber;
+			
+			if (i == 0){
+			    	if (!(itemQuant[0].contains(":"))) {
+				    itemNumber = Integer.parseInt(itemQuant[0]);
+				    items = new ItemStack(Material.getMaterial(itemNumber),itemQuantity);
 
-		if (!(itemQuant[0].contains(":"))) {
+				} else {
+				    itemDV = itemQuant[0].split(":");
+				    itemNumber = Integer.parseInt(itemDV[0]);
+				    int itemDataV = Integer.parseInt(itemDV[1]);
+				    items = new ItemStack(Material.getMaterial(itemNumber),itemQuantity, (short) itemDataV);
+				    
+				}
+			}
+			if (i > 1){
+			    String[] enchant = itemQuant[i].split(":");
+			    String itemString;
+			    int enchantPower = Integer.parseInt(enchant[1]);
+			    String enchantName = enchant[0];
+			    enchantName = enchantName.toUpperCase();
+			    ItemMeta itemMeta = items.getItemMeta();
+			    itemMeta.addEnchant(Enchantment.getByName(enchantName), enchantPower, true);
+			    items.setItemMeta(itemMeta);
+			}
 
-			int itemNumber = Integer.parseInt(itemQuant[0]);
-
-			rPlayer.getInventory().addItem(
-					new ItemStack(Material.getMaterial(itemNumber),
-							itemQuantity));
-
-		} else {
-			itemDV = itemQuant[0].split(":");
-
-			int itemNumber = Integer.parseInt(itemDV[0]);
-			int itemDataV = Integer.parseInt(itemDV[1]);
-
-			rPlayer.getInventory().addItem(
-					new ItemStack(Material.getMaterial(itemNumber),
-							itemQuantity, (short) itemDataV));
-		}
+	        }
+		rPlayer.getInventory().addItem(items);
+	    }
 	}
 }
