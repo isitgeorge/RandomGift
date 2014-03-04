@@ -116,12 +116,7 @@ collect-statistics: true
 ***
 
 ###Future Features
-None currently
-
-***
-
-###Bugs
-None currently
+If you have a suggestion for a future feature, drop it into the comments section.
 
 ***
 
@@ -131,7 +126,7 @@ These builds have not been approved by the BukkitDev staff. Use them at your own
 
 [Last Successful Build](http://ci.isitgeo.com/browse/RG-RAN/latestSuccessful/artifact)
 
-![Build Status](http://ci.isitgeo.com/plugins/servlet/buildStatusImage/RG-RAN)
+Last build: ![Build Status](http://ci.isitgeo.com/plugins/servlet/buildStatusImage/RG-RAN)
 ***
 
 ###Notes
