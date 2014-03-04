@@ -145,6 +145,8 @@ RandomGift also sends its current version number back to its developer for
 statistical purposes. This information is simply used for tracking current
 versions in use, and the data collected will only be seen by the developer(s).
 
+![MCStats](http://api.mcstats.org/signature/RandomGift.png)
+
 *If you prefer, you can disable both the Plugin Metrics and sending of version
 data inside the configuration file as seen above. You can also disable Plugin
 Metrics globally inside its own configuration located at /plugins/Plugin
