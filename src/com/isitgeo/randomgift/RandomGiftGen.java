@@ -112,9 +112,9 @@ public class RandomGiftGen {
 		int gRand = gSelect.nextInt(plugin.itemList.length);
 
 		String[] itemQuant = plugin.itemList[gRand].split(" ");
-		
+
 		int itemQuantity = Integer.parseInt(itemQuant[1]);
-		
+
 		String[] itemDV;
 		
 		if (itemQuant.length > 2){
