@@ -138,10 +138,21 @@ public class RandomGiftGen {
 			}
 			if (i > 1){
 			    String[] enchant = itemQuant[i].split(":");
-			    String itemString;
+			    
+			    if (enchant.length < 2){
+				plugin.getLogger().log(Level.WARNING, "Item - {0} improperly defined, no gift given.", plugin.itemList[gRand]);
+				return;
+			    }
+			    
 			    int enchantPower = Integer.parseInt(enchant[1]);
 			    String enchantName = enchant[0];
 			    enchantName = enchantName.toUpperCase();
+			    
+			    if (enchantName != ""){ //check against list of acceptable enchantments
+				//Error message here
+				//return;
+			    }
+
 			    ItemMeta itemMeta = items.getItemMeta();
 			    itemMeta.addEnchant(Enchantment.getByName(enchantName), enchantPower, true);
 			    items.setItemMeta(itemMeta);
