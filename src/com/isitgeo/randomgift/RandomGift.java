@@ -1,5 +1,6 @@
 package com.isitgeo.randomgift;
 
+import com.isitgeo.randomgift.commands.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -52,7 +53,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 			}
 		
 		getServer().getPluginManager().registerEvents(this, this);
-		getCommand("randomgift").setExecutor(new CommandListener(this, rGG));
+		getCommand("randomgift").setExecutor(new RandomGiftCommand(this, rGG));
 		
 		if (collectStats == true) {
 			URL updateSend = null;
