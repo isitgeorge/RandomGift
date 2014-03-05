@@ -79,17 +79,20 @@ has been started with RandomGift installed.
 # Detailed information at http://dev.bukkit.org/bukkit-plugins/randomgift/
 
 # Items that are chosen at random
-#  - 'ID[:data value] Quantity'
+# Use underscores for spaces in name/lore and pipe for new line in lore
+# Enchantment list available at https://github.com/isitgeorge/RandomGift/blob/master/src/net/cubetown/randomgift/Enchantments.java
+#  - ID[:data value] Quantity [enchantment:power] [name:some_name] [lore:first_line[|second_line|third_line]]
+# Example: - 267 1 sharpness:1 thorns:1 name:FearFree's_Equalizer lore:Great_scepter_of_knowledge|For_the_chosen_ones
 items:
-  - '267 1'
-  - '256 1'
-  - '257 1'
-  - '258 1'
-  - '306 1'
-  - '307 1'
-  - '308 1'
-  - '309 1'
-  - '264 1'
+  - 267 1
+  - 256 1
+  - 257 1
+  - 258 1
+  - 306 1
+  - 307 1
+  - 308 1
+  - 309 1
+  - 264 1
   
 # Minimum amount of players required to be online to trigger a gift
 minimum-players: 3
@@ -105,6 +108,9 @@ broadcast-message: true
 
 # Checks for an update on startup and displays a message if there is a more recent version available
 version-check: true
+
+# Enable debug mode. This will output a lot of information to console.
+debug-mode: false
 
 # Statistic data
 # Plugin Metrics is used to collect anonymous statistic data about the plugins usage and sends it to http://mcstats.org/plugin/randomgift
