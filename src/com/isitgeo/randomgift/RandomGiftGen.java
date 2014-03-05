@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Level;
+import static net.cubetown.randomgift.Enchantments.getEnchantment;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -166,11 +167,15 @@ public class RandomGiftGen {
 			    	default:
 				    {
 					int enchantPower = Integer.parseInt(enchant[1]);
-					if (enchantName != ""){ //check against list of acceptable enchantments
-					    //Error message here
-					    //return;
-					}		ItemMeta itemMeta = items.getItemMeta();
-			    itemMeta.addEnchant(Enchantment.getByName(enchantName), enchantPower, true);
+
+					Enchantment enchantment = getEnchantment(enchantName);
+					if (enchantment == null){
+					    plugin.getLogger().log(Level.WARNING, "Enchantment {0} not valid, no gift given.", enchantName);
+					    return;
+					}
+
+					ItemMeta itemMeta = items.getItemMeta();
+					itemMeta.addEnchant(enchantment, enchantPower, true);
 					items.setItemMeta(itemMeta);
 					break;
 				    }
@@ -186,4 +191,4 @@ public class RandomGiftGen {
 		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + playerGifter + " for your random gift!");
 	    }
 	}
-	}
+}
