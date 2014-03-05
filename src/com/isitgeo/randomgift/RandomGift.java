@@ -67,7 +67,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	}
 
 	public void load() {
-		
+
 		cfg = this.getConfig();
 		
 		itemList = cfg.getStringList("items").toArray(new String[0]);

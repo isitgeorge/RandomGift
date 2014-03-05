@@ -1,16 +1,26 @@
 package com.isitgeo.randomgift;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 
+import java.util.logging.Level;
+import static com.isitgeo.randomgift.Enchantments.getEnchantment;
+
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class GiftGenerator {
 
 	private RandomGift plugin;
 	private Debugger debug;
+
+	private ItemStack items;
+	private String playerGifter;
+
 
 	public GiftGenerator(RandomGift plugin, Debugger debug) {
 		this.plugin = plugin;
@@ -94,26 +104,82 @@ public class GiftGenerator {
 		int itemQuantity = Integer.parseInt(itemQuant[1]);
 
 		String[] itemDV;
+		
+		if (itemQuant.length > 2){
+		    int args = itemQuant.length;
+		    
+		    for (int i=0; args>i; i++){
+			int itemNumber;
+			
+			if (i == 0){
+			    	if (!(itemQuant[0].contains(":"))) {
+				    itemNumber = Integer.parseInt(itemQuant[0]);
+				    items = new ItemStack(Material.getMaterial(itemNumber),itemQuantity);
 
-		if (!(itemQuant[0].contains(":"))) {
+				} else {
+				    itemDV = itemQuant[0].split(":");
+				    itemNumber = Integer.parseInt(itemDV[0]);
+				    int itemDataV = Integer.parseInt(itemDV[1]);
+				    items = new ItemStack(Material.getMaterial(itemNumber),itemQuantity, (short) itemDataV);
+				    
+				}
+			}
+			if (i > 1){
+			    String[] enchant = itemQuant[i].split(":");
 
-			int itemNumber = Integer.parseInt(itemQuant[0]);
+			    if (enchant.length < 2){
+				plugin.getLogger().log(Level.WARNING, "Item - {0} improperly defined, no gift given.", plugin.itemList[gRand]);
+				return;
+			    }
 
-			rPlayer.getInventory().addItem(
-					new ItemStack(Material.getMaterial(itemNumber),
-							itemQuantity));
+			    String enchantName = enchant[0];
+			    enchantName = enchantName.toUpperCase();
+			    //Start check for name/lore
+			    switch (enchantName) {
+			    	case "NAME":
+				    {
+					String name = enchant[1].replace("_", " ");
+					ItemMeta itemMeta = items.getItemMeta();
+					itemMeta.setDisplayName(name);
+					items.setItemMeta(itemMeta);
+					break;
+				    }
+			    	case "LORE":
+				    {
+					String loreRaw = enchant[1].replace("_", " ");
+					String[] lore = loreRaw.split("\\|");
+					ItemMeta itemMeta = items.getItemMeta();
+					itemMeta.setLore(Arrays.asList(lore));
+					items.setItemMeta(itemMeta);
+					break;
+				    }
+			    	default:
+				    {
+					int enchantPower = Integer.parseInt(enchant[1]);
 
-		} else {
-			itemDV = itemQuant[0].split(":");
+					Enchantment enchantment = getEnchantment(enchantName);
+					if (enchantment == null){
+					    plugin.getLogger().log(Level.WARNING, "Enchantment {0} not valid, no gift given.", enchantName);
+					    return;
+					}
 
-			int itemNumber = Integer.parseInt(itemDV[0]);
-			int itemDataV = Integer.parseInt(itemDV[1]);
+					ItemMeta itemMeta = items.getItemMeta();
+					itemMeta.addEnchant(enchantment, enchantPower, true);
+					items.setItemMeta(itemMeta);
+					break;
+				    }
+			    }
+			}
 
-			rPlayer.getInventory().addItem(
-					new ItemStack(Material.getMaterial(itemNumber),
-							itemQuantity, (short) itemDataV));
+	        }
+		rPlayer.getInventory().addItem(items);
+		if (plugin.enableBroadcastMessage) {	
+			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
 		}
 		
 		plugin.historicPlayer = rPlayer.getName();
+
+		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + playerGifter + " for your random gift!");
+	    }
 	}
 }
