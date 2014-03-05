@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class CommandListener implements CommandExecutor {
-
+	
 	private RandomGift plugin;
 	private GiftGenerator giftGen;
 

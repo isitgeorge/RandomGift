@@ -1,17 +1,20 @@
 # RandomGift configuration
 
 # Items that are chosen at random
-#  - 'ID[:data value] Quantity'
+# Use underscores for spaces in name/lore and pipe for new line in lore
+# Enchantment list available at: TBD
+#  - ID[:data value] Quantity [enchantment:power] [name:some_name] [lore:first_line[|second_line|third_line]]
+# Example: - 267 1 sharpness:1 thorns:1 name:FearFree's_Equalizer lore:Great_scepter_of_knowledge|For_the_chosen_ones
 items:
-  - '267 1'
-  - '256 1'
-  - '257 1'
-  - '258 1'
-  - '306 1'
-  - '307 1'
-  - '308 1'
-  - '309 1'
-  - '264 1'
+  - 267 1
+  - 256 1
+  - 257 1
+  - 258 1
+  - 306 1
+  - 307 1
+  - 308 1
+  - 309 1
+  - 264 1
   
 # Minimum amount of players required to be online to trigger a gift
 minimum-players: 3
