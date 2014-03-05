@@ -6,8 +6,8 @@ import org.bukkit.command.CommandSender;
 
 public class CommandListener implements CommandExecutor {
 
-	private final RandomGiftGen rGG;
-	private final RandomGift plugin;
+	private RandomGiftGen rGG;
+	private RandomGift plugin;
 
 	public CommandListener(RandomGift plugin, RandomGiftGen rGG) {
 		this.plugin = plugin;
