@@ -1,6 +1,7 @@
 package com.isitgeo.randomgift;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Level;
 
@@ -14,6 +15,7 @@ public class RandomGiftGen {
 
 	private final RandomGift plugin;
 	private ItemStack items;
+	private String playerGifter;
 
 	public RandomGiftGen(RandomGift plugin) {
 		this.plugin = plugin;
@@ -96,12 +98,8 @@ public class RandomGiftGen {
 		if (plugin.debugMode == true){
 			plugin.getLogger().log(Level.INFO, "{0} has been selected for gift.", rPlayer);
 		}
+		playerGifter = player.getName();
 		
-		if (plugin.broadcastMessage == true) {	
-			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
-		}
-
-		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
 		generateGift(rPlayer);
 	}
 
@@ -138,28 +136,54 @@ public class RandomGiftGen {
 			}
 			if (i > 1){
 			    String[] enchant = itemQuant[i].split(":");
-			    
+
 			    if (enchant.length < 2){
 				plugin.getLogger().log(Level.WARNING, "Item - {0} improperly defined, no gift given.", plugin.itemList[gRand]);
 				return;
 			    }
-			    
-			    int enchantPower = Integer.parseInt(enchant[1]);
+
 			    String enchantName = enchant[0];
 			    enchantName = enchantName.toUpperCase();
-			    
-			    if (enchantName != ""){ //check against list of acceptable enchantments
-				//Error message here
-				//return;
-			    }
-
-			    ItemMeta itemMeta = items.getItemMeta();
+			    //Start check for name/lore
+			    switch (enchantName) {
+			    	case "NAME":
+				    {
+					String name = enchant[1].replace("_", " ");
+					ItemMeta itemMeta = items.getItemMeta();
+					itemMeta.setDisplayName(name);
+					items.setItemMeta(itemMeta);
+					break;
+				    }
+			    	case "LORE":
+				    {
+					String loreRaw = enchant[1].replace("_", " ");
+					String[] lore = loreRaw.split("\\|");
+					ItemMeta itemMeta = items.getItemMeta();
+					itemMeta.setLore(Arrays.asList(lore));
+					items.setItemMeta(itemMeta);
+					break;
+				    }
+			    	default:
+				    {
+					int enchantPower = Integer.parseInt(enchant[1]);
+					if (enchantName != ""){ //check against list of acceptable enchantments
+					    //Error message here
+					    //return;
+					}		ItemMeta itemMeta = items.getItemMeta();
 			    itemMeta.addEnchant(Enchantment.getByName(enchantName), enchantPower, true);
-			    items.setItemMeta(itemMeta);
+					items.setItemMeta(itemMeta);
+					break;
+				    }
+			    }
 			}
 
 	        }
 		rPlayer.getInventory().addItem(items);
+		if (plugin.broadcastMessage == true) {	
+			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
+		}
+		
+		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + playerGifter + " for your random gift!");
 	    }
 	}
-}
+	}
