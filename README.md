@@ -129,6 +129,9 @@ These builds have not been approved by the BukkitDev staff. Use them at your own
 Last build: ![Build Status](http://ci.isitgeo.com/plugins/servlet/buildStatusImage/RG-RAN)
 ***
 
+##Contributers
+View the [contributers](https://github.com/isitgeorge/RandomGift/graphs/contributors) that help keep RandomGift awesome!
+
 ###Notes
 **Update check**
 
