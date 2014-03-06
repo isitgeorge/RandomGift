@@ -80,7 +80,7 @@ has been started with RandomGift installed.
 
 # Items that are chosen at random
 # Use underscores for spaces in name/lore and pipe for new line in lore
-# Enchantment list available at https://github.com/isitgeorge/RandomGift/blob/master/src/com/isitgeo/randomgift/Enchantments.java
+# Enchantment list available at https://github.com/isitgeorge/RandomGift/blob/master/src/net/cubetown/randomgift/Enchantments.java
 #  - ID[:data value] Quantity [enchantment:power] [name:some_name] [lore:first_line[|second_line|third_line]]
 # Example: - 267 1 sharpness:1 thorns:1 name:FearFree's_Equalizer lore:Great_scepter_of_knowledge|For_the_chosen_ones
 items:
