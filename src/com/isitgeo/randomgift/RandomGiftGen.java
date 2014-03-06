@@ -145,7 +145,7 @@ public class RandomGiftGen {
 
 			    String enchantName = enchant[0];
 			    enchantName = enchantName.toUpperCase();
-			    //Start check for name/lore
+
 			    switch (enchantName) {
 			    	case "NAME":
 				    {
