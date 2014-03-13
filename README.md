@@ -43,7 +43,7 @@ required to use it and amount of time between each gift chance.
     </tr>
     <tr>
         <td>Manually trigger RandomGift </td>
-        <td>/randomgift gift &#60;player&#62</td>
+        <td>/randomgift gift &#60;player&#62<br>(&#60;player&#62 is trigger)</td>
         <td>randomgift.gift</td>
     </tr>
     <tr>

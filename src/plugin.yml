@@ -27,7 +27,7 @@ permissions:
         default: op
 
     randomgift.gift:
-        description: Allows you to manually use RandomGift
+        description: Allows you to manually trigger RandomGift
         default: op
  
     randomgift.receive:
