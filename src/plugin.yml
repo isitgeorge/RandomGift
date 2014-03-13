@@ -4,6 +4,16 @@ version: 1.4
 authors: [isitgeorge, FearFree]
 
 permissions:
+    randomgift.*:
+        description: Access to all RandomGift commands
+        children:
+            randomgift.trigger: true
+            randomgift.cooldown: true
+            randomgift.cooldown.reset: true
+            randomgift.gift: true
+            randomgift.receive: true
+            randomgift.reload: true
+
     randomgift.trigger:
         description: Allows you to trigger RandomGift on login
         default: op
@@ -21,7 +31,7 @@ permissions:
         default: op
  
     randomgift.receive:
-        description: Allows player to recieve gift when triggered
+        description: Allows player to receive gift when triggered
         default: op
         
     randomgift.reload:
@@ -29,29 +39,29 @@ permissions:
 
 commands:
     randomgift:
-        description: Returns the plugin version
+        description: RandomGift information
         usage: /randomgift <command>
 
     randomgift cooldown:
-        description: Returns the amount of cooldown time remaining
+        description: Remaining cooldown time
         usage: /randomgift cooldown [command]
         permission: randomgift.cooldown
         permission-message: You don't have permission to use that!
         
     randomgift cooldown reset:
-        description: Resets cooldown time
+        description: Reset cooldown time
         usage: /randomgift cooldown reset
         permission: randomgift.cooldown.reset
         permission-message: You don't have permission to use that!
 
     randomgift gift:
-        description: Gives a RandomGift to the specified player
+        description: RandomGift a player
         usage: /randomgift gift <player>
         permission: randomgift.gift
         permission-message: You don't have permission to use that!
         
     randomgift reload:
-        description:  Reload the config.yml
+        description:  Reload configuration
         usage: /randomgift reload
         permission: randomgift.reload
         permission-mesage: You don't have permission to use that!
