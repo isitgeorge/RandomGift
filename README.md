@@ -62,8 +62,6 @@ required to use it and amount of time between each gift chance.
 
 ###Suggested Permission Configuration
 
-By default everybody can trigger and receive gifts, you can change this by negating the associated permissions - `-randomgift.receive` (provided your permissions plugin has this functionality).
-
 -   **Staff**
  -   `randomgift.trigger`
  -   `randomgift.cooldown`
