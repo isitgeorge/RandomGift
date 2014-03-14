@@ -24,34 +24,57 @@ required to use it and amount of time between each gift chance.
     <tr>
         <td>Allows player to trigger the RandomGift </td>
         <td>N/A</td>
-        <td>randomgift.trigger</td>
+        <td><code>randomgift.trigger</code></td>
     </tr>
     <tr>
         <td>Allows player to receive the RandomGift</td>
         <td>N/A</td>
-        <td>randomgift.receive</td>
+        <td><code>randomgift.receive</code></td>
     </tr>
     <tr>
         <td>View amount of time remaining before RandomGift is active again</td>
-        <td>/randomgift cooldown</td>
-        <td>randomgift.cooldown</td>
+        <td><code>/randomgift cooldown</code></td>
+        <td><code>randomgift.cooldown</code></td>
     </tr>
     <tr>
         <td>Reset the remaining cooldown time</td>
-        <td>/randomgift cooldown reset</td>
-        <td>randomgift.cooldown.reset</td>
+        <td><code>/randomgift cooldown reset</code></td>
+        <td><code>randomgift.cooldown.reset</code></td>
     </tr>
     <tr>
-        <td>Manually trigger RandomGift </td>
-        <td>/randomgift gift &#60;player&#62<br>(&#60;player&#62 is trigger)</td>
-        <td>randomgift.gift</td>
+        <td>Manually trigger RandomGift (&#60;player&#62 is trigger)</td>
+        <td><code>/randomgift gift &#60;player&#62</code></td>
+        <td><code>randomgift.gift</code></td>
     </tr>
     <tr>
         <td>Reload the configuration file</td>
-        <td>/randomgift reload</td>
-        <td>randomgift.reload</td>
+        <td><code>/randomgift reload</code></td>
+        <td><code>randomgift.reload</code></td>
+    </tr>
+<tr>
+        <td>Access to everything above</td>
+        <td>N/A</td>
+        <td><code>randomgift.*</code></td>
     </tr>
 </table>
+
+***
+
+###Suggested Permission Configuration
+
+By default everybody can trigger and receive gifts, you can change this by negating the associated permissions - `-randomgift.receive` (provided your permissions plugin has this functionality).
+
+-   **Staff**
+ -   `randomgift.trigger`
+ -   `randomgift.cooldown`
+ -   `randomgift.cooldown.reset`
+ -   `randomgift.gift`
+ -   `randomgift.reload`
+-   **Players**
+ -   `randomgift.trigger`
+ -   `randomgift.recieve`
+
+`randomgift.*` is also available to allow access to everything, recommended for Administrators.
 
 ***
 

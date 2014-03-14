@@ -16,7 +16,7 @@ permissions:
 
     randomgift.trigger:
         description: Allows you to trigger RandomGift on login
-        default: op
+        default: true
 
     randomgift.cooldown:
         description: Allows you to check the time left until RandomGift is allowed to trigger
@@ -32,10 +32,11 @@ permissions:
  
     randomgift.receive:
         description: Allows player to receive gift when triggered
-        default: op
+        default: true
         
     randomgift.reload:
         description: Allows you to reload the config.yml
+        default: op
 
 commands:
     randomgift:
