@@ -3,7 +3,6 @@ package com.isitgeo.randomgift;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class CommandListener implements CommandExecutor {
 
@@ -15,6 +14,7 @@ public class CommandListener implements CommandExecutor {
 		this.rGG = rGG;
 	}
 
+	@Override
 	public boolean onCommand(CommandSender sentby, Command command,	String label, String[] args) {
 		if (command.getName().equalsIgnoreCase("randomgift")) {
 
@@ -22,6 +22,17 @@ public class CommandListener implements CommandExecutor {
 				sentby.sendMessage("RandomGift " + this.plugin.getDescription().getVersion());
 				sentby.sendMessage("Usage: /randomgift <command>");
 				return true;
+			}
+			
+			if (args[0].equalsIgnoreCase("reload")){
+				if (sentby.hasPermission("randomgift.reload")){
+					plugin.reloadConfig();
+					plugin.load();
+					sentby.sendMessage("RandomGift configuration reloaded.");
+					return true;
+				} else {
+					sentby.sendMessage(plugin.permError);
+				}
 			}
 
 			if (args[0].equalsIgnoreCase("cooldown")) {
@@ -62,9 +73,7 @@ public class CommandListener implements CommandExecutor {
 					if (sentby.hasPermission("randomgift.gift")) {
 						
 						if (plugin.getServer().getPlayer(args[1]) != null) {
-							Player player = plugin.getServer().getPlayer("Derpriding");
-							rGG.getPlayers(player);
-							
+							rGG.getPlayers(plugin.getServer().getPlayer(args[1]));
 							
 						} else {
 							sentby.sendMessage("Player not online!");

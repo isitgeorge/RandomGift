@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -21,10 +22,13 @@ public class RandomGift extends JavaPlugin implements Listener {
 	private UpdateCheck updateCheck;
 	public long cooldown;
 	public int cooldownTime;
+	public int minimumPlayers;
 	public boolean broadcastMessage;
+	public boolean allPlayers;
 	public boolean versionCheck;
-	public boolean statisticsCheck;
-	public String[] gList;
+	public boolean collectStats;
+	public boolean debugMode;
+	public String[] itemList;
 	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
 	public String permError = ChatColor.DARK_RED + "You don't have permission to do that!";
 	public String commandError = ChatColor.DARK_RED + "No such command!";
@@ -35,21 +39,22 @@ public class RandomGift extends JavaPlugin implements Listener {
 	    this.getConfig().options().copyDefaults(true);
 	    this.saveConfig();
 		
-		
-		
 		if (!(config.exists())) {
-			getLogger().info("Configuration not found...");
+			getLogger().info("Configuration not found! Creating new...");
 			this.saveDefaultConfig();
-			getLogger().info("Created configuration!");
 		}
 		
 		load();
 		updateCheck.check();
 		
+			if (this.debugMode == true){
+				getLogger().info("Debug mode enabled!");
+			}
+		
 		getServer().getPluginManager().registerEvents(this, this);
 		getCommand("randomgift").setExecutor(new CommandListener(this, rGG));
 		
-		if (statisticsCheck == true) {
+		if (collectStats == true) {
 			URL updateSend = null;
 			try {
 				updateSend = new URL("http://plugin-stats.isitgeo.com");
@@ -80,16 +85,20 @@ public class RandomGift extends JavaPlugin implements Listener {
 	}
 
 	public void load() {
-		gList = this.getConfig().getStringList("items").toArray(new String[0]);
+		itemList = this.getConfig().getStringList("items").toArray(new String[0]);
 		cooldownTime = this.getConfig().getInt("cooldown-time") * 60 * 1000;
 		cooldown = 0;
 		broadcastMessage = this.getConfig().getBoolean("broadcast-message");
+		allPlayers = this.getConfig().getBoolean("all-players");
+		minimumPlayers = this.getConfig().getInt("minimum-players");
 		versionCheck = this.getConfig().getBoolean("version-check");
+		collectStats = this.getConfig().getBoolean("collect-statistics");
+		debugMode = this.getConfig().getBoolean("debug-mode");
 		rGG = new RandomGiftGen(this);
 		updateCheck = new UpdateCheck(this);
-		statisticsCheck = this.getConfig().getBoolean("collect-statistics");
+		getLogger().info("Loaded configuration");
 	}
-
+	
 	@Override
 	public void onDisable() {
 		getLogger().info("RandomGift disabled successfully!");
@@ -98,9 +107,14 @@ public class RandomGift extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		player = event.getPlayer();
+		
+		if (this.debugMode == true){
+			getLogger().log(Level.INFO, "{0} has connected", player);
+		}
 
 		getServer().getScheduler().scheduleSyncDelayedTask(this,
 				new Runnable() {
+					@Override
 					public void run() {
 						try {
 							rGG.check(player);
@@ -109,6 +123,5 @@ public class RandomGift extends JavaPlugin implements Listener {
 						}
 					}
 				}, 30L);
-
 	}
 }

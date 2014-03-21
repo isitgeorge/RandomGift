@@ -1,0 +1,68 @@
+name: RandomGift
+main: com.isitgeo.randomgift.RandomGift
+version: 1.4
+authors: [isitgeorge, FearFree]
+
+permissions:
+    randomgift.*:
+        description: Access to all RandomGift commands
+        children:
+            randomgift.trigger: true
+            randomgift.cooldown: true
+            randomgift.cooldown.reset: true
+            randomgift.gift: true
+            randomgift.receive: true
+            randomgift.reload: true
+
+    randomgift.trigger:
+        description: Allows you to trigger RandomGift on login
+        default: op
+
+    randomgift.cooldown:
+        description: Allows you to check the time left until RandomGift is allowed to trigger
+        default: op
+        
+    randomgift.cooldown.reset:
+        description: Allows you reset the cooldown time
+        default: op
+
+    randomgift.gift:
+        description: Allows you to manually trigger RandomGift
+        default: op
+ 
+    randomgift.receive:
+        description: Allows player to receive gift when triggered
+        default: op
+        
+    randomgift.reload:
+        description: Allows you to reload the config.yml
+        default: op
+
+commands:
+    randomgift:
+        description: RandomGift information
+        usage: /randomgift <command>
+
+    randomgift cooldown:
+        description: Remaining cooldown time
+        usage: /randomgift cooldown [command]
+        permission: randomgift.cooldown
+        permission-message: You don't have permission to use that!
+        
+    randomgift cooldown reset:
+        description: Reset cooldown time
+        usage: /randomgift cooldown reset
+        permission: randomgift.cooldown.reset
+        permission-message: You don't have permission to use that!
+
+    randomgift gift:
+        description: RandomGift a player
+        usage: /randomgift gift <player>
+        permission: randomgift.gift
+        permission-message: You don't have permission to use that!
+        
+    randomgift reload:
+        description:  Reload configuration
+        usage: /randomgift reload
+        permission: randomgift.reload
+        permission-mesage: You don't have permission to use that!

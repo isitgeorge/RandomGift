@@ -2,6 +2,7 @@ package com.isitgeo.randomgift;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,36 +19,86 @@ public class RandomGiftGen {
 	public void check(Player player) throws IOException {
 
 		if (System.currentTimeMillis() - plugin.cooldown >= plugin.cooldownTime) {
+			if (plugin.debugMode == true){
+				plugin.getLogger().info("Cooldown time remaining: 0");
+			}
+			
 			if (player.hasPermission("randomgift.trigger")) {
 				getPlayers(player);
 				plugin.cooldown = System.currentTimeMillis();
+				
+				if (plugin.debugMode == true){
+					plugin.getLogger().log(Level.INFO, "Checking if {0} has randomgift.trigger: true", player.getName());
+				}
 			} else {
-				return;
+				if (plugin.debugMode == true){
+					plugin.getLogger().log(Level.INFO, "Checking if {0} has randomgift.trigger: false", player.getName());
+				}
 			}
 
+		} else {
+			if (plugin.debugMode == true){
+				int difference = (int) (System.currentTimeMillis() - plugin.cooldown);
+				int val = plugin.cooldownTime - difference;
+
+				if (!(val <= 60000)) {
+					plugin.getLogger().log(Level.INFO, "Cooldown time remaining: {0} minutes", val / 60 / 1000);
+				} else {
+					plugin.getLogger().log(Level.INFO, "Cooldown time remaining: {0} seconds", val / 1000);
+				}
+                                        
+			}
 		}
 	}
 
 	public void getPlayers(Player player) {
-		Player[] pList = plugin.getServer().getOnlinePlayers();
-
-		if (pList.length < plugin.getConfig().getInt("minimum-players")) {
-			return;
+		Player[] pListTotal = plugin.getServer().getOnlinePlayers();
+		String pList = "";
+		
+		for (Player p : plugin.getServer().getOnlinePlayers()){
+			if (p.hasPermission("randomgift.receive")){
+				
+				if (plugin.debugMode == true){
+					plugin.getLogger().log(Level.INFO, "{0} has randomgift.receive, added to list.", p.getName());
+				}
+				
+				pList += p.getName() + " ";
+			}
+		}
+		
+		String[] pListArray = pList.split("\\s+");
+		
+		if (plugin.allPlayers == true){
+			if (pListTotal.length < plugin.minimumPlayers) {
+				
+				if (plugin.debugMode == true){
+					plugin.getLogger().info("Not enough players online.");
+				}
+				return;
+			}
+		} else {
+			if (pListArray.length < plugin.minimumPlayers){
+				if (plugin.debugMode == true){
+					plugin.getLogger().info("Not enough players online.");
+				}
+				return;
+			}
 		}
 
 		Random pSelect = new Random();
-		int pRand = pSelect.nextInt(pList.length);
+		int pRand = pSelect.nextInt(pListArray.length);
 
-		Player rPlayer = pList[pRand];
+		Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
 		
-		if (broadcastMessage == true) {	
-		plugin.getServer().broadcastMessage(
-				plugin.broadcastTag + rPlayer.getName()
-						+ " has been given a random gift!");
+		if (plugin.debugMode == true){
+			plugin.getLogger().log(Level.INFO, "{0} has been selected for gift.", rPlayer);
+		}
+		
+		if (plugin.broadcastMessage == true) {	
+			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
 		}
 
-		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank "
-				+ player.getName() + " for your random gift!");
+		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
 		generateGift(rPlayer);
 	}
 
@@ -55,9 +106,9 @@ public class RandomGiftGen {
 	public void generateGift(Player rPlayer) {
 
 		Random gSelect = new Random();
-		int gRand = gSelect.nextInt(plugin.gList.length);
+		int gRand = gSelect.nextInt(plugin.itemList.length);
 
-		String[] itemQuant = plugin.gList[gRand].split(" ");
+		String[] itemQuant = plugin.itemList[gRand].split(" ");
 
 		int itemQuantity = Integer.parseInt(itemQuant[1]);
 
@@ -82,5 +133,4 @@ public class RandomGiftGen {
 							itemQuantity, (short) itemDataV));
 		}
 	}
-
 }
