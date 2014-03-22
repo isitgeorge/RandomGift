@@ -89,8 +89,13 @@ public class RandomGift extends JavaPlugin implements Listener {
 		itemList = this.getConfig().getStringList("items").toArray(new String[0]);
 		cooldownTime = this.getConfig().getInt("cooldown-time") * 60 * 1000;
 		cooldown = 0;
+<<<<<<< HEAD
 		enableBroadcastMessage = this.getConfig().getBoolean("enable-broadcast-message");
 		broadcastMessage = this.getConfig().getString("broadcast-message");
+=======
+		broadcastMessage = this.getConfig().getString("broadcast-message");
+		enableBroadcastMessage = this.getConfig().getBoolean("enable-broadcast-message");
+>>>>>>> 0607cb434b565d0d3ec4ad2d8997aeaf3d8007d0
 		allPlayers = this.getConfig().getBoolean("all-players");
 		minimumPlayers = this.getConfig().getInt("minimum-players");
 		versionCheck = this.getConfig().getBoolean("version-check");
