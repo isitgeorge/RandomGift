@@ -94,8 +94,9 @@ public class RandomGiftGen {
 			plugin.getLogger().log(Level.INFO, "{0} has been selected for gift.", rPlayer);
 		}
 		
-		if (plugin.broadcastMessage == true) {	
-			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
+		if (plugin.enableBroadcastMessage == true) {	
+			plugin.getServer().broadcastMessage(plugin.broadcastTag + broadcastMessage;
+			// Player Variable needs to be added (player.getName())
 		}
 
 		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
