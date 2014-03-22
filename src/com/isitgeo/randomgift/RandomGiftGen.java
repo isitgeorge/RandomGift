@@ -95,11 +95,10 @@ public class RandomGiftGen {
 		}
 		
 		if (plugin.enableBroadcastMessage == true) {	
-			plugin.getServer().broadcastMessage(plugin.broadcastTag + broadcastMessage;
-			// Player Variable needs to be added (player.getName())
+			plugin.getServer().broadcastMessage(plugin.broadcastTag + plugin.broadcastMessage.replace("%p", rPlayer.getName()));
 		}
 
-		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your random gift!");
+		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your RandomGift!");
 		generateGift(rPlayer);
 	}
 
