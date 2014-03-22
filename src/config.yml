@@ -24,7 +24,8 @@ all-players: true
 cooldown-time: 5
 
 # Broadcasts a message to the entire server when a player receives a gift
-broadcast-message: true 
+enable-broadcast-message: true
+broadcast-message: "%p has been given a RandomGift" 
 
 # Checks for an update on startup and displays a message if there is a more recent version available
 version-check: true

@@ -23,12 +23,13 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public long cooldown;
 	public int cooldownTime;
 	public int minimumPlayers;
-	public boolean broadcastMessage;
+	public boolean enableBroadcastMessage;
 	public boolean allPlayers;
 	public boolean versionCheck;
 	public boolean collectStats;
 	public boolean debugMode;
 	public String[] itemList;
+	public String broadcastMessage; 
 	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
 	public String permError = ChatColor.DARK_RED + "You don't have permission to do that!";
 	public String commandError = ChatColor.DARK_RED + "No such command!";
@@ -88,7 +89,8 @@ public class RandomGift extends JavaPlugin implements Listener {
 		itemList = this.getConfig().getStringList("items").toArray(new String[0]);
 		cooldownTime = this.getConfig().getInt("cooldown-time") * 60 * 1000;
 		cooldown = 0;
-		broadcastMessage = this.getConfig().getBoolean("broadcast-message");
+		broadcastMessage = this.getConfig().getString("broadcast-message");
+		enableBroadcastMessage = this.getConfig().getBoolean("enable-broadcast-message");
 		allPlayers = this.getConfig().getBoolean("all-players");
 		minimumPlayers = this.getConfig().getInt("minimum-players");
 		versionCheck = this.getConfig().getBoolean("version-check");
