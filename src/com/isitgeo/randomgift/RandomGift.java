@@ -27,7 +27,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public boolean allPlayers;
 	public boolean versionCheck;
 	public boolean collectStats;
-	public boolean debugMode;
+	public boolean debug;
 	public String[] itemList;
 	public String broadcastMessage; 
 	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
@@ -48,7 +48,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		load();
 		updateCheck.check();
 		
-			if (this.debugMode == true){
+			if (this.debug){
 				getLogger().info("Debug mode enabled!");
 			}
 		
@@ -95,7 +95,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		minimumPlayers = this.getConfig().getInt("minimum-players");
 		versionCheck = this.getConfig().getBoolean("version-check");
 		collectStats = this.getConfig().getBoolean("collect-statistics");
-		debugMode = this.getConfig().getBoolean("debug-mode");
+		debug = this.getConfig().getBoolean("debug-mode");
 		rGG = new RandomGiftGen(this);
 		updateCheck = new UpdateCheck(this);
 		getLogger().info("Loaded configuration");
@@ -110,7 +110,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		player = event.getPlayer();
 		
-		if (this.debugMode == true){
+		if (this.debug){
 			getLogger().log(Level.INFO, "{0} has connected", player);
 		}
 

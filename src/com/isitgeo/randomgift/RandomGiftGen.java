@@ -19,7 +19,7 @@ public class RandomGiftGen {
 	public void check(Player player) throws IOException {
 
 		if (System.currentTimeMillis() - plugin.cooldown >= plugin.cooldownTime) {
-			if (plugin.debugMode == true){
+			if (plugin.debug){
 				plugin.getLogger().info("Cooldown time remaining: 0");
 			}
 			
@@ -27,17 +27,17 @@ public class RandomGiftGen {
 				getPlayers(player);
 				plugin.cooldown = System.currentTimeMillis();
 				
-				if (plugin.debugMode == true){
+				if (plugin.debug){
 					plugin.getLogger().log(Level.INFO, "Checking if {0} has randomgift.trigger: true", player.getName());
 				}
 			} else {
-				if (plugin.debugMode == true){
+				if (plugin.debug){
 					plugin.getLogger().log(Level.INFO, "Checking if {0} has randomgift.trigger: false", player.getName());
 				}
 			}
 
 		} else {
-			if (plugin.debugMode == true){
+			if (plugin.debug){
 				int difference = (int) (System.currentTimeMillis() - plugin.cooldown);
 				int val = plugin.cooldownTime - difference;
 
@@ -58,7 +58,7 @@ public class RandomGiftGen {
 		for (Player p : plugin.getServer().getOnlinePlayers()){
 			if (p.hasPermission("randomgift.receive")){
 				
-				if (plugin.debugMode == true){
+				if (plugin.debug){
 					plugin.getLogger().log(Level.INFO, "{0} has randomgift.receive, added to list.", p.getName());
 				}
 				
@@ -71,14 +71,14 @@ public class RandomGiftGen {
 		if (plugin.allPlayers == true){
 			if (pListTotal.length < plugin.minimumPlayers) {
 				
-				if (plugin.debugMode == true){
+				if (plugin.debug){
 					plugin.getLogger().info("Not enough players online.");
 				}
 				return;
 			}
 		} else {
 			if (pListArray.length < plugin.minimumPlayers){
-				if (plugin.debugMode == true){
+				if (plugin.debug){
 					plugin.getLogger().info("Not enough players online.");
 				}
 				return;
@@ -90,7 +90,7 @@ public class RandomGiftGen {
 
 		Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
 		
-		if (plugin.debugMode == true){
+		if (plugin.debug){
 			plugin.getLogger().log(Level.INFO, "{0} has been selected for gift.", rPlayer);
 		}
 		
