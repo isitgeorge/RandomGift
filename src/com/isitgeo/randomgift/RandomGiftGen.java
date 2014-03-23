@@ -95,7 +95,7 @@ public class RandomGiftGen {
 		}
 		
 		if (plugin.enableBroadcastMessage == true) {	
-			plugin.getServer().broadcastMessage(plugin.broadcastTag + broadcastMessage;
+			plugin.getServer().broadcastMessage(plugin.broadcastTag + plugin.broadcastMessage);
 			// Player Variable needs to be added (player.getName())
 		}
 
