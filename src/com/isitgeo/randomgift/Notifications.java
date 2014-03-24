@@ -22,4 +22,10 @@ public class Notifications {
 	public void consoleUpdateAvailable() {
 		plugin.getLogger().info("An update is available! Get it at http://dev.bukkit.org/bukkit-plugins/randomgift");
 	}
+	
+	public void outatedConfiguration(Player player) {		
+		if (plugin.latestConfig > plugin.configVersion) {
+			player.sendMessage(ChatColor.LIGHT_PURPLE + "You are running an out of date RandomGift configuration!\nPlease see http://bit.ly/RndmGiftOldCfg for more information.");
+		}
+	}
 }

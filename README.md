@@ -147,6 +147,11 @@ admin-notifications: true
 # This plugin also sends its current version number back to the developer for statistical purposes. 
 # This information is simply used for tracking current versions in use, and the data collected will only be seen by the developer(s).
 collect-statistics: true
+
+# Configuration version is used by RandomGift to determine if you're running an out of date config file
+# It is recommended you do not change this value unless you know what you're doing
+# See http://bit.ly/RndmGiftOldCfg for more information
+config-version: 1.0
 </pre>
 
 ***

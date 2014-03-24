@@ -27,6 +27,8 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public long cooldown;
 	public int cooldownTime;
 	public int minimumPlayers;
+	public int configVersion;
+	public int latestConfig;
 	
 	public boolean enableBroadcastMessage;
 	public boolean allPlayers;
@@ -47,8 +49,6 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public void onEnable() {
 
 		config = new File(getDataFolder(), "config.yml");
-	    this.getConfig().options().copyDefaults(true);
-	    this.saveConfig();
 		
 		if (!(config.exists())) {
 			getLogger().info("Configuration not found! Creating new...");
@@ -98,7 +98,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public void load() {
 		
 		cfg = this.getConfig();
-		
+		latestConfig = Integer.parseInt(("1.0").replaceAll("[^0-9]", ""));
 		itemList = cfg.getStringList("items").toArray(new String[0]);
 		cooldownTime = cfg.getInt("cooldown-time") * 60 * 1000;
 		cooldown = 0;
@@ -108,6 +108,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		minimumPlayers = cfg.getInt("minimum-players");
 		versionCheck = cfg.getBoolean("version-check");
 		collectStats = cfg.getBoolean("collect-statistics");
+		configVersion = Integer.parseInt(cfg.getString("config-version").replaceAll("[^0-9]", ""));
 		debug = cfg.getBoolean("debug-mode");
 		adminNotifications = cfg.getBoolean("admin-notifications");
 		
@@ -127,12 +128,6 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		player = event.getPlayer();
 		
-		if (adminNotifications) {
-			if (player.hasPermission("randomgift.admin")) {
-				notify.playerUpdateAvailable(player);
-			}
-		}
-		
 		if (this.debug){
 			getLogger().log(Level.INFO, "{0} has connected", player);
 		}
@@ -144,6 +139,13 @@ public class RandomGift extends JavaPlugin implements Listener {
 					giftGen.check(player);
 				} catch (IOException e) {
 					e.printStackTrace();
+				}
+				
+				if (adminNotifications) {
+					if (player.hasPermission("randomgift.admin")) {
+						notify.playerUpdateAvailable(player);
+						notify.outatedConfiguration(player);
+					}
 				}
 			}
 		}, 30L);
