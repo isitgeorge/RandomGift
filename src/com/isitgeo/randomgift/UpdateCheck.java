@@ -13,16 +13,18 @@ import org.json.simple.JSONValue;
 
 public class UpdateCheck {
 
+	private RandomGift plugin;
+	private Notifications notify;
+
+	public UpdateCheck(RandomGift plugin, Notifications notify) {
+		this.plugin = plugin;
+		this.notify = notify;
+	}
+	
 	URL updateCheck = null;
 	URLConnection connection = null;
 	BufferedReader reader = null;
 	String response = null;
-
-	private RandomGift plugin;
-
-	public UpdateCheck(RandomGift plugin) {
-		this.plugin = plugin;
-	}
 
 	void check() {
 
@@ -49,11 +51,11 @@ public class UpdateCheck {
 			String version = (String) latest.get("fileName");
 
 			int versionNum = Integer.parseInt(version.replaceAll("[^0-9]", ""));
-
 			int currentVersion = Integer.parseInt(plugin.getDescription().getVersion().replaceAll("[^0-9]", ""));
 
 			if (currentVersion < versionNum) {
-				plugin.getLogger().info("An update is available! Get it at http://dev.bukkit.org/bukkit-plugins/randomgift");
+				notify.consoleUpdateAvailable();
+				plugin.updateAvailable = true;
 			}
 		}
 	}

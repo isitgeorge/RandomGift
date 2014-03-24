@@ -8,6 +8,7 @@ import java.net.URLConnection;
 import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,20 +20,29 @@ public class RandomGift extends JavaPlugin implements Listener {
 	private File config;
 	private Player player;
 	private RandomGiftGen rGG;
+	private Notifications notify;
 	private UpdateCheck updateCheck;
+	private FileConfiguration cfg;
+	
 	public long cooldown;
 	public int cooldownTime;
 	public int minimumPlayers;
+	
 	public boolean enableBroadcastMessage;
 	public boolean allPlayers;
 	public boolean versionCheck;
 	public boolean collectStats;
 	public boolean debug;
+	public boolean updateAvailable = false;
+	public boolean adminNotifications;
+	
 	public String[] itemList;
 	public String broadcastMessage; 
 	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
 	public String permError = ChatColor.DARK_RED + "You don't have permission to do that!";
 	public String commandError = ChatColor.DARK_RED + "No such command!";
+	
+	
 	@Override
 	public void onEnable() {
 
@@ -86,18 +96,25 @@ public class RandomGift extends JavaPlugin implements Listener {
 	}
 
 	public void load() {
-		itemList = this.getConfig().getStringList("items").toArray(new String[0]);
-		cooldownTime = this.getConfig().getInt("cooldown-time") * 60 * 1000;
+		
+		cfg = this.getConfig();
+		
+		itemList = cfg.getStringList("items").toArray(new String[0]);
+		cooldownTime = cfg.getInt("cooldown-time") * 60 * 1000;
 		cooldown = 0;
-		enableBroadcastMessage = this.getConfig().getBoolean("enable-broadcast-message");
-		broadcastMessage = this.getConfig().getString("broadcast-message");
-		allPlayers = this.getConfig().getBoolean("all-players");
-		minimumPlayers = this.getConfig().getInt("minimum-players");
-		versionCheck = this.getConfig().getBoolean("version-check");
-		collectStats = this.getConfig().getBoolean("collect-statistics");
-		debug = this.getConfig().getBoolean("debug-mode");
+		enableBroadcastMessage = cfg.getBoolean("enable-broadcast-message");
+		broadcastMessage = cfg.getString("broadcast-message");
+		allPlayers = cfg.getBoolean("all-players");
+		minimumPlayers = cfg.getInt("minimum-players");
+		versionCheck = cfg.getBoolean("version-check");
+		collectStats = cfg.getBoolean("collect-statistics");
+		debug = cfg.getBoolean("debug-mode");
+		adminNotifications = cfg.getBoolean("admin-notifications");
+		
 		rGG = new RandomGiftGen(this);
-		updateCheck = new UpdateCheck(this);
+		notify = new Notifications(this);
+		updateCheck = new UpdateCheck(this, notify);
+		
 		getLogger().info("Loaded configuration");
 	}
 	
@@ -110,20 +127,25 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		player = event.getPlayer();
 		
+		if (adminNotifications) {
+			if (player.hasPermission("randomgift.admin")) {
+				notify.playerUpdateAvailable(player);
+			}
+		}
+		
 		if (this.debug){
 			getLogger().log(Level.INFO, "{0} has connected", player);
 		}
 
-		getServer().getScheduler().scheduleSyncDelayedTask(this,
-				new Runnable() {
-					@Override
-					public void run() {
-						try {
-							rGG.check(player);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-				}, 30L);
+		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+			@Override
+			public void run() {
+				try {
+					rGG.check(player);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}, 30L);
 	}
 }

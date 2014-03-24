@@ -13,7 +13,12 @@ permissions:
             randomgift.gift: true
             randomgift.receive: true
             randomgift.reload: true
+            randomgift.admin: true
 
+    randomgift.admin:
+        description: Allows admins to be notified of important alerts such as update notifications
+        default: op
+    
     randomgift.trigger:
         description: Allows you to trigger RandomGift on login
         default: op

@@ -51,7 +51,12 @@ required to use it and amount of time between each gift chance.
         <td><code>/randomgift reload</code></td>
         <td><code>randomgift.reload</code></td>
     </tr>
-<tr>
+    <tr>
+        <td>Notifications for Administrators</td>
+        <td>N/A</td>
+        <td><code>randomgift.admin</code></td>
+    </tr>
+	<tr>
         <td>Access to everything above</td>
         <td>N/A</td>
         <td><code>randomgift.*</code></td>
@@ -62,12 +67,18 @@ required to use it and amount of time between each gift chance.
 
 ###Suggested Permission Configuration
 
+-   **Administrators**
+ -   `randomgift.admin`
+ -   Everything below
+ 
 -   **Staff**
  -   `randomgift.trigger`
  -   `randomgift.cooldown`
  -   `randomgift.cooldown.reset`
  -   `randomgift.gift`
  -   `randomgift.reload`
+ -   Everything below
+ 
 -   **Players**
  -   `randomgift.trigger`
  -   `randomgift.recieve`
@@ -127,6 +138,9 @@ broadcast-message: '%p has been given a RandomGift'
 
 # Checks for an update on startup and displays a message if there is a more recent version available
 version-check: true
+
+# Displays important alerts to Administrators about RandomGift, such as update notifications
+admin-notifications: true
 
 # Statistic data
 # Plugin Metrics is used to collect anonymous statistic data about the plugins usage and sends it to http://mcstats.org/plugin/randomgift
