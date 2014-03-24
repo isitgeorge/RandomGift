@@ -105,6 +105,7 @@ required to use it and amount of time between each gift chance.
 The configuration file can be found inside /plugins/RandomGift once the server
 has been started with RandomGift installed.
 
+Out of date configurations do not update themselves, you are required to either manually update the config file yourself or generate a new one and copy your previous configuration.
 
 <pre>
 # RandomGift configuration

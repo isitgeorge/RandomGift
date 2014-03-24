@@ -57,6 +57,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		
 		load();
 		updateCheck.check();
+		notify.consoleOutdatedConfiguration();
 		
 			if (this.debug){
 				getLogger().info("Debug mode enabled!");
@@ -144,7 +145,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 				if (adminNotifications) {
 					if (player.hasPermission("randomgift.admin")) {
 						notify.playerUpdateAvailable(player);
-						notify.outatedConfiguration(player);
+						notify.playerOutatedConfiguration(player);
 					}
 				}
 			}
