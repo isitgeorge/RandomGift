@@ -8,11 +8,11 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class RandomGiftGen {
+public class GiftGenerator {
 
 	private RandomGift plugin;
 
-	public RandomGiftGen(RandomGift plugin) {
+	public GiftGenerator(RandomGift plugin) {
 		this.plugin = plugin;
 	}
 

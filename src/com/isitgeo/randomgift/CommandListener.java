@@ -6,12 +6,12 @@ import org.bukkit.command.CommandSender;
 
 public class CommandListener implements CommandExecutor {
 
-	private RandomGiftGen rGG;
 	private RandomGift plugin;
+	private GiftGenerator giftGen;
 
-	public CommandListener(RandomGift plugin, RandomGiftGen rGG) {
+	public CommandListener(RandomGift plugin, GiftGenerator giftGen) {
 		this.plugin = plugin;
-		this.rGG = rGG;
+		this.giftGen = giftGen;
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class CommandListener implements CommandExecutor {
 					if (sentby.hasPermission("randomgift.gift")) {
 						
 						if (plugin.getServer().getPlayer(args[1]) != null) {
-							rGG.getPlayers(plugin.getServer().getPlayer(args[1]));
+							giftGen.getPlayers(plugin.getServer().getPlayer(args[1]));
 							
 						} else {
 							sentby.sendMessage("Player not online!");

@@ -19,7 +19,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 
 	private File config;
 	private Player player;
-	private RandomGiftGen rGG;
+	private GiftGenerator giftGen;
 	private Notifications notify;
 	private UpdateCheck updateCheck;
 	private FileConfiguration cfg;
@@ -63,7 +63,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 			}
 		
 		getServer().getPluginManager().registerEvents(this, this);
-		getCommand("randomgift").setExecutor(new CommandListener(this, rGG));
+		getCommand("randomgift").setExecutor(new CommandListener(this, giftGen));
 		
 		if (collectStats == true) {
 			URL updateSend = null;
@@ -111,7 +111,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		debug = cfg.getBoolean("debug-mode");
 		adminNotifications = cfg.getBoolean("admin-notifications");
 		
-		rGG = new RandomGiftGen(this);
+		giftGen = new GiftGenerator(this);
 		notify = new Notifications(this);
 		updateCheck = new UpdateCheck(this, notify);
 		
@@ -141,7 +141,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 			@Override
 			public void run() {
 				try {
-					rGG.check(player);
+					giftGen.check(player);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
