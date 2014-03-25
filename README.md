@@ -15,63 +15,63 @@ RandomGift is fully customisable, including the gift pool, minimum players requi
 
 ###Default item pool
 
-<table style="width:100%;">
+<table style="width:100%">
     <tr>
         <td>&nbsp;</td>
-        <td>**Name**</td>
-        <td>**Quantity**</td>
-        <td>**ID**</td>
+        <td><b>Name</b></td>
+        <td><b>Quantity</b></td>
+        <td><b>ID</b></td>
     </tr>
     <tr>
-        <td>![Diamond](http://ci-cdn.isitgeo.com/randomgift/images/diamondgem_icon32.png)</td>
+        <td><img src="http://ci-cdn.isitgeo.com/randomgift/images/diamondgem_icon32.png"></td>
         <td>Diamond</td>
         <td>1</td>
         <td>264</td>
     </tr>
     <tr>
-        <td>![Iron Sword](http://ci-cdn.isitgeo.com/randomgift/images/ironsword_icon32.png)</td>
+        <td><img src="http://ci-cdn.isitgeo.com/randomgift/images/ironsword_icon32.png"></td>
         <td>Iron Sword</td>
         <td>1</td>
         <td>267</td>
     </tr>
     <tr>
-        <td>![Iron Shovel](http://ci-cdn.isitgeo.com/randomgift/images/ironshovel_icon32.png)</td>
+        <td><img src="http://ci-cdn.isitgeo.com/randomgift/images/ironshovel_icon32.png"></td>
         <td>Iron Shovel</td>
         <td>1</td>
         <td>256</td>
     </tr>
     <tr>
-        <td>![Iron Pickaxe](http://ci-cdn.isitgeo.com/randomgift/images/ironpickaxe_icon32.png)</td>
+        <td><img src="http://ci-cdn.isitgeo.com/randomgift/images/ironpickaxe_icon32.png"></td>
         <td>Iron Pickaxe</td>
         <td>1</td>
         <td>257</td>
     </tr>
     <tr>
-        <td>![Iron Axe](http://ci-cdn.isitgeo.com/randomgift/images/ironaxe_icon32.png)</td>
+        <td><img src="http://ci-cdn.isitgeo.com/randomgift/images/ironaxe_icon32.png"></td>
         <td>Iron Shovel</td>
         <td>1</td>
         <td>258</td>
     </tr>
     <tr>
-        <td>![Iron Helmet](http://ci-cdn.isitgeo.com/randomgift/images/ironhelmet_icon32.png)</td>
+        <td><img src="http://ci-cdn.isitgeo.com/randomgift/images/ironhelmet_icon32.png"></td>
         <td>Iron Helmet</td>
         <td>1</td>
         <td>306</td>
     </tr>
     <tr>
-        <td>![Iron Chestplate](http://ci-cdn.isitgeo.com/randomgift/images/ironchestplate_icon32.png)</td>
+        <td><img src="http://ci-cdn.isitgeo.com/randomgift/images/ironchestplate_icon32.png"></td>
         <td>Iron Chestplate</td>
         <td>1</td>
         <td>307</td>
     </tr>
     <tr>
-        <td>![Iron Leggings](http://ci-cdn.isitgeo.com/randomgift/images/ironleggings_icon32.png)</td>
+        <td><img src="http://ci-cdn.isitgeo.com/randomgift/images/ironleggings_icon32.png"></td>
         <td>Iron Leggings</td>
         <td>1</td>
         <td>308</td>
     </tr>
     <tr>
-        <td>![Iron Boots](http://ci-cdn.isitgeo.com/randomgift/images/ironboots_icon32.png)</td>
+        <td><img src="http://ci-cdn.isitgeo.com/randomgift/images/ironboots_icon32.png"></td>
         <td>Iron Boots</td>
         <td>1</td>
         <td>309</td>
@@ -109,8 +109,8 @@ RandomGift is fully customisable, including the gift pool, minimum players requi
         <td><code>randomgift.reset</code></td>
     </tr>
     <tr>
-        <td>Manually trigger RandomGift (&#60;player&#62 is trigger)</td>
-        <td><code>/randomgift gift &#60;player&#62</code></td>
+        <td>Manually trigger RandomGift</td>
+        <td><code>/randomgift gift &#60;trigger player&#62</code></td>
         <td><code>randomgift.gift</code></td>
     </tr>
     <tr>
@@ -132,11 +132,11 @@ RandomGift is fully customisable, including the gift pool, minimum players requi
 
 ***
 
-###Suggested Permission Configuration
+###Suggested Permission Setup
 
 -   **Administrators**
  -   `randomgift.admin`
- -   Everything below
+ -   Inherit below
  
 -   **Staff**
  -   `randomgift.trigger`
@@ -175,10 +175,13 @@ These builds have not been approved by the BukkitDev staff. Use them at your own
 [Last Successful Build](http://ci.isitgeo.com/browse/RG-RAN/latestSuccessful/artifact)
 
 Last build: ![Build Status](http://ci.isitgeo.com/plugins/servlet/buildStatusImage/RG-RAN)
+
 ***
 
 ###Contributers
 View the [contributers](https://github.com/isitgeorge/RandomGift/graphs/contributors) that help keep RandomGift awesome!
+
+***
 
 ###Notes
 **Update check**
