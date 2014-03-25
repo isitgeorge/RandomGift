@@ -19,13 +19,14 @@ public class CommandListener implements CommandExecutor {
 		if (command.getName().equalsIgnoreCase("randomgift")) {
 
 			if (args.length == 0) {
-				sentby.sendMessage("RandomGift " + this.plugin.getDescription().getVersion());
+				sentby.sendMessage("RandomGift "
+						+ this.plugin.getDescription().getVersion());
 				sentby.sendMessage("Usage: /randomgift <command>");
 				return true;
 			}
-			
-			if (args[0].equalsIgnoreCase("reload")){
-				if (sentby.hasPermission("randomgift.reload")){
+
+			if (args[0].equalsIgnoreCase("reload")) {
+				if (sentby.hasPermission("randomgift.reload")) {
 					plugin.reloadConfig();
 					plugin.load();
 					sentby.sendMessage("RandomGift configuration reloaded.");
@@ -46,35 +47,32 @@ public class CommandListener implements CommandExecutor {
 					} else if (val <= 0) {
 						sentby.sendMessage("Ready and waiting to be triggered!");
 					} else {
-						sentby.sendMessage(plugin.broadcastTag + val / 1000 + " seconds remaining.");
+						sentby.sendMessage(plugin.broadcastTag + val / 1000	+ " seconds remaining.");
 					}
 				} else {
 					sentby.sendMessage(plugin.permError);
 				}
-
-				if (args.length == 2) {
-					if (args[1].equalsIgnoreCase("reset")) {
-
-						if (sentby.hasPermission("randomgift.cooldown.reset")) {
-
-							plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
-							sentby.sendMessage("Cooldown timer has been reset!");
-						} else {
-							sentby.sendMessage(plugin.permError);
-						}
-					}
-				}
-
 				return true;
+				
+			} else if (args[0].equalsIgnoreCase("reset")) {
+
+				if (sentby.hasPermission("randomgift.cooldown.reset")) {
+					plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
+					sentby.sendMessage("Cooldown timer has been reset!");
+				} else {
+					sentby.sendMessage(plugin.permError);
+				}
+				return true;
+
 			} else if (args[0].equalsIgnoreCase("gift")) {
 
 				if (args.length == 2) {
-					
+
 					if (sentby.hasPermission("randomgift.gift")) {
-						
+
 						if (plugin.getServer().getPlayer(args[1]) != null) {
 							giftGen.getPlayers(plugin.getServer().getPlayer(args[1]));
-							
+
 						} else {
 							sentby.sendMessage("Player not online!");
 						}
@@ -87,7 +85,6 @@ public class CommandListener implements CommandExecutor {
 			} else {
 				sentby.sendMessage(plugin.commandError);
 			}
-
 			return true;
 		}
 

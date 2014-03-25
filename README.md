@@ -1,15 +1,82 @@
 RandomGift
 ==========
+####Reward your active players!
+
+***
 
 ###Description
 
-RandomGift randomly rewards a lucky online player with a gift when another
-player logs into the game. Using this plugin encourages people to play and spend
-time on the server regularly throughout the day as they are rewarded for doing
-so.
+RandomGift randomly rewards a lucky online player with a gift when a fellow player logs into the server. 
+RandomGift encourages players to be active and spend time playing on the server regularly throughout the day as they are rewarded.
 
-RandomGift is fully configurable, including the item pool, minimum players
-required to use it and amount of time between each gift chance.
+RandomGift is fully customisable, including the gift pool, minimum players required to activate RandomGift and amount of cooldown time between each gift reward.
+
+***
+
+###Default item pool
+
+<table style="width:100%;">
+    <tr>
+        <td>&nbsp;</td>
+        <td>**Name**</td>
+        <td>**Quantity**</td>
+        <td>**ID**</td>
+    </tr>
+    <tr>
+        <td>![Diamond](http://ci-cdn.isitgeo.com/randomgift/images/diamondgem_icon32.png)</td>
+        <td>Diamond</td>
+        <td>1</td>
+        <td>264</td>
+    </tr>
+    <tr>
+        <td>![Iron Sword](http://ci-cdn.isitgeo.com/randomgift/images/ironsword_icon32.png)</td>
+        <td>Iron Sword</td>
+        <td>1</td>
+        <td>267</td>
+    </tr>
+    <tr>
+        <td>![Iron Shovel](http://ci-cdn.isitgeo.com/randomgift/images/ironshovel_icon32.png)</td>
+        <td>Iron Shovel</td>
+        <td>1</td>
+        <td>256</td>
+    </tr>
+    <tr>
+        <td>![Iron Pickaxe](http://ci-cdn.isitgeo.com/randomgift/images/ironpickaxe_icon32.png)</td>
+        <td>Iron Pickaxe</td>
+        <td>1</td>
+        <td>257</td>
+    </tr>
+    <tr>
+        <td>![Iron Axe](http://ci-cdn.isitgeo.com/randomgift/images/ironaxe_icon32.png)</td>
+        <td>Iron Shovel</td>
+        <td>1</td>
+        <td>258</td>
+    </tr>
+    <tr>
+        <td>![Iron Helmet](http://ci-cdn.isitgeo.com/randomgift/images/ironhelmet_icon32.png)</td>
+        <td>Iron Helmet</td>
+        <td>1</td>
+        <td>306</td>
+    </tr>
+    <tr>
+        <td>![Iron Chestplate](http://ci-cdn.isitgeo.com/randomgift/images/ironchestplate_icon32.png)</td>
+        <td>Iron Chestplate</td>
+        <td>1</td>
+        <td>307</td>
+    </tr>
+    <tr>
+        <td>![Iron Leggings](http://ci-cdn.isitgeo.com/randomgift/images/ironleggings_icon32.png)</td>
+        <td>Iron Leggings</td>
+        <td>1</td>
+        <td>308</td>
+    </tr>
+    <tr>
+        <td>![Iron Boots](http://ci-cdn.isitgeo.com/randomgift/images/ironboots_icon32.png)</td>
+        <td>Iron Boots</td>
+        <td>1</td>
+        <td>309</td>
+    </tr>
+</table>
 
 ***
 
@@ -23,12 +90,12 @@ required to use it and amount of time between each gift chance.
     </tr>
     <tr>
         <td>Allows player to trigger the RandomGift </td>
-        <td>N/A</td>
+        <td><code>N/A</code></td>
         <td><code>randomgift.trigger</code></td>
     </tr>
     <tr>
         <td>Allows player to receive the RandomGift</td>
-        <td>N/A</td>
+        <td><code>N/A</code></td>
         <td><code>randomgift.receive</code></td>
     </tr>
     <tr>
@@ -38,8 +105,8 @@ required to use it and amount of time between each gift chance.
     </tr>
     <tr>
         <td>Reset the remaining cooldown time</td>
-        <td><code>/randomgift cooldown reset</code></td>
-        <td><code>randomgift.cooldown.reset</code></td>
+        <td><code>/randomgift reset</code></td>
+        <td><code>randomgift.reset</code></td>
     </tr>
     <tr>
         <td>Manually trigger RandomGift (&#60;player&#62 is trigger)</td>
@@ -53,12 +120,12 @@ required to use it and amount of time between each gift chance.
     </tr>
     <tr>
         <td>Notifications for Administrators</td>
-        <td>N/A</td>
+        <td><code>N/A</code></td>
         <td><code>randomgift.admin</code></td>
     </tr>
 	<tr>
         <td>Access to everything above</td>
-        <td>N/A</td>
+        <td><code>N/A</code></td>
         <td><code>randomgift.*</code></td>
     </tr>
 </table>
@@ -74,86 +141,25 @@ required to use it and amount of time between each gift chance.
 -   **Staff**
  -   `randomgift.trigger`
  -   `randomgift.cooldown`
- -   `randomgift.cooldown.reset`
+ -   `randomgift.reset`
  -   `randomgift.gift`
  -   `randomgift.reload`
- -   Everything below
  
 -   **Players**
  -   `randomgift.trigger`
  -   `randomgift.recieve`
 
-`randomgift.*` is also available to allow access to everything, recommended for Administrators.
-
-***
-
-###Default item pool
--   1x 267 (Iron Sword)
--   1x 256 (Iron Shovel)
--   1x 257 (Iron Pickaxe)
--   1x 258 (Iron Axe)
--   1x 306 (Iron Helmet)
--   1x 307 (Iron Chestplate)
--   1x 308 (Iron Leggings)
--   1x 309 (Iron Boots)
--   1x 264 (Diamond)
+`randomgift.*` is also available to allow access to everything, recommended for Owners/Administrators.
 
 ***
 
 ###Configuration
 
-The configuration file can be found inside /plugins/RandomGift once the server
-has been started with RandomGift installed.
+The configuration file can be found inside /plugins/RandomGift once the server has been started with RandomGift installed.
 
-Out of date configurations do not update themselves, you are required to either manually update the config file yourself or generate a new one and copy your previous configuration.
+Old configuration files do not update themselves, you are required to either manually update the config file yourself or generate a new one and copy your previous configuration ([more info](http://bit.ly/RndmGiftOldCfg)). 
 
-<pre>
-# RandomGift configuration
-# Detailed information at http://dev.bukkit.org/bukkit-plugins/randomgift/
-
-# Items that are chosen at random
-#  - 'ID[:data value] Quantity'
-items:
-  - '267 1'
-  - '256 1'
-  - '257 1'
-  - '258 1'
-  - '306 1'
-  - '307 1'
-  - '308 1'
-  - '309 1'
-  - '264 1'
-  
-# Minimum amount of players required to be online to trigger a gift
-minimum-players: 3
-
-# Include players without the 'receive' permission in the minimum player count
-all-players: true
-
-# Amount of minutes before RandomGift can be used again
-cooldown-time: 5
-
-# Broadcasts a message to the entire server when a player receives a gift
-enable-broadcast-message: true
-broadcast-message: '%p has been given a RandomGift' 
-
-# Checks for an update on startup and displays a message if there is a more recent version available
-version-check: true
-
-# Displays important alerts to Administrators about RandomGift, such as update notifications
-admin-notifications: true
-
-# Statistic data
-# Plugin Metrics is used to collect anonymous statistic data about the plugins usage and sends it to http://mcstats.org/plugin/randomgift
-# This plugin also sends its current version number back to the developer for statistical purposes. 
-# This information is simply used for tracking current versions in use, and the data collected will only be seen by the developer(s).
-collect-statistics: true
-
-# Configuration version is used by RandomGift to determine if you're running an out of date config file
-# It is recommended you do not change this value unless you know what you're doing
-# See http://bit.ly/RndmGiftOldCfg for more information
-config-version: 1.0
-</pre>
+You can view detailed configuration information [here](http://bit.ly/RndmGiftConfig).
 
 ***
 
@@ -163,7 +169,7 @@ If you have a suggestion for a future feature, drop it into the comments section
 ***
 
 ###Development Builds
-Development builds of this project can be acquired at the provided continuous integration server.
+Development builds of this project can be acquired at the provided continuous integration server. 
 These builds have not been approved by the BukkitDev staff. Use them at your own risk.
 
 [Last Successful Build](http://ci.isitgeo.com/browse/RG-RAN/latestSuccessful/artifact)
@@ -171,30 +177,24 @@ These builds have not been approved by the BukkitDev staff. Use them at your own
 Last build: ![Build Status](http://ci.isitgeo.com/plugins/servlet/buildStatusImage/RG-RAN)
 ***
 
-##Contributers
+###Contributers
 View the [contributers](https://github.com/isitgeorge/RandomGift/graphs/contributors) that help keep RandomGift awesome!
 
 ###Notes
 **Update check**
 
-The version of the plugin is automatically checked against the latest available
-when you start up the server to see if an update is available, this
-functionality can be disabled in the configuration file.
+RandomGift checks the version of itself against the latest available version on startup, this can be disabeld inside config.yml.
 
 **Data collection**
 
-RandomGift uses Plugin Metrics that collects anonymous statistic data about the
-plugins usage and sends it to [http://mcstats.org/plugin/randomgift](http://mcstats.org/plugin/randomgift)
+RandomGift uses Plugin Metrics to collect anonymous statistic data about RandomGifts usage and sends it to [http://mcstats.org/plugin/randomgift](http://mcstats.org/plugin/randomgift).
 
-RandomGift also sends its current version number back to its developer for
-statistical purposes. This information is simply used for tracking current
-versions in use, and the data collected will only be seen by the developer(s).
+RandomGift also sends its current version number back to its developer for statistical purposes. 
+This information is used for tracking current versions in use, and the data collected will only be seen by the developer(s).
 
 ![MCStats](http://api.mcstats.org/signature/RandomGift.png)
 
-*If you prefer, you can disable both the Plugin Metrics and sending of version
-data inside the configuration file as seen above. You can also disable Plugin
-Metrics globally inside its own configuration located at /plugins/Plugin
-Metrics/config.yml*
+*If you prefer, you can disable both the Plugin Metrics and sending of version data inside the configuration file as seen above. 
+You can also disable Plugin Metrics globally inside its own configuration located at /plugins/Plugin Metrics/config.yml*
 
-[Source is available on GitHub](http://github.com/isitgeorge/randomgift) Pull requests and suggestions are welcome!
+Help RandomGift conquer the world on [GitHub](http://github.com/isitgeorge/randomgift)?

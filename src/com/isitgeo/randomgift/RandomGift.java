@@ -21,7 +21,8 @@ public class RandomGift extends JavaPlugin implements Listener {
 	private Player player;
 	private GiftGenerator giftGen;
 	private Notifications notify;
-	private UpdateCheck updateCheck;
+	private Statistics stats;
+	private Updater updater;
 	private FileConfiguration cfg;
 	
 	public long cooldown;
@@ -50,48 +51,22 @@ public class RandomGift extends JavaPlugin implements Listener {
 
 		config = new File(getDataFolder(), "config.yml");
 		
-		if (!(config.exists())) {
-			getLogger().info("Configuration not found! Creating new...");
+		if (!config.exists()) {
+			getLogger().info("Creating new config...");
 			this.saveDefaultConfig();
 		}
 		
 		load();
-		updateCheck.check();
+		updater.checkForUpdate();
 		notify.consoleOutdatedConfiguration();
+		stats.sendStats();
 		
-			if (this.debug){
-				getLogger().info("Debug mode enabled!");
-			}
+		if (debug) {
+			getLogger().info("Debug mode enabled!");
+		}
 		
 		getServer().getPluginManager().registerEvents(this, this);
 		getCommand("randomgift").setExecutor(new CommandListener(this, giftGen));
-		
-		if (collectStats == true) {
-			URL updateSend = null;
-			try {
-				updateSend = new URL("http://plugin-stats.isitgeo.com");
-			} catch (MalformedURLException e) {
-				
-			}
-			
-			URLConnection updateSender = null;
-			try {
-				updateSender = updateSend.openConnection();
-				updateSender.setRequestProperty("plugin-name", "RandomGift");
-				updateSender.setRequestProperty("plugin-version", this.getDescription().getVersion().toString());
-				updateSender.setReadTimeout(5000);
-				updateSender.getInputStream();
-			}  catch (IOException e) {
-				// Failed to contact statistic server
-			}
-			
-			try {
-				MetricsLite metrics = new MetricsLite(this);
-				metrics.start();
-			} catch (IOException e) {
-				// Failed to submit the stats :-(
-			}
-		}
 		
 		getLogger().info("RandomGift enabled successfully!");
 	}
@@ -115,7 +90,8 @@ public class RandomGift extends JavaPlugin implements Listener {
 		
 		giftGen = new GiftGenerator(this);
 		notify = new Notifications(this);
-		updateCheck = new UpdateCheck(this, notify);
+		stats = new Statistics(this);
+		updater = new Updater(this, notify);
 		
 		getLogger().info("Loaded configuration");
 	}

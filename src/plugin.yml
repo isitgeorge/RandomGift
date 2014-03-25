@@ -1,7 +1,7 @@
 name: RandomGift
 main: com.isitgeo.randomgift.RandomGift
 version: 1.4
-authors: [isitgeorge, FearFree]
+author: [isitgeorge]
 
 permissions:
     randomgift.*:
@@ -9,7 +9,7 @@ permissions:
         children:
             randomgift.trigger: true
             randomgift.cooldown: true
-            randomgift.cooldown.reset: true
+            randomgift.reset: true
             randomgift.gift: true
             randomgift.receive: true
             randomgift.reload: true
@@ -27,7 +27,7 @@ permissions:
         description: Allows you to check the time left until RandomGift is allowed to trigger
         default: op
         
-    randomgift.cooldown.reset:
+    randomgift.reset:
         description: Allows you reset the cooldown time
         default: op
 
@@ -54,10 +54,10 @@ commands:
         permission: randomgift.cooldown
         permission-message: You don't have permission to use that!
         
-    randomgift cooldown reset:
+    randomgift reset:
         description: Reset cooldown time
-        usage: /randomgift cooldown reset
-        permission: randomgift.cooldown.reset
+        usage: /randomgift reset
+        permission: randomgift.reset
         permission-message: You don't have permission to use that!
 
     randomgift gift:

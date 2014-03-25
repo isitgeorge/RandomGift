@@ -11,12 +11,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-public class UpdateCheck {
+public class Updater {
 
 	private RandomGift plugin;
 	private Notifications notify;
 
-	public UpdateCheck(RandomGift plugin, Notifications notify) {
+	public Updater(RandomGift plugin, Notifications notify) {
 		this.plugin = plugin;
 		this.notify = notify;
 	}
@@ -26,7 +26,7 @@ public class UpdateCheck {
 	BufferedReader reader = null;
 	String response = null;
 
-	void check() {
+	void checkForUpdate() {
 
 		if (plugin.versionCheck == true) {
 
