@@ -2,10 +2,6 @@ package com.isitgeo.randomgift;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -23,6 +19,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	private Notifications notify;
 	private Statistics stats;
 	private Updater updater;
+	private Debugger debug;
 	private FileConfiguration cfg;
 	
 	public long cooldown;
@@ -35,7 +32,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public boolean allPlayers;
 	public boolean versionCheck;
 	public boolean collectStats;
-	public boolean debug;
+	public boolean enableDebug;
 	public boolean updateAvailable = false;
 	public boolean adminNotifications;
 	
@@ -60,10 +57,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		updater.checkForUpdate();
 		notify.consoleOutdatedConfiguration();
 		stats.sendStats();
-		
-		if (debug) {
-			getLogger().info("Debug mode enabled!");
-		}
+		debug.log("Debugger enabled! - It can be disabled inside config.yml");
 		
 		getServer().getPluginManager().registerEvents(this, this);
 		getCommand("randomgift").setExecutor(new CommandListener(this, giftGen));
@@ -83,7 +77,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		broadcastMessage = cfg.getString("broadcast-message");
 		versionCheck = cfg.getBoolean("version-check");
 		adminNotifications = cfg.getBoolean("admin-notifications");
-		debug = cfg.getBoolean("debug-mode");
+		enableDebug = cfg.getBoolean("debug-mode");
 		collectStats = cfg.getBoolean("collect-statistics");
 		
 		if (cfg.contains("config-version")) {
@@ -95,10 +89,11 @@ public class RandomGift extends JavaPlugin implements Listener {
 		latestConfig = Integer.parseInt(("1.0").replaceAll("[^0-9]", ""));
 		cooldown = 0;
 		
-		giftGen = new GiftGenerator(this);
+		giftGen = new GiftGenerator(this, debug);
 		notify = new Notifications(this);
 		stats = new Statistics(this);
 		updater = new Updater(this, notify);
+		debug = new Debugger(this);
 		
 		getLogger().info("Loaded configuration");
 	}
@@ -112,9 +107,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		player = event.getPlayer();
 		
-		if (this.debug){
-			getLogger().log(Level.INFO, player + " has connected");
-		}
+		debug.log(player + "has connected");
 
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 			@Override
