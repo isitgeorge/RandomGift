@@ -54,6 +54,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		}
 		
 		load();
+		updater.checkForUpdate();
 		stats.sendStats();
 		
 		getServer().getPluginManager().registerEvents(this, this);
@@ -94,8 +95,6 @@ public class RandomGift extends JavaPlugin implements Listener {
 		
 		getLogger().info("Loaded configuration");
 		debug.log("Debugger enabled! - It can be disabled inside config.yml");
-		
-		updater.checkForUpdate();
 		notify.consoleOutdatedConfiguration();
 	}
 	
