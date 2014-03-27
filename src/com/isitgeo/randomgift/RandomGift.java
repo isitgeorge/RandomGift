@@ -54,10 +54,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		}
 		
 		load();
-		updater.checkForUpdate();
-		notify.consoleOutdatedConfiguration();
 		stats.sendStats();
-		debug.log("Debugger enabled! - It can be disabled inside config.yml");
 		
 		getServer().getPluginManager().registerEvents(this, this);
 		getCommand("randomgift").setExecutor(new CommandListener(this, giftGen));
@@ -89,13 +86,17 @@ public class RandomGift extends JavaPlugin implements Listener {
 		latestConfig = Integer.parseInt(("1.0").replaceAll("[^0-9]", ""));
 		cooldown = 0;
 		
+		debug = new Debugger(this);
 		giftGen = new GiftGenerator(this, debug);
 		notify = new Notifications(this);
 		stats = new Statistics(this);
 		updater = new Updater(this, notify);
-		debug = new Debugger(this);
 		
 		getLogger().info("Loaded configuration");
+		debug.log("Debugger enabled! - It can be disabled inside config.yml");
+		
+		updater.checkForUpdate();
+		notify.consoleOutdatedConfiguration();
 	}
 	
 	@Override
@@ -107,7 +108,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		player = event.getPlayer();
 		
-		debug.log(player + "has connected");
+		debug.log(player.getName() + " has connected");
 
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 			@Override
