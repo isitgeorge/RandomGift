@@ -74,19 +74,26 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public void load() {
 		
 		cfg = this.getConfig();
-		latestConfig = Integer.parseInt(("1.0").replaceAll("[^0-9]", ""));
+		
 		itemList = cfg.getStringList("items").toArray(new String[0]);
+		minimumPlayers = cfg.getInt("minimum-players");
+		allPlayers = cfg.getBoolean("all-players");
 		cooldownTime = cfg.getInt("cooldown-time") * 60 * 1000;
-		cooldown = 0;
 		enableBroadcastMessage = cfg.getBoolean("enable-broadcast-message");
 		broadcastMessage = cfg.getString("broadcast-message");
-		allPlayers = cfg.getBoolean("all-players");
-		minimumPlayers = cfg.getInt("minimum-players");
 		versionCheck = cfg.getBoolean("version-check");
-		collectStats = cfg.getBoolean("collect-statistics");
-		configVersion = Integer.parseInt(cfg.getString("config-version").replaceAll("[^0-9]", ""));
-		debug = cfg.getBoolean("debug-mode");
 		adminNotifications = cfg.getBoolean("admin-notifications");
+		debug = cfg.getBoolean("debug-mode");
+		collectStats = cfg.getBoolean("collect-statistics");
+		
+		if (cfg.contains("config-version")) {
+			configVersion = Integer.parseInt(cfg.getString("config-version").replaceAll("[^0-9]", ""));
+		} else {
+			configVersion = 0;
+		}
+		
+		latestConfig = Integer.parseInt(("1.0").replaceAll("[^0-9]", ""));
+		cooldown = 0;
 		
 		giftGen = new GiftGenerator(this);
 		notify = new Notifications(this);
@@ -106,7 +113,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		player = event.getPlayer();
 		
 		if (this.debug){
-			getLogger().log(Level.INFO, "{0} has connected", player);
+			getLogger().log(Level.INFO, player + " has connected");
 		}
 
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {

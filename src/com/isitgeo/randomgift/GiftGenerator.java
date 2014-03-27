@@ -28,11 +28,11 @@ public class GiftGenerator {
 				plugin.cooldown = System.currentTimeMillis();
 				
 				if (plugin.debug){
-					plugin.getLogger().log(Level.INFO, "Checking if {0} has randomgift.trigger: true", player.getName());
+					plugin.getLogger().info("Checking if" + player.getName() + "has randomgift.trigger: true");
 				}
 			} else {
 				if (plugin.debug){
-					plugin.getLogger().log(Level.INFO, "Checking if {0} has randomgift.trigger: false", player.getName());
+					plugin.getLogger().info("Checking if " + player.getName() + " has randomgift.trigger: false");
 				}
 			}
 
@@ -42,9 +42,9 @@ public class GiftGenerator {
 				int val = plugin.cooldownTime - difference;
 
 				if (!(val <= 60000)) {
-					plugin.getLogger().log(Level.INFO, "Cooldown time remaining: {0} minutes", val / 60 / 1000);
+					plugin.getLogger().info("Cooldown time remaining: " + val / 60 / 1000 + " minutes");
 				} else {
-					plugin.getLogger().log(Level.INFO, "Cooldown time remaining: {0} seconds", val / 1000);
+					plugin.getLogger().info("Cooldown time remaining: " + val / 1000 + " seconds");
 				}
                                         
 			}
@@ -59,7 +59,7 @@ public class GiftGenerator {
 			if (p.hasPermission("randomgift.receive")){
 				
 				if (plugin.debug){
-					plugin.getLogger().log(Level.INFO, "{0} has randomgift.receive, added to list.", p.getName());
+					plugin.getLogger().info(p.getName() + " has randomgift.receive, added to list.");
 				}
 				
 				pList += p.getName() + " ";
@@ -91,7 +91,7 @@ public class GiftGenerator {
 		Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
 		
 		if (plugin.debug){
-			plugin.getLogger().log(Level.INFO, "{0} has been selected for gift.", rPlayer);
+			plugin.getLogger().info(rPlayer.getName() + " has been selected for gift.");
 		}
 		
 		if (plugin.enableBroadcastMessage == true) {	

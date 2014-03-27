@@ -15,7 +15,7 @@ RandomGift is fully customisable, including the gift pool, minimum players requi
 
 ###Default item pool
 
-<table style="width:100%">
+<table style="width:100%; display:table">
     <tr>
         <td>&nbsp;</td>
         <td><b>Name</b></td>
@@ -82,7 +82,7 @@ RandomGift is fully customisable, including the gift pool, minimum players requi
 
 ###Permissions and Commands
 
-<table style="width:100%">
+<table style="width:100%; display:table">
     <tr>
         <td><b>Description</b></td>
         <td><b>Command</b></td>
