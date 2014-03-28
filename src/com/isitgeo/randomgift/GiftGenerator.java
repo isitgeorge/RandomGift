@@ -75,8 +75,11 @@ public class GiftGenerator {
 		if (plugin.enableBroadcastMessage) {	
 			plugin.getServer().broadcastMessage(plugin.broadcastTag + plugin.broadcastMessage.replace("%p", rPlayer.getName()));
 		}
-
-		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your RandomGift!");
+		
+		if (player.getName() != rPlayer.getName()) {
+			rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your RandomGift!");
+		}
+		
 		generateGift(rPlayer);
 	}
 
