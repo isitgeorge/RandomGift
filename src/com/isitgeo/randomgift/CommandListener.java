@@ -94,7 +94,7 @@ public class CommandListener implements CommandExecutor {
 				if (sentby.hasPermission("randomgift.gift")) {
 					if (args.length == 2) {
 						if (plugin.getServer().getPlayer(args[1]) != null) {
-							giftGen.getPlayers(plugin.getServer().getPlayer(args[1]));
+							giftGen.getPlayers(plugin.getServer().getPlayer(args[1]), true);
 						} else {
 							sentby.sendMessage(plugin.playerBroadcastTag + "Player not online!");
 						}

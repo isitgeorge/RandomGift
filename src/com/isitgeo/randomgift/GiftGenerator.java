@@ -24,7 +24,7 @@ public class GiftGenerator {
 			
 			if (player.hasPermission("randomgift.trigger")) {
 				debug.log("Checking " + player.getName() + " has trigger permission");
-				getPlayers(player);
+				getPlayers(player, false);
 				plugin.cooldown = System.currentTimeMillis();
 			} else {
 				debug.log(player.getName() + " does not have trigger permission");
@@ -35,7 +35,7 @@ public class GiftGenerator {
 		}
 	}
 
-	public void getPlayers(Player player) {
+	public void getPlayers(Player player, Boolean ignoreMinPlayers) {
 		Player[] pListTotal = plugin.getServer().getOnlinePlayers();
 		String pList = "";
 		
@@ -48,15 +48,18 @@ public class GiftGenerator {
 		
 		String[] pListArray = pList.split("\\s+");
 		
-		if (plugin.allPlayers == true){
-			if (pListTotal.length < plugin.minimumPlayers) {
-				debug.log("Not enough players currently online");
-				return;
-			}
-		} else {
-			if (pListArray.length < plugin.minimumPlayers){
-				debug.log("Not enough players online");
-				return;
+		if (!ignoreMinPlayers) {
+
+			if (plugin.allPlayers == true) {
+				if (pListTotal.length < plugin.minimumPlayers) {
+					debug.log("Not enough players currently online");
+					return;
+				}
+			} else {
+				if (pListArray.length < plugin.minimumPlayers) {
+					debug.log("Not enough players currently online");
+					return;
+				}
 			}
 		}
 
