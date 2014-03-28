@@ -13,12 +13,13 @@ permissions:
             randomgift.gift: true
             randomgift.receive: true
             randomgift.reload: true
+            randomgift.history: true
             randomgift.admin: true
 
     randomgift.admin:
         description: Allows admins to be notified of important alerts such as update notifications
         default: op
-    
+
     randomgift.trigger:
         description: Allows you to trigger RandomGift on login
         default: op
@@ -26,7 +27,7 @@ permissions:
     randomgift.cooldown:
         description: Allows you to check the time left until RandomGift is allowed to trigger
         default: op
-        
+
     randomgift.reset:
         description: Allows you reset the cooldown time
         default: op
@@ -34,13 +35,17 @@ permissions:
     randomgift.gift:
         description: Allows you to manually trigger RandomGift
         default: op
- 
+
     randomgift.receive:
         description: Allows player to receive gift when triggered
         default: op
-        
+
     randomgift.reload:
         description: Allows you to reload the config.yml
+        default: op
+
+    randomgift.history:
+        description: Allows you to view RandomGift history
         default: op
 
 commands:
@@ -50,10 +55,10 @@ commands:
 
     randomgift cooldown:
         description: Remaining cooldown time
-        usage: /randomgift cooldown [command]
+        usage: /randomgift cooldown
         permission: randomgift.cooldown
         permission-message: You don't have permission to use that!
-        
+
     randomgift reset:
         description: Reset cooldown time
         usage: /randomgift reset
@@ -62,10 +67,16 @@ commands:
 
     randomgift gift:
         description: RandomGift a player
-        usage: /randomgift gift <player>
+        usage: /randomgift gift <trigger player>
         permission: randomgift.gift
         permission-message: You don't have permission to use that!
-        
+
+    randomgift.history:
+        description: RandomGift history
+        usage: /randomgift history
+        permission: randomgift.history
+        permission-message: You don't have permission to use that!
+
     randomgift reload:
         description:  Reload configuration
         usage: /randomgift reload

@@ -39,8 +39,11 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public String[] itemList;
 	public String broadcastMessage; 
 	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
-	public String permError = ChatColor.DARK_RED + "You don't have permission to do that!";
-	public String commandError = ChatColor.DARK_RED + "No such command!";
+	public String playerBroadcastTag = ChatColor.GRAY + "[RandomGift] " + ChatColor.RESET + ChatColor.ITALIC;
+	public String permissionError = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "You don't have permission to do that!";
+	public String commandError = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "No such command!";
+	public String invalidCommand = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "Invalid command!";
+	public String historicPlayer = "";
 	
 	
 	@Override

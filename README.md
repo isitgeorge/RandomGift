@@ -119,6 +119,11 @@ RandomGift is fully customisable, including the gift pool, minimum players requi
         <td><code>randomgift.reload</code></td>
     </tr>
     <tr>
+        <td>View last player that received a gift</td>
+        <td><code>/randomgift history</code></td>
+        <td><code>randomgift.history</code></td>
+    </tr>
+    <tr>
         <td>Notifications for Administrators</td>
         <td><code>N/A</code></td>
         <td><code>randomgift.admin</code></td>
@@ -136,7 +141,7 @@ RandomGift is fully customisable, including the gift pool, minimum players requi
 
 -   **Administrators**
  -   `randomgift.admin`
- -   Inherit below
+ -   Inherit Staff
  
 -   **Staff**
  -   `randomgift.trigger`
@@ -144,6 +149,7 @@ RandomGift is fully customisable, including the gift pool, minimum players requi
  -   `randomgift.reset`
  -   `randomgift.gift`
  -   `randomgift.reload`
+ -   `randomgift.history`
  
 -   **Players**
  -   `randomgift.trigger`

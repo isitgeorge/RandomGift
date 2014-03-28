@@ -105,5 +105,7 @@ public class GiftGenerator {
 					new ItemStack(Material.getMaterial(itemNumber),
 							itemQuantity, (short) itemDataV));
 		}
+		
+		plugin.historicPlayer = rPlayer.getName();
 	}
 }
