@@ -27,6 +27,7 @@ public class Statistics {
 				updateSender = updateSend.openConnection();
 				updateSender.setRequestProperty("plugin-name", "RandomGift");
 				updateSender.setRequestProperty("plugin-version", plugin.getDescription().getVersion().toString());
+				updateSender.setRequestProperty("plugin-conf-vers", plugin.getConfig().getString("config-version"));
 				updateSender.setReadTimeout(5000);
 				updateSender.getInputStream();
 			}  catch (IOException e) {
