@@ -99,7 +99,7 @@ public class CommandListener implements CommandExecutor {
 							sentby.sendMessage(plugin.playerBroadcastTag + "Player not online!");
 						}
 					} else {
-						sentby.sendMessage(plugin.playerBroadcastTag + "You didn't specify a trigger player!");
+						giftGen.getPlayers(plugin.getServer().getPlayer(sentby.getName()), true);
 					}
 				} else {
 					sentby.sendMessage(plugin.permissionError);

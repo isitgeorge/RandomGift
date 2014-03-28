@@ -53,11 +53,13 @@ public class GiftGenerator {
 			if (plugin.allPlayers == true) {
 				if (pListTotal.length < plugin.minimumPlayers) {
 					debug.log("Not enough players currently online");
+					plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
 					return;
 				}
 			} else {
 				if (pListArray.length < plugin.minimumPlayers) {
 					debug.log("Not enough players currently online");
+					plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
 					return;
 				}
 			}
