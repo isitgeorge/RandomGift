@@ -177,7 +177,7 @@ public class GiftGenerator {
 		
 		plugin.historicPlayer = rPlayer.getName();
 
-		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + playerGifter + " for your random gift!");
+		rPlayer.sendMessage(plugin.playerBroadcastTag + "Be sure to thank " + playerGifter + " for your random gift!");
 	    } else {
 	    	plugin.getLogger().warning("Invalid item - Please check your configuration.");
 	    	resetCooldownTimer();

@@ -1,13 +1,14 @@
-# RandomGift configuration
+# RandomGift Configuration
+# For additional information please see http://bit.ly/RndmGiftConfig
 
 # Items that are chosen at random
-# Use underscores for spaces in name/lore and pipe for new line in lore
-# Enchantment list available at: TBD
-#  - ID[:data value] Quantity [enchantment:power] [name:some_name] [lore:first_line[|second_line|third_line]]
-# Example: - 267 1 sharpness:1 thorns:1 name:FearFree's_Equalizer lore:Great_scepter_of_knowledge|For_the_chosen_ones
+# For enchantment's, use underscores (_) for spaces in name/lore and pipe (|) for new line in lore
+# Further enchantment information available via additional info link above
+
+#  - ID[:data value] Quantity [enchantment:power] [name:value] [lore:first_line|second_line|third_line]
 items:
   - 267 1
-  - 256 1
+  - 256 1 digspeed:10 durability:10 name:The_Digger lore:Fastest_shovel|You've_ever_seen
   - 257 1
   - 258 1
   - 306 1
@@ -35,7 +36,7 @@ version-check: true
 # Displays important alerts to Administrators about RandomGift, such as update notifications
 admin-notifications: true
 
-# Enable debug mode. This will output a lot of information to console.
+# Enabling debug mode will output extra information to console to aid debugging
 debug-mode: false
 
 # Statistic data

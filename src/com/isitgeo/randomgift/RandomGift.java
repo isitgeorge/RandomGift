@@ -88,7 +88,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		}
 		
 		latestConfig = Integer.parseInt(("1.0").replaceAll("[^0-9]", ""));
-		cooldown = 0;
+		cooldown = System.currentTimeMillis() - cooldownTime;;
 		
 		debug = new Debugger(this);
 		giftGen = new GiftGenerator(this, debug);
@@ -97,7 +97,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		updater = new Updater(this, notify);
 		
 		getLogger().info("Loaded configuration");
-		debug.log("Debugger enabled! - It can be disabled inside config.yml");
+		debug.log("Debugger enabled! - Disable inside config.yml");
 		notify.consoleOutdatedConfiguration();
 	}
 	

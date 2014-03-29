@@ -19,7 +19,7 @@ public class CommandListener implements CommandExecutor {
 		if (command.getName().equalsIgnoreCase("randomgift")) {
 
 			if (args.length == 0) {
-				sentby.sendMessage(plugin.broadcastTag + "Running v" + plugin.getDescription().getVersion() + " with configuration v" + plugin.getConfig().getString("config-version") + ".");
+				sentby.sendMessage(plugin.broadcastTag + "Running RandomGift v" + plugin.getDescription().getVersion() + " with configuration v" + plugin.getConfig().getString("config-version") + ".");
 				return true;
 			}
 			
@@ -117,7 +117,7 @@ public class CommandListener implements CommandExecutor {
 				
 				if (sentby.hasPermission("randomgift.history")) {
 					if (plugin.historicPlayer != "") {
-						sentby.sendMessage(plugin.playerBroadcastTag + "Last player was " + plugin.historicPlayer);
+						sentby.sendMessage(plugin.playerBroadcastTag + "Last player to receive a gift was " + plugin.historicPlayer);
 					} else {
 						sentby.sendMessage(plugin.playerBroadcastTag + "No gifts have been received since last server reload/restart.");
 					}
