@@ -18,7 +18,7 @@ public class GiftGenerator {
 	private RandomGift plugin;
 	private Debugger debug;
 
-	private ItemStack items;
+	private ItemStack giftItem;
 	private String playerGifter;
 
 
@@ -63,13 +63,13 @@ public class GiftGenerator {
 			if (plugin.allPlayers == true) {
 				if (pListTotal.length < plugin.minimumPlayers) {
 					debug.log("Not enough players currently online");
-					plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
+					resetCooldownTimer();
 					return;
 				}
 			} else {
 				if (pListArray.length < plugin.minimumPlayers) {
 					debug.log("Not enough players currently online");
-					plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
+					resetCooldownTimer();
 					return;
 				}
 			}
@@ -96,83 +96,81 @@ public class GiftGenerator {
 	@SuppressWarnings("deprecation")
 	public void generateGift(Player rPlayer) {
 
-		Random gSelect = new Random();
-		int gRand = gSelect.nextInt(plugin.itemList.length);
+		Random giftSelection = new Random();
+		int randomSelection = giftSelection.nextInt(plugin.itemList.length);
 
-		String[] itemQuant = plugin.itemList[gRand].split(" ");
+		String[] giftArguments = plugin.itemList[randomSelection].split(" ");
 
-		int itemQuantity = Integer.parseInt(itemQuant[1]);
+		int giftQuantity = Integer.parseInt(giftArguments[1]);
 
-		String[] itemDV;
+		String[] giftDataValue;
 		
-		if (itemQuant.length > 2){
-		    int args = itemQuant.length;
-		    
-		    for (int i=0; args>i; i++){
-			int itemNumber;
+		if (giftArguments.length > 2){
 			
-			if (i == 0){
-			    	if (!(itemQuant[0].contains(":"))) {
-				    itemNumber = Integer.parseInt(itemQuant[0]);
-				    items = new ItemStack(Material.getMaterial(itemNumber),itemQuantity);
-
-				} else {
-				    itemDV = itemQuant[0].split(":");
-				    itemNumber = Integer.parseInt(itemDV[0]);
-				    int itemDataV = Integer.parseInt(itemDV[1]);
-				    items = new ItemStack(Material.getMaterial(itemNumber),itemQuantity, (short) itemDataV);
-				    
-				}
-			}
-			if (i > 1){
-			    String[] enchant = itemQuant[i].split(":");
-
-			    if (enchant.length < 2){
-				plugin.getLogger().log(Level.WARNING, "Item - {0} improperly defined, no gift given.", plugin.itemList[gRand]);
-				return;
-			    }
-
-			    String enchantName = enchant[0];
-			    enchantName = enchantName.toUpperCase();
-
-			    switch (enchantName) {
-			    	case "NAME":
-				    {
-					String name = enchant[1].replace("_", " ");
-					ItemMeta itemMeta = items.getItemMeta();
-					itemMeta.setDisplayName(name);
-					items.setItemMeta(itemMeta);
-					break;
-				    }
-			    	case "LORE":
-				    {
-					String loreRaw = enchant[1].replace("_", " ");
-					String[] lore = loreRaw.split("\\|");
-					ItemMeta itemMeta = items.getItemMeta();
-					itemMeta.setLore(Arrays.asList(lore));
-					items.setItemMeta(itemMeta);
-					break;
-				    }
-			    	default:
-				    {
-					int enchantPower = Integer.parseInt(enchant[1]);
-
-					Enchantment enchantment = getEnchantment(enchantName);
-					if (enchantment == null){
-					    plugin.getLogger().log(Level.WARNING, "Enchantment {0} not valid, no gift given.", enchantName);
-					    return;
+			for (int i = 0; giftArguments.length > i; i++) {
+			int giftItemID;
+			
+				if (i == 0){
+					if (!(giftArguments[0].contains(":"))) {
+						giftItemID = Integer.parseInt(giftArguments[0]);
+						giftItem = new ItemStack(Material.getMaterial(giftItemID), giftQuantity);
+					} else {
+						giftDataValue = giftArguments[0].split(":");
+						giftItemID = Integer.parseInt(giftDataValue[0]);
+						giftItem = new ItemStack(Material.getMaterial(giftItemID), giftQuantity, (short) Integer.parseInt(giftDataValue[1])); 
 					}
+				}
+			
+			
+				if (i > 1) {
+					String[] enchantmentArgs = giftArguments[i].split(":");
 
-					ItemMeta itemMeta = items.getItemMeta();
-					itemMeta.addEnchant(enchantment, enchantPower, true);
-					items.setItemMeta(itemMeta);
-					break;
-				    }
-			    }
-			}
+					if (enchantmentArgs.length < 2) {
+						plugin.getLogger().warning("Item \"" + plugin.itemList[randomSelection] + "\" is improperly defined, no gift given.");
+						return;
+					}
+			    
+					String enchantmentName = enchantmentArgs[0];
+					enchantmentName = enchantmentName.toUpperCase();
+			    
+					switch (enchantmentName) {
+						case "NAME": {
+							String enchantmentNameName = enchantmentArgs[1].replace("_", " ");
+							ItemMeta itemMeta = giftItem.getItemMeta();
+							itemMeta.setDisplayName(enchantmentNameName);
+							giftItem.setItemMeta(itemMeta);
+							break;
+						}
+			    	
+						case "LORE": {
+							String[] enchantmentLoreName = enchantmentArgs[1].replace("_", " ").split("\\|");
+							ItemMeta itemMeta = giftItem.getItemMeta();
+							itemMeta.setLore(Arrays.asList(enchantmentLoreName));
+							giftItem.setItemMeta(itemMeta);
+							break;
+						}
+			    	
+						default: {
+							int enchantPower = Integer.parseInt(enchantmentArgs[1]);
+							Enchantment enchantment = getEnchantment(enchantmentName);
+							
+							if (enchantment == null){
+								plugin.getLogger().warning("Enchantment \"" + enchantmentName + "\" is not valid, no gift given.");
+								resetCooldownTimer();
+								return;
+							}
 
+							ItemMeta itemMeta = giftItem.getItemMeta();
+							itemMeta.addEnchant(enchantment, enchantPower, true);
+							giftItem.setItemMeta(itemMeta);
+							break;
+						}
+					}
+				}
 	        }
-		rPlayer.getInventory().addItem(items);
+			
+		rPlayer.getInventory().addItem(giftItem);
+		
 		if (plugin.enableBroadcastMessage) {	
 			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
 		}
@@ -180,6 +178,17 @@ public class GiftGenerator {
 		plugin.historicPlayer = rPlayer.getName();
 
 		rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + playerGifter + " for your random gift!");
+	    } else {
+	    	plugin.getLogger().warning("Invalid item - Please check your configuration.");
+	    	resetCooldownTimer();
+	    	return;
 	    }
 	}
+	
+	private void resetCooldownTimer() {
+		// If gift fails to be delivered, this method is called
+		plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
+	}
 }
+
+
