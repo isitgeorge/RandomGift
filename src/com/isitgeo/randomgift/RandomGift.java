@@ -26,6 +26,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public int minimumPlayers;
 	public int configVersion;
 	public int latestConfig;
+	public int deathModeChance;
 	
 	public boolean enableBroadcastMessage;
 	public boolean allPlayers;
@@ -34,6 +35,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public boolean enableDebug;
 	public boolean updateAvailable = false;
 	public boolean adminNotifications;
+	public boolean deathMode;
 	
 	public String[] itemList;
 	public String broadcastMessage; 
@@ -73,6 +75,8 @@ public class RandomGift extends JavaPlugin implements Listener {
 		minimumPlayers = cfg.getInt("minimum-players");
 		allPlayers = cfg.getBoolean("all-players");
 		cooldownTime = cfg.getInt("cooldown-time") * 60 * 1000;
+		deathMode = cfg.getBoolean("death-mode");
+		deathModeChance = Integer.parseInt(cfg.getString("death-mode-chance").replaceAll("[^0-9]", ""));
 		enableBroadcastMessage = cfg.getBoolean("enable-broadcast-message");
 		broadcastMessage = cfg.getString("broadcast-message");
 		versionCheck = cfg.getBoolean("version-check");
