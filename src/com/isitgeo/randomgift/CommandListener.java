@@ -3,15 +3,18 @@ package com.isitgeo.randomgift;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 
 public class CommandListener implements CommandExecutor {
 	
 	private RandomGift plugin;
 	private GiftGenerator giftGen;
+	private Debugger debug;
 
-	public CommandListener(RandomGift plugin, GiftGenerator giftGen) {
+	public CommandListener(RandomGift plugin, GiftGenerator giftGen, Debugger debug) {
 		this.plugin = plugin;
 		this.giftGen = giftGen;
+		this.debug = debug;
 	}
 
 	@Override
@@ -50,15 +53,14 @@ public class CommandListener implements CommandExecutor {
 				}
 
 				if (sentby.hasPermission("randomgift.cooldown")) {
-					int difference = (int) (System.currentTimeMillis() - plugin.cooldown);
-					int val = plugin.cooldownTime - difference;
+					long cooldownDifference = plugin.cooldownTime - (System.currentTimeMillis() - plugin.cooldown);
 
-					if (!(val <= 60000)) {
-						sentby.sendMessage(plugin.playerBroadcastTag + " About " + val / 60 / 1000 + " minutes remaining.");
-					} else if (val <= 0) {
+					if (!(cooldownDifference <= 60000)) {
+						sentby.sendMessage(plugin.playerBroadcastTag + " About " + cooldownDifference / 60 / 1000 + " minutes remaining.");
+					} else if (cooldownDifference <= 0) {
 						sentby.sendMessage(plugin.playerBroadcastTag + "Ready and waiting!");
 					} else {
-						sentby.sendMessage(plugin.playerBroadcastTag + val / 1000	+ " seconds remaining.");
+						sentby.sendMessage(plugin.playerBroadcastTag + cooldownDifference / 1000	+ " seconds remaining.");
 					}
 				} else {
 					sentby.sendMessage(plugin.permissionError);
@@ -93,13 +95,19 @@ public class CommandListener implements CommandExecutor {
 				
 				if (sentby.hasPermission("randomgift.gift")) {
 					if (args.length == 2) {
+						
 						if (plugin.getServer().getPlayer(args[1]) != null) {
-							giftGen.getPlayers(plugin.getServer().getPlayer(args[1]), true);
+							giftGen.getPlayers(plugin.getServer().getPlayer(args[1]).getName(), true, true);
 						} else {
 							sentby.sendMessage(plugin.playerBroadcastTag + "Player not online!");
 						}
 					} else {
-						giftGen.getPlayers(plugin.getServer().getPlayer(sentby.getName()), true);
+						
+						if (sentby instanceof ConsoleCommandSender) {
+							giftGen.getPlayers("Console", true, true);
+						} else {
+							giftGen.getPlayers(plugin.getServer().getPlayer(sentby.getName()).getName(), true, true);
+						}
 					}
 				} else {
 					sentby.sendMessage(plugin.permissionError);

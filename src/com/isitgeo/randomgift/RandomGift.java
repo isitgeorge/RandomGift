@@ -60,7 +60,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		stats.sendStats();
 		
 		getServer().getPluginManager().registerEvents(this, this);
-		getCommand("randomgift").setExecutor(new CommandListener(this, giftGen));
+		getCommand("randomgift").setExecutor(new CommandListener(this, giftGen, debug));
 		
 		getLogger().info("RandomGift enabled successfully!");
 	}

@@ -1,6 +1,6 @@
 name: RandomGift
 main: com.isitgeo.randomgift.RandomGift
-version: 1.5
+version: 1.4
 description: Reward your active players with RandomGift
 author: isitgeorge
 
@@ -72,7 +72,7 @@ commands:
         permission: randomgift.gift
         permission-message: You don't have permission to use that!
 
-    randomgift.history:
+    randomgift history:
         description: RandomGift history
         usage: /randomgift history
         permission: randomgift.history

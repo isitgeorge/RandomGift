@@ -34,7 +34,7 @@ public class GiftGenerator {
 			
 			if (player.hasPermission("randomgift.trigger")) {
 				debug.log("Checking " + player.getName() + " has trigger permission");
-				getPlayers(player, false);
+				getPlayers(player.getName(), false, true);
 				plugin.cooldown = System.currentTimeMillis();
 			} else {
 				debug.log(player.getName() + " does not have trigger permission");
@@ -45,7 +45,7 @@ public class GiftGenerator {
 		}
 	}
 
-	public void getPlayers(Player player, Boolean ignoreMinPlayers) {
+	public void getPlayers(String triggerPlayer, Boolean ignoreMinPlayers, Boolean displayFrom) {
 		playerList.clear();
 		Player[] allPlayersList = plugin.getServer().getOnlinePlayers();
 		
@@ -60,12 +60,10 @@ public class GiftGenerator {
 		
 		if (!ignoreMinPlayers) {
 
-			if (plugin.allPlayers == true) {
-				if (allPlayersList.length < plugin.minimumPlayers) {
+			if (plugin.allPlayers && allPlayersList.length < plugin.minimumPlayers) {
 					debug.log("Not enough players currently online");
 					resetCooldownTimer();
 					return;
-				}
 			} else {
 				if (playerList.size() < plugin.minimumPlayers) {
 					debug.log("Not enough players currently online");
@@ -73,6 +71,17 @@ public class GiftGenerator {
 					return;
 				}
 			}
+		} 
+		
+		if (allPlayersList.length < 1 || playerList.size() < 1) {
+			if (triggerPlayer != "Console") {
+				plugin.getServer().getPlayer(triggerPlayer).sendMessage(plugin.playerBroadcastTag + "No eligible online players!");
+			} else {
+				plugin.getLogger().info("No eligible online players!");
+			}
+			
+			resetCooldownTimer();
+			return;
 		}
 
 		Random playerSelector = new Random();
@@ -82,11 +91,11 @@ public class GiftGenerator {
 		
 		debug.log(randomPlayer.getName() + " has been selected for a gift");
 		
-		generateGift(randomPlayer, player);
+		generateGift(randomPlayer, triggerPlayer, displayFrom);
 	}
 
 	@SuppressWarnings("deprecation")
-	public void generateGift(Player randomPlayer, Player triggerPlayer) {
+	public void generateGift(Player randomPlayer, String triggerPlayer, Boolean displayFrom) {
 
 		Random giftSelection = new Random();
 		int randomSelection = giftSelection.nextInt(plugin.itemList.length);
@@ -164,9 +173,9 @@ public class GiftGenerator {
 			if (plugin.enableBroadcastMessage) {	
 				plugin.getServer().broadcastMessage(plugin.broadcastTag + plugin.broadcastMessage.replace("%p", randomPlayer.getName()));
 			}
-		
-			if (triggerPlayer.getName() != randomPlayer.getName()) {
-				randomPlayer.sendMessage(plugin.playerBroadcastTag + "Be sure to thank " + triggerPlayer.getName() + " for your RandomGift!");
+			
+			if (triggerPlayer != randomPlayer.getName() && displayFrom) {
+				randomPlayer.sendMessage(plugin.playerBroadcastTag + "Be sure to thank " + triggerPlayer + " for your RandomGift!");
 			}
 			
 			if (randomPlayer.getInventory().firstEmpty() == -1) {
