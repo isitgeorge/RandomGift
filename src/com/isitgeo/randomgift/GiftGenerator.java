@@ -1,12 +1,13 @@
 package com.isitgeo.randomgift;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
-import java.util.logging.Level;
 import static com.isitgeo.randomgift.Enchantments.getEnchantment;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -19,15 +20,14 @@ public class GiftGenerator {
 	private Debugger debug;
 
 	private ItemStack giftItem;
-	private String playerGifter;
-
+	private List<String> playerList = new ArrayList<String>();
 
 	public GiftGenerator(RandomGift plugin, Debugger debug) {
 		this.plugin = plugin;
 		this.debug = debug;
 	}
 
-	public void check(Player player) throws IOException {
+	public void check(Player player) {
 
 		if (System.currentTimeMillis() - plugin.cooldown >= plugin.cooldownTime) {
 			debug.log("Cooldown timer ready");
@@ -46,28 +46,28 @@ public class GiftGenerator {
 	}
 
 	public void getPlayers(Player player, Boolean ignoreMinPlayers) {
-		Player[] pListTotal = plugin.getServer().getOnlinePlayers();
-		String pList = "";
+		playerList.clear();
+		Player[] allPlayersList = plugin.getServer().getOnlinePlayers();
 		
-		for (Player p : plugin.getServer().getOnlinePlayers()){
-			if (p.hasPermission("randomgift.receive")){
-				debug.log(p.getName() + " has randomgift.receive, added to list");
-				pList += p.getName() + " ";
+		for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()){
+			
+			if (onlinePlayer.hasPermission("randomgift.receive")){
+				debug.log(onlinePlayer.getName() + " has randomgift.receive, added to list");
+				playerList.add(onlinePlayer.getName());
+				
 			}
 		}
-		
-		String[] pListArray = pList.split("\\s+");
 		
 		if (!ignoreMinPlayers) {
 
 			if (plugin.allPlayers == true) {
-				if (pListTotal.length < plugin.minimumPlayers) {
+				if (allPlayersList.length < plugin.minimumPlayers) {
 					debug.log("Not enough players currently online");
 					resetCooldownTimer();
 					return;
 				}
 			} else {
-				if (pListArray.length < plugin.minimumPlayers) {
+				if (playerList.size() < plugin.minimumPlayers) {
 					debug.log("Not enough players currently online");
 					resetCooldownTimer();
 					return;
@@ -75,26 +75,18 @@ public class GiftGenerator {
 			}
 		}
 
-		Random pSelect = new Random();
-		int pRand = pSelect.nextInt(pListArray.length);
+		Random playerSelector = new Random();
+		int playerRandom = playerSelector.nextInt(playerList.size());
 
-		Player rPlayer = plugin.getServer().getPlayer(pListArray[pRand]);
+		Player randomPlayer = plugin.getServer().getPlayer(playerList.get(playerRandom));
 		
-		debug.log(rPlayer.getName() + " has been selected for a gift");
+		debug.log(randomPlayer.getName() + " has been selected for a gift");
 		
-		if (plugin.enableBroadcastMessage) {	
-			plugin.getServer().broadcastMessage(plugin.broadcastTag + plugin.broadcastMessage.replace("%p", rPlayer.getName()));
-		}
-		
-		if (player.getName() != rPlayer.getName()) {
-			rPlayer.sendMessage(plugin.broadcastTag + "Be sure to thank " + player.getName() + " for your RandomGift!");
-		}
-		
-		generateGift(rPlayer);
+		generateGift(randomPlayer, player);
 	}
 
 	@SuppressWarnings("deprecation")
-	public void generateGift(Player rPlayer) {
+	public void generateGift(Player randomPlayer, Player triggerPlayer) {
 
 		Random giftSelection = new Random();
 		int randomSelection = giftSelection.nextInt(plugin.itemList.length);
@@ -105,7 +97,7 @@ public class GiftGenerator {
 
 		String[] giftDataValue;
 		
-		if (giftArguments.length > 2){
+		if (giftArguments.length > 1){
 			
 			for (int i = 0; giftArguments.length > i; i++) {
 			int giftItemID;
@@ -169,15 +161,22 @@ public class GiftGenerator {
 				}
 	        }
 			
-		rPlayer.getInventory().addItem(giftItem);
+			if (plugin.enableBroadcastMessage) {	
+				plugin.getServer().broadcastMessage(plugin.broadcastTag + plugin.broadcastMessage.replace("%p", randomPlayer.getName()));
+			}
 		
-		if (plugin.enableBroadcastMessage) {	
-			plugin.getServer().broadcastMessage(plugin.broadcastTag + rPlayer.getName() + " has been given a random gift!");
-		}
-		
-		plugin.historicPlayer = rPlayer.getName();
-
-		rPlayer.sendMessage(plugin.playerBroadcastTag + "Be sure to thank " + playerGifter + " for your random gift!");
+			if (triggerPlayer.getName() != randomPlayer.getName()) {
+				randomPlayer.sendMessage(plugin.playerBroadcastTag + "Be sure to thank " + triggerPlayer.getName() + " for your RandomGift!");
+			}
+			
+			if (randomPlayer.getInventory().firstEmpty() == -1) {
+				Location playerLocation = randomPlayer.getLocation();
+				playerLocation.getWorld().dropItem(playerLocation, giftItem);
+				randomPlayer.sendMessage(plugin.playerBroadcastTag + "Your RandomGift has been dropped near you because your inventory is full.");				
+			} else {
+				randomPlayer.getInventory().addItem(giftItem);
+			}
+			
 	    } else {
 	    	plugin.getLogger().warning("Invalid item - Please check your configuration.");
 	    	resetCooldownTimer();
@@ -190,5 +189,3 @@ public class GiftGenerator {
 		plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
 	}
 }
-
-

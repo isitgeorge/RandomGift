@@ -1,7 +1,6 @@
 package com.isitgeo.randomgift;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -97,8 +96,10 @@ public class RandomGift extends JavaPlugin implements Listener {
 		updater = new Updater(this, notify);
 		
 		getLogger().info("Loaded configuration");
-		debug.log("Debugger enabled! - Disable inside config.yml");
+		
+		
 		notify.consoleOutdatedConfiguration();
+		notify.consoleDebugEnabled();
 	}
 	
 	@Override
@@ -115,16 +116,13 @@ public class RandomGift extends JavaPlugin implements Listener {
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 			@Override
 			public void run() {
-				try {
-					giftGen.check(player);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				giftGen.check(player);
 				
 				if (adminNotifications) {
 					if (player.hasPermission("randomgift.admin")) {
 						notify.playerUpdateAvailable(player);
 						notify.playerOutatedConfiguration(player);
+						notify.playerDebugEnabled(player);
 					}
 				}
 			}
