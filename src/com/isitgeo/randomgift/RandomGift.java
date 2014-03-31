@@ -85,6 +85,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		cooldownTime = cfg.getInt("cooldown-time") * 60 * 1000;
 		deathMode = cfg.getBoolean("death-mode");
 		deathModeChance = util.getInt(cfg.getString("death-mode-chance"));
+		deathModeCountdown = cfg.getInt("death-mode-countdown");
 		enableBroadcastMessage = cfg.getBoolean("enable-broadcast-message");
 		broadcastMessage = cfg.getString("broadcast-message");
 		versionCheck = cfg.getBoolean("version-check");
@@ -101,9 +102,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		latestConfig = util.getInt("1.0");
 		cooldown = System.currentTimeMillis() - cooldownTime;;
 		
-		
 		getLogger().info("Loaded configuration");
-		
 		
 		notify.consoleOutdatedConfiguration();
 		notify.consoleDebugEnabled();

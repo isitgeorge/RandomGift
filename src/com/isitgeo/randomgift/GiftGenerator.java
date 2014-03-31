@@ -97,7 +97,7 @@ public class GiftGenerator {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void generateGift(Player randomPlayer, String triggerPlayer, Boolean displayFrom) {
+	public void generateGift(final Player randomPlayer, String triggerPlayer, Boolean displayFrom) {
 
 		Random giftSelection = new Random();
 		int randomSelection = giftSelection.nextInt(plugin.itemList.length);
@@ -186,6 +186,28 @@ public class GiftGenerator {
 				randomPlayer.sendMessage(plugin.playerBroadcastTag + "Your RandomGift has been dropped near you because your inventory is full.");				
 			} else {
 				randomPlayer.getInventory().addItem(giftItem);
+			}
+			
+			if (plugin.deathMode == true) {
+				Random deathSelect = new Random();
+				if ((deathSelect.nextInt((100 - 1) + 1) + 1) > (100 - plugin.deathModeChance)) {
+					randomPlayer.sendMessage(plugin.playerBroadcastTag + "Unfortunately as part of your gift, you will explode in " + plugin.deathModeCountdown + " seconds...");
+
+					plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+						public void run() {
+							// Check player still exists
+							
+							if (randomPlayer.isOnline()) {
+								Location loc = randomPlayer.getLocation();
+								randomPlayer.getWorld().createExplosion(loc.getX(), loc.getY(), loc.getZ(), 20, false, false);
+								randomPlayer.setHealth(0);
+							} else {
+								// Player quit
+							}
+						}
+					}, (plugin.deathModeCountdown * 20L));
+					return;
+				}
 			}
 			
 	    } else {
