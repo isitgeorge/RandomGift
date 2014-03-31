@@ -19,6 +19,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	private Statistics stats;
 	private Updater updater;
 	private Debugger debug;
+	private Utilities util;
 	private FileConfiguration cfg;
 	
 	public long cooldown;
@@ -26,6 +27,8 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public int minimumPlayers;
 	public int configVersion;
 	public int latestConfig;
+	public int deathModeChance;
+	public int deathModeCountdown;
 	
 	public boolean enableBroadcastMessage;
 	public boolean allPlayers;
@@ -34,6 +37,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public boolean enableDebug;
 	public boolean updateAvailable = false;
 	public boolean adminNotifications;
+	public boolean deathMode;
 	
 	public String[] itemList;
 	public String broadcastMessage; 
@@ -60,19 +64,27 @@ public class RandomGift extends JavaPlugin implements Listener {
 		stats.sendStats();
 		
 		getServer().getPluginManager().registerEvents(this, this);
-		getCommand("randomgift").setExecutor(new CommandListener(this, giftGen, debug));
+		getCommand("randomgift").setExecutor(new CommandListener(this, giftGen, debug, util));
 		
 		getLogger().info("Enabled successfully!");
 	}
 
 	public void load() {
-
+		
+		util = new Utilities(this);
+		debug = new Debugger(this);
+		giftGen = new GiftGenerator(this, debug, util);
+		notify = new Notifications(this);
+		stats = new Statistics(this);
+		updater = new Updater(this, notify);
 		cfg = this.getConfig();
 		
 		itemList = cfg.getStringList("items").toArray(new String[0]);
 		minimumPlayers = cfg.getInt("minimum-players");
 		allPlayers = cfg.getBoolean("all-players");
 		cooldownTime = cfg.getInt("cooldown-time") * 60 * 1000;
+		deathMode = cfg.getBoolean("death-mode");
+		deathModeChance = util.getInt(cfg.getString("death-mode-chance"));
 		enableBroadcastMessage = cfg.getBoolean("enable-broadcast-message");
 		broadcastMessage = cfg.getString("broadcast-message");
 		versionCheck = cfg.getBoolean("version-check");
@@ -81,19 +93,14 @@ public class RandomGift extends JavaPlugin implements Listener {
 		collectStats = cfg.getBoolean("collect-statistics");
 		
 		if (cfg.contains("config-version")) {
-			configVersion = Integer.parseInt(cfg.getString("config-version").replaceAll("[^0-9]", ""));
+			configVersion = util.getInt(cfg.getString("config-version"));
 		} else {
 			configVersion = 0;
 		}
 		
-		latestConfig = Integer.parseInt(("1.0").replaceAll("[^0-9]", ""));
+		latestConfig = util.getInt("1.0");
 		cooldown = System.currentTimeMillis() - cooldownTime;;
 		
-		debug = new Debugger(this);
-		giftGen = new GiftGenerator(this, debug);
-		notify = new Notifications(this);
-		stats = new Statistics(this);
-		updater = new Updater(this, notify);
 		
 		getLogger().info("Loaded configuration");
 		

@@ -21,10 +21,12 @@ public class GiftGenerator {
 
 	private ItemStack giftItem;
 	private List<String> playerList = new ArrayList<String>();
+	private Utilities util;
 
-	public GiftGenerator(RandomGift plugin, Debugger debug) {
+	public GiftGenerator(RandomGift plugin, Debugger debug, Utilities util) {
 		this.plugin = plugin;
 		this.debug = debug;
+		this.util = util;
 	}
 
 	public void check(Player player) {
@@ -62,12 +64,12 @@ public class GiftGenerator {
 
 			if (plugin.allPlayers && allPlayersList.length < plugin.minimumPlayers) {
 					debug.log("Not enough players currently online");
-					resetCooldownTimer();
+					util.resetCooldown();
 					return;
 			} else {
 				if (playerList.size() < plugin.minimumPlayers) {
 					debug.log("Not enough players currently online");
-					resetCooldownTimer();
+					util.resetCooldown();
 					return;
 				}
 			}
@@ -80,7 +82,7 @@ public class GiftGenerator {
 				plugin.getLogger().info("No eligible online players!");
 			}
 			
-			resetCooldownTimer();
+			util.resetCooldown();
 			return;
 		}
 
@@ -157,7 +159,7 @@ public class GiftGenerator {
 							
 							if (enchantment == null){
 								plugin.getLogger().warning("Enchantment \"" + enchantmentName + "\" is not valid, no gift given.");
-								resetCooldownTimer();
+								util.resetCooldown();
 								return;
 							}
 
@@ -188,13 +190,8 @@ public class GiftGenerator {
 			
 	    } else {
 	    	plugin.getLogger().warning("Invalid item - Please check your configuration.");
-	    	resetCooldownTimer();
+	    	util.resetCooldown();	    	
 	    	return;
 	    }
-	}
-	
-	private void resetCooldownTimer() {
-		// If gift fails to be delivered, this method is called
-		plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
 	}
 }
