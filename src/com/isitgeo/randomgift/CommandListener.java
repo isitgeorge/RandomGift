@@ -56,7 +56,7 @@ public class CommandListener implements CommandExecutor {
 
 				if (sentby.hasPermission("randomgift.cooldown")) {
 					long cooldownDifference = plugin.cooldownTime - (System.currentTimeMillis() - plugin.cooldown);
-
+					
 					if (!(cooldownDifference <= 60000)) {
 						sentby.sendMessage(plugin.playerBroadcastTag + " About " + cooldownDifference / 60 / 1000 + " minutes remaining.");
 					} else if (cooldownDifference <= 0) {
