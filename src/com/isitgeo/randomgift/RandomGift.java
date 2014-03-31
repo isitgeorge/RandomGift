@@ -62,7 +62,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(this, this);
 		getCommand("randomgift").setExecutor(new CommandListener(this, giftGen, debug));
 		
-		getLogger().info("RandomGift enabled successfully!");
+		getLogger().info("Enabled successfully!");
 	}
 
 	public void load() {
@@ -104,7 +104,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	
 	@Override
 	public void onDisable() {
-		getLogger().info("RandomGift disabled successfully!");
+		getLogger().info("Disabled successfully!");
 	}
 
 	@EventHandler
