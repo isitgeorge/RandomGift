@@ -8,10 +8,12 @@ public class CommandListener implements CommandExecutor {
 	
 	private RandomGift plugin;
 	private GiftGenerator giftGen;
+	private Utilities util;
 
-	public CommandListener(RandomGift plugin, GiftGenerator giftGen) {
+	public CommandListener(RandomGift plugin, GiftGenerator giftGen, Utilities util) {
 		this.plugin = plugin;
 		this.giftGen = giftGen;
+		this.util = util;
 	}
 
 	@Override
@@ -54,7 +56,7 @@ public class CommandListener implements CommandExecutor {
 					int val = plugin.cooldownTime - difference;
 
 					if (!(val <= 60000)) {
-						sentby.sendMessage(plugin.playerBroadcastTag + " About " + val / 60 / 1000 + " minutes remaining.");
+						sentby.sendMessage(plugin.playerBroadcastTag + "About " + val / 60 / 1000 + " minutes remaining.");
 					} else if (val <= 0) {
 						sentby.sendMessage(plugin.playerBroadcastTag + "Ready and waiting!");
 					} else {
@@ -75,7 +77,7 @@ public class CommandListener implements CommandExecutor {
 				}
 
 				if (sentby.hasPermission("randomgift.cooldown.reset")) {
-					plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
+					util.resetCooldown();
 					sentby.sendMessage(plugin.playerBroadcastTag + "Cooldown timer has been reset!");
 				} else {
 					sentby.sendMessage(plugin.permissionError);
