@@ -13,6 +13,14 @@ public class Utilities {
 	}
 	
 	void resetCooldown() {
-		plugin.cooldown = System.currentTimeMillis() - plugin.cooldownTime;
+		plugin.cooldown = (System.currentTimeMillis() - plugin.cooldownTime);
+	}
+	
+	Long minsToTicks(Integer mins) {
+		return (mins * 60 * 20L);
+	}
+	
+	Long secsToTicks(Integer secs) {
+		return (secs * 20L);
 	}
 }

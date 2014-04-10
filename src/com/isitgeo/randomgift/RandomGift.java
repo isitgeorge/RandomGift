@@ -1,6 +1,8 @@
 package com.isitgeo.randomgift;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -23,30 +25,23 @@ public class RandomGift extends JavaPlugin implements Listener {
 	private FileConfiguration cfg;
 	
 	public long cooldown;
-	public int cooldownTime;
-	public int minimumPlayers;
-	public int configVersion;
-	public int latestConfig;
-	public int deathModeChance;
-	public int deathModeCountdown;
 	
-	public boolean enableBroadcastMessage;
-	public boolean allPlayers;
-	public boolean versionCheck;
-	public boolean collectStats;
-	public boolean enableDebug;
-	public boolean updateAvailable = false;
-	public boolean adminNotifications;
-	public boolean deathMode;
+	public int cooldownTime, minimumPlayers, configVersion, latestConfig, deathModeChance, deathModeCountdown;
+	
+	public boolean enableBroadcastMessage, allPlayers, versionCheck, collectStats, enableDebug, adminNotifications, deathMode,
+	updateAvailable = false;
 	
 	public String[] itemList;
-	public String broadcastMessage; 
-	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
-	public String playerBroadcastTag = ChatColor.GRAY + "[RandomGift] " + ChatColor.RESET + ChatColor.ITALIC;
-	public String permissionError = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "You don't have permission to do that!";
-	public String commandError = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "No such command!";
-	public String invalidCommand = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "Invalid command!";
-	public String historicPlayer = "";
+	
+	public String broadcastMessage,
+	broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE,
+	playerBroadcastTag = ChatColor.GRAY + "[RandomGift] " + ChatColor.RESET + ChatColor.ITALIC,
+	permissionError = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "You don't have permission to do that!",
+	commandError = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "That command does not exist!",
+	invalidCommand = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "That command is invalid!",
+	historicPlayer = "";
+	
+	Map<String, String> playerHitList = new HashMap<String, String>();
 	
 	
 	@Override
@@ -122,15 +117,24 @@ public class RandomGift extends JavaPlugin implements Listener {
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 			@Override
 			public void run() {
-				giftGen.check(player);
 				
 				if (adminNotifications) {
 					if (player.hasPermission("randomgift.admin")) {
+						debug.log(player.getName() + " is an admin");
 						notify.playerUpdateAvailable(player);
 						notify.playerOutatedConfiguration(player);
 						notify.playerDebugEnabled(player);
 					}
 				}
+				
+				if (deathMode && playerHitList.containsKey(player.getName())) {
+					debug.log(player.getName() + " is on player kill list");
+					giftGen.killPlayer(player);
+					playerHitList.remove(player);
+					return; // Do not generate a new gift
+				}
+				
+				giftGen.check(player);
 			}
 		}, 30L);
 	}
