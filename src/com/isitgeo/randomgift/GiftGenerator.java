@@ -1,13 +1,11 @@
 package com.isitgeo.randomgift;
 
+import static com.isitgeo.randomgift.Enchantments.getEnchantment;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-
-import static com.isitgeo.randomgift.Enchantments.getEnchantment;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,20 +13,19 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scheduler.BukkitTask;
 
 public class GiftGenerator {
 
 	private RandomGift plugin;
 	private Debugger debug;
-
-	private ItemStack giftItem;
-	private List<String> playerList = new ArrayList<String>();
+	private KillGenerator killGen;
 	private Utilities util;
-	private Map<String, Integer> playerHitPending = new HashMap<String, Integer>();
 	
-	public GiftGenerator(RandomGift plugin, Debugger debug, Utilities util) {
+	private List<String> playerList = new ArrayList<String>();
+	
+	public GiftGenerator(RandomGift plugin, KillGenerator killGen, Debugger debug, Utilities util) {
 		this.plugin = plugin;
+		this.killGen = killGen;
 		this.debug = debug;
 		this.util = util;
 	}
@@ -104,8 +101,9 @@ public class GiftGenerator {
 	public void generateGift(final Player randomPlayer, final String triggerPlayer, Boolean displayFrom) {
 		
 		final String randomPlayerName = randomPlayer.getName();
-
+		ItemStack giftItem = null;
 		Random giftSelection = new Random();
+		
 		int randomSelection = giftSelection.nextInt(plugin.itemList.length);
 
 		String[] giftArguments = plugin.itemList[randomSelection].split(" ");
@@ -178,63 +176,14 @@ public class GiftGenerator {
 				}
 	        }
 			
-			if (plugin.enableBroadcastMessage) {	
-				plugin.getServer().broadcastMessage(plugin.broadcastTag + plugin.broadcastMessage.replace("%p", randomPlayerName));
-			}
 			
-			if (triggerPlayer != randomPlayerName && displayFrom) {
-				randomPlayer.sendMessage(plugin.playerBroadcastTag + "Be sure to thank " + triggerPlayer + " for your RandomGift!");
-			}
-			
-			if (randomPlayer.getInventory().firstEmpty() == -1) {
-				Location playerLocation = randomPlayer.getLocation();
-				playerLocation.getWorld().dropItem(playerLocation, giftItem);
-				randomPlayer.sendMessage(plugin.playerBroadcastTag + "Your RandomGift has been dropped near you because your inventory is full.");				
+			if (plugin.killMode == true) {
+				Random deathSelect = new Random();
+				if ((deathSelect.nextInt((100 - 1) + 1) + 1) > (100 - plugin.killModeChance)) {
+					killGen.killPlayer(randomPlayer, randomPlayerName, triggerPlayer, giftItem);
+				}
 			} else {
-				randomPlayer.getInventory().addItem(giftItem);
-			}
-			
-			if (plugin.deathMode == true) {
-				/*
-				 * 
-				 * WIP code - Do not use in production!
-				 * 
-				 * Random deathSelect = new Random();
-				if ((deathSelect.nextInt((100 - 1) + 1) + 1) > (100 - plugin.deathModeChance)) {
-					randomPlayer.sendMessage(plugin.playerBroadcastTag + "Unfortunately as part of your gift, you will explode in " + plugin.deathModeCountdown + " seconds...");
-
-					// Check player doesn't already have a pending kill (if they quit and then received another kill gift)
-					// If cooldown = 0
-					if (playerHitPending.containsKey(randomPlayerName) && playerHitPending.get(randomPlayerName) != -1) {
-						plugin.getServer().getScheduler().cancelTask(playerHitPending.get(randomPlayerName));
-						playerHitPending.remove(randomPlayerName);
-					}
-					
-					BukkitTask deathCountdown = plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
-						@Override
-						public void run() {
-							if (randomPlayer.isOnline()) {
-								debug.log("Killed " + randomPlayerName);
-								killPlayer(randomPlayer);
-							} else {
-								debug.log(randomPlayerName + " quit before being killed, adding to hitlist");
-								plugin.playerHitList.put(randomPlayerName, triggerPlayer);
-								Random rand = new Random();
-								
-								// Task to remove the player if they do not log back in within 5-15 minutes
-								plugin.getServer().getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
-									@Override
-									public void run() {
-										plugin.playerHitList.remove(randomPlayerName);
-										debug.log(randomPlayerName + " expired from hitlist");
-									}
-								}, util.minsToTicks(rand.nextInt((15 - 5) + 1) + 5)); // Between 15 and 5 minutes								
-							}
-						}
-					}, util.secsToTicks(plugin.deathModeCountdown));
-					debug.log("Added " + randomPlayerName + " to pending hitlist");
-					playerHitPending.put(randomPlayerName, deathCountdown.getTaskId());
-				}*/
+				giveGift(randomPlayer, triggerPlayer, displayFrom, giftItem);
 			}
 			
 	    } else {
@@ -244,9 +193,21 @@ public class GiftGenerator {
 	    }
 	}
 	
-	public void killPlayer(Player player) {
-		Location loc = player.getLocation();
-		player.getWorld().createExplosion(loc.getX(), loc.getY(), loc.getZ(), 20, false, false);
-		player.setHealth(0);
+	public void giveGift(Player randomPlayer, String triggerPlayer, Boolean displayFrom, ItemStack giftItem) {
+		if (randomPlayer.getInventory().firstEmpty() == -1) {
+			Location playerLocation = randomPlayer.getLocation();
+			playerLocation.getWorld().dropItem(playerLocation, giftItem);
+			randomPlayer.sendMessage(plugin.playerBroadcastTag + "Your RandomGift has been dropped near you because your inventory is full.");				
+		} else {
+			randomPlayer.getInventory().addItem(giftItem);
+		}
+		
+		if (plugin.enableBroadcastMessage) {	
+			plugin.getServer().broadcastMessage(plugin.broadcastTag + plugin.broadcastMessage.replace("%p", randomPlayer.getName()));
+		}
+		
+		if (triggerPlayer != randomPlayer.getName() && displayFrom) {
+			randomPlayer.sendMessage(plugin.playerBroadcastTag + "Be sure to thank " + triggerPlayer + " for your RandomGift!");
+		}
 	}
 }

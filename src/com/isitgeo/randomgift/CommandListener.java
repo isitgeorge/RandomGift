@@ -9,13 +9,13 @@ public class CommandListener implements CommandExecutor {
 	
 	private RandomGift plugin;
 	private GiftGenerator giftGen;
-	private Debugger debug;
+	//private Debugger debug;
 	private Utilities util;
 
 	public CommandListener(RandomGift plugin, GiftGenerator giftGen,  Debugger debug, Utilities util) {
 		this.plugin = plugin;
 		this.giftGen = giftGen;
-		this.debug = debug;
+		//this.debug = debug;
 		this.util = util;
 	}
 

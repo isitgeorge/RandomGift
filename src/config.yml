@@ -26,12 +26,12 @@ all-players: true
 # Amount of minutes before RandomGift can be used again
 cooldown-time: 5
 
-# Surprise a player with the gift of death (but they still receive a nice gift too)
-# Not recommended if players are unable to return to their previous locations
-death-mode: true
-death-mode-chance: 100%
-death-mode-countdown: 5
-# (seconds)
+# Surprise a player with the gift of a kill (also receive a nice gift too)
+# Not recommended if players are unable to return to their previous locations to retrieve items
+kill-mode: true
+kill-mode-chance: 100%
+kill-mode-countdown: 5
+# (countdown in seconds)
 
 # Broadcasts a message to the entire server when a player receives a gift
 enable-broadcast-message: true
