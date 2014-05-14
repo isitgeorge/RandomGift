@@ -186,6 +186,8 @@ public class GiftGenerator {
 				randomPlayer.getInventory().addItem(giftItem);
 			}
 			
+			plugin.historicPlayer = randomPlayer.getName();
+			
 	    } else {
 	    	plugin.getLogger().warning("Invalid item - Please check your configuration.");
 	    	resetCooldownTimer();
