@@ -16,7 +16,7 @@ items:
   - 308 1
   - 309 1
   - 264 1
-  
+
 # Minimum amount of players required to be online to trigger a gift
 minimum-players: 3
 
@@ -28,6 +28,8 @@ cooldown-time: 5
 
 # Broadcasts a message to the entire server when a player receives a gift
 enable-broadcast-message: true
+# Supported color codes: &1 - &9, &a - &f
+# Supported formatting codes: &k, &l, &m, &n, &o, &r - See official wiki for more info 
 broadcast-message: '%p has been given a RandomGift!'
 
 # Checks for an update on startup and displays a message if there is a more recent version available

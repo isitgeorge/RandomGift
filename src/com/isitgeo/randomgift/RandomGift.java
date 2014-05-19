@@ -36,7 +36,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public boolean adminNotifications;
 	
 	public String[] itemList;
-	public String broadcastMessage; 
+	public String broadcastMessage;
 	public String broadcastTag = ChatColor.GOLD + "[RandomGift] " + ChatColor.WHITE;
 	public String playerBroadcastTag = ChatColor.GRAY + "[RandomGift] " + ChatColor.RESET + ChatColor.ITALIC;
 	public String permissionError = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "You don't have permission to do that!";
@@ -74,7 +74,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 		allPlayers = cfg.getBoolean("all-players");
 		cooldownTime = cfg.getInt("cooldown-time") * 60 * 1000;
 		enableBroadcastMessage = cfg.getBoolean("enable-broadcast-message");
-		broadcastMessage = cfg.getString("broadcast-message");
+		broadcastMessage = ChatColor.translateAlternateColorCodes('&', cfg.getString("broadcast-message"));
 		versionCheck = cfg.getBoolean("version-check");
 		adminNotifications = cfg.getBoolean("admin-notifications");
 		enableDebug = cfg.getBoolean("debug-mode");
