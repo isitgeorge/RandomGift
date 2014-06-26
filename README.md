@@ -153,7 +153,7 @@ RandomGift is fully customisable, including the gift pool, minimum players requi
  
 -   **Players**
  -   `randomgift.trigger`
- -   `randomgift.recieve`
+ -   `randomgift.receive`
 
 `randomgift.*` is also available to allow access to everything, recommended for Owners/Administrators.
 
