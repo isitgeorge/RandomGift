@@ -2,6 +2,8 @@ package com.isitgeo.randomgift;
 
 import java.io.File;
 
+import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -19,6 +21,8 @@ public class RandomGift extends JavaPlugin implements Listener {
 	private Statistics stats;
 	private Updater updater;
 	private Debugger debug;
+	private EconomyHandler econHandler;
+	private Utilities util;
 	private FileConfiguration cfg;
 	
 	public long cooldown;
@@ -34,6 +38,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public boolean enableDebug;
 	public boolean updateAvailable = false;
 	public boolean adminNotifications;
+	public boolean useEconomy;
 	
 	public String[] itemList;
 	public String broadcastMessage;
@@ -44,6 +49,7 @@ public class RandomGift extends JavaPlugin implements Listener {
 	public String invalidCommand = ChatColor.GRAY + "[RandomGift] " + ChatColor.DARK_RED + "Invalid command!";
 	public String historicPlayer = "";
 	
+	public static Economy econ = null;
 	
 	@Override
 	public void onEnable() {
@@ -61,6 +67,13 @@ public class RandomGift extends JavaPlugin implements Listener {
 		
 		getServer().getPluginManager().registerEvents(this, this);
 		getCommand("randomgift").setExecutor(new CommandListener(this, giftGen, debug));
+		
+		if (!econHandler.setupEconomy() ) {
+			this.getLogger().info("Economy intergration disabled due to no Vault dependency found!");
+			//getServer().getPluginManager().disablePlugin(this);
+			useEconomy = false;
+			return;
+		}
 		
 		getLogger().info("Enabled successfully!");
 	}
@@ -81,19 +94,21 @@ public class RandomGift extends JavaPlugin implements Listener {
 		collectStats = cfg.getBoolean("collect-statistics");
 		
 		if (cfg.contains("config-version")) {
-			configVersion = Integer.parseInt(cfg.getString("config-version").replaceAll("[^0-9]", ""));
+			configVersion = util.getInt(cfg.getString("config-version"));
 		} else {
 			configVersion = 0;
 		}
 		
-		latestConfig = Integer.parseInt(("1.0").replaceAll("[^0-9]", ""));
+		latestConfig = util.getInt("1.0");
 		cooldown = System.currentTimeMillis() - cooldownTime;;
 		
 		debug = new Debugger(this);
-		giftGen = new GiftGenerator(this, debug);
+		util = new Utilities(this);
+		giftGen = new GiftGenerator(this, debug, util);
 		notify = new Notifications(this);
 		stats = new Statistics(this);
 		updater = new Updater(this, notify);
+		econHandler = new EconomyHandler(this);
 		
 		getLogger().info("Loaded configuration");
 		
@@ -126,6 +141,6 @@ public class RandomGift extends JavaPlugin implements Listener {
 					}
 				}
 			}
-		}, 30L);
+		}, util.secsToTicks(2));
 	}
 }
