@@ -178,7 +178,7 @@ If you have a suggestion for a future feature, drop it into the comments section
 Development builds of this project can be acquired at the provided continuous integration server. 
 These builds have not been approved by the BukkitDev staff. Use them at your own risk.
 
-[Last Successful Build](http://ci.isitgeo.com/browse/RAN-PLUG-1/artifact)
+[Last Successful Build](http://ci.isitgeo.com/browse/RAN-PLUG/latestSuccessful/artifact)
 
 ***
 
