@@ -188,9 +188,6 @@ RandomGift checks the version of itself against the latest available version on 
 
 RandomGift uses Plugin Metrics to collect anonymous statistic data about RandomGifts usage and sends it to [http://mcstats.org/plugin/randomgift](http://mcstats.org/plugin/randomgift).
 
-RandomGift also sends its current version number back to its developer for statistical purposes. 
-This information is used for tracking current versions in use, and the data collected will only be seen by the developer(s).
-
 ![MCStats](http://api.mcstats.org/signature/RandomGift.png)
 
 *If you prefer, you can disable both the Plugin Metrics and sending of version data inside the configuration file as seen above. 
