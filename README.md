@@ -23,55 +23,55 @@ RandomGift is fully customisable, including the gift pool, minimum players requi
         <td><b>ID</b></td>
     </tr>
     <tr>
-        <td><img src="http://dl.isitgeorge.com/u/159751046/BUKKIT/randomgift/images/diamondgem_icon32.png"></td>
+        <td><img src="img/diamondgem_icon32.png"></td>
         <td>Diamond</td>
         <td>1</td>
         <td>264</td>
     </tr>
     <tr>
-        <td><img src="http://dl.isitgeorge.com/u/159751046/BUKKIT/randomgift/images/ironsword_icon32.png"></td>
+        <td><img src="img/ironsword_icon32.png"></td>
         <td>Iron Sword</td>
         <td>1</td>
         <td>267</td>
     </tr>
     <tr>
-        <td><img src="http://dl.isitgeorge.com/u/159751046/BUKKIT/randomgift/images/ironshovel_icon32.png"></td>
+        <td><img src="img/ironshovel_icon32.png"></td>
         <td>Iron Shovel</td>
         <td>1</td>
         <td>256</td>
     </tr>
     <tr>
-        <td><img src="http://dl.isitgeorge.com/u/159751046/BUKKIT/randomgift/images/ironpickaxe_icon32.png"></td>
+        <td><img src="img/ironpickaxe_icon32.png"></td>
         <td>Iron Pickaxe</td>
         <td>1</td>
         <td>257</td>
     </tr>
     <tr>
-        <td><img src="http://dl.isitgeorge.com/u/159751046/BUKKIT/randomgift/images/ironaxe_icon32.png"></td>
+        <td><img src="img/ironaxe_icon32.png"></td>
         <td>Iron Shovel</td>
         <td>1</td>
         <td>258</td>
     </tr>
     <tr>
-        <td><img src="http://dl.isitgeorge.com/u/159751046/BUKKIT/randomgift/images/ironhelmet_icon32.png"></td>
+        <td><img src="img/ironhelmet_icon32.png"></td>
         <td>Iron Helmet</td>
         <td>1</td>
         <td>306</td>
     </tr>
     <tr>
-        <td><img src="http://dl.isitgeorge.com/u/159751046/BUKKIT/randomgift/images/ironchestplate_icon32.png"></td>
+        <td><img src="img/ironchestplate_icon32.png"></td>
         <td>Iron Chestplate</td>
         <td>1</td>
         <td>307</td>
     </tr>
     <tr>
-        <td><img src="http://dl.isitgeorge.com/u/159751046/BUKKIT/randomgift/images/ironleggings_icon32.png"></td>
+        <td><img src="img/ironleggings_icon32.png"></td>
         <td>Iron Leggings</td>
         <td>1</td>
         <td>308</td>
     </tr>
     <tr>
-        <td><img src="http://dl.isitgeorge.com/u/159751046/BUKKIT/randomgift/images/ironboots_icon32.png"></td>
+        <td><img src="img/ironboots_icon32.png"></td>
         <td>Iron Boots</td>
         <td>1</td>
         <td>309</td>
@@ -171,14 +171,6 @@ You can view detailed configuration information [here](http://bit.ly/RndmGiftCon
 
 ###Future Features
 If you have a suggestion for a future feature, drop it into the comments section.
-
-***
-
-###Development Builds
-Development builds of this project can be acquired at the provided continuous integration server. 
-These builds have not been approved by the BukkitDev staff. Use them at your own risk.
-
-[Last Successful Build](http://ci.isitgeo.com/browse/RAN-PLUG/latestSuccessful/artifact)
 
 ***
 
